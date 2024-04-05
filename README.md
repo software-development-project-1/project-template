@@ -5,3 +5,5 @@ This is an example project for the Software Development Project 1 course. This p
 This is the editing message from Ariel of Exercise 4.
 
 Denis made some changes
+
+Tatiana added a comment (Exercise 4)
