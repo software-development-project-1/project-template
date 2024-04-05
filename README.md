@@ -4,4 +4,4 @@ This is an example project for the Software Development Project 1 course. This p
 
 This is the editing message from Ariel of Exercise 4.
 
-Message from Maksim.
+Denis made some changes
