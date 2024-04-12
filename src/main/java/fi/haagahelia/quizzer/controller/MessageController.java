@@ -20,7 +20,7 @@ public class MessageController {
 	@Autowired
 	private MessageRepository messageRepository;
 
-	@GetMapping("/")
+	@GetMapping("/index")
 	public String listMessages(Model model) {
 		List<Message> messages = messageRepository.findAll();
 		model.addAttribute("messages", messages);

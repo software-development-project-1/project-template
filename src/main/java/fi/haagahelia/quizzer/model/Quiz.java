@@ -46,7 +46,6 @@ public class Quiz {
     @JoinColumn(name = "userId")
     private User user;
 
-   
     public Quiz() {
     }
 
