@@ -1,9 +1,13 @@
 package fi.haagahelia.quizzer.model;
 
 import java.time.Instant;
+import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,6 +15,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Quiz {
@@ -19,7 +24,7 @@ public class Quiz {
 	private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "categoryId")
     private Category category;
 
     @CreationTimestamp
@@ -33,16 +38,26 @@ public class Quiz {
 
     private Boolean published;
 
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "quiz")
+    private List<Question> questions;
+
+    @ManyToOne
+    @JoinColumn(name = "userId")
+    private User user;
+
+   
     public Quiz() {
     }
 
-    public Quiz(Category category, Instant createdAt, String quizName, String quizDescription, Boolean published) {
+    public Quiz(Category category, Instant createdAt, String quizName, String quizDescription, Boolean published, User user) {
         super();
         this.category = category;
         this.createdAt = createdAt;
         this.quizName = quizName;
         this.quizDescription = quizDescription;
         this.published = published;
+        this.user= user;
     }
 
     public Long getId() {
@@ -91,6 +106,22 @@ public class Quiz {
 
     public void setPublished(Boolean published) {
         this.published = published;
+    }
+
+    public List<Question> getQuestions() {
+        return questions;
+    }
+
+    public void setQuestions(List<Question> questions) {
+        this.questions = questions;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
 }

@@ -1,10 +1,16 @@
 package fi.haagahelia.quizzer.model;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class User {
@@ -26,6 +32,10 @@ public class User {
 
     @Column(name = "lastName", nullable = false)
     private String lastName;
+
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Quiz> quizzes;
 
     public User() {
 
@@ -79,10 +89,21 @@ public class User {
         this.lastName = lastName;
     }
 
+    public List<Quiz> getQuizzes() {
+        return quizzes;
+    }
+
+    public void setQuizzes(List<Quiz> quizzes) {
+        this.quizzes = quizzes;
+    }
+
     @Override
     public String toString() {
         return "User [userId=" + userId + ", userName=" + userName + ", role=" + role + ", firstName=" + firstName
-                + ", lastName=" + lastName + "]";
+                + ", lastName=" + lastName + ", quizzes=" + quizzes + "]";
     }
+
+
+    
 
 }
