@@ -1,11 +1,18 @@
-# Example project
+# Quizzer
+A dashboard application where the teacher can manage quizzes. 
+This application provides an opportunity for the teacher to list, create, delete, edit and mark 
+a status for the quizzes and questions.  Additionally, the app includes authentication functionality, 
+allowing the teachers and students to sign up, log in, and access secure pages based on their roles.
 
-This is an example project for the Software Development Project 1 course. This project has been initialized using the [Spring Initializr](https://start.spring.io/).
+## Team members:
+- Denis Chuvakov       <https://github.com/DenisHki>
+- Maksim Minenko       <https://github.com/madaraDance>
+- Phat Trong Nguyen    <https://github.com/padwhen>
+- Tatiana Lyubavskaya  <https://github.com/lTanjal>
+- Un Che               <https://github.com/arielunkuanche>
 
-This is the editing message from Ariel of Exercise 4.
+### Documentation:
+<https://github.com/orgs/https-github-com-DenisHki/projects/1>
 
-Denis made some changes
 
-Tatiana added a comment (Exercise 4)
 
-Phat added a comment
