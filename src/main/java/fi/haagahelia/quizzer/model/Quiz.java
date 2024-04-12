@@ -7,13 +7,20 @@ import org.hibernate.annotations.CreationTimestamp;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Quiz {
     @Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "id")
+    private Category category;
 
     @CreationTimestamp
 	private Instant createdAt;
@@ -24,16 +31,18 @@ public class Quiz {
     @Column(nullable = false)
     private String quizDescription;
 
-    private Boolean publishStatus;
+    private Boolean published;
 
     public Quiz() {
     }
 
-    public Quiz(Instant createdAt, String quizName, String quizDescription, Boolean publishStatus) {
+    public Quiz(Category category, Instant createdAt, String quizName, String quizDescription, Boolean published) {
+        super();
+        this.category = category;
         this.createdAt = createdAt;
         this.quizName = quizName;
         this.quizDescription = quizDescription;
-        this.publishStatus = publishStatus;
+        this.published = published;
     }
 
     public Long getId() {
@@ -42,6 +51,14 @@ public class Quiz {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public Instant getCreatedAt() {
@@ -68,14 +85,12 @@ public class Quiz {
         this.quizDescription = quizDescription;
     }
 
-    public Boolean getPublishStatus() {
-        return publishStatus;
+    public Boolean getPublished() {
+        return published;
     }
 
-    public void setPublishStatus(Boolean publishStatus) {
-        this.publishStatus = publishStatus;
+    public void setPublished(Boolean published) {
+        this.published = published;
     }
-
-    
 
 }

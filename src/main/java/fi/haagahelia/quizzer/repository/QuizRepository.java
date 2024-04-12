@@ -1,9 +1,9 @@
 package fi.haagahelia.quizzer.repository;
 
 import org.springframework.stereotype.Repository;
-
+import java.util.List;
 import fi.haagahelia.quizzer.model.Quiz;
-
+import fi.haagahelia.quizzer.model.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 @Repository
