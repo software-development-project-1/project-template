@@ -2,7 +2,7 @@
 
 A web-base application designed for teachers to create various kinds of topic-base quizzes. With the aim is for their students to learn about course related topics. Features include 2 dashboard: One for the teachers to manage quizzes, Another for students to take different quizzes.
 
-***Backend using Springboot Java framework***
+***Backend using Springboot Java framework***<br>
 ***Frontend using React***
 
 ## Team Members:
