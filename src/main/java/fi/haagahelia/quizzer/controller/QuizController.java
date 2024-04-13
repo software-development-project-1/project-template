@@ -65,19 +65,7 @@ public class QuizController {
 		model.addAttribute("quiz", quiz);
 		return "editQuiz";
 	}
-/* 
-	// Update quize:
-	@PostMapping("/updateQuiz")
-	public String updateQuiz(@Valid @ModelAttribute("quiz") Quiz quiz, BindingResult bindingResult, Model model) {
-		if (bindingResult.hasErrors()) {
-			model.addAttribute("quiz", quiz);
-			return "editQuiz";
-		}
-		qrepository.save(quiz);
 
-		return "redirect:/";
-	}
-*/
 	@PostMapping("/updateQuiz")
 		public String updateQuiz(@Valid @ModelAttribute("quiz") Quiz updatedQuiz, BindingResult bindingResult, Model model) {
 		    if (bindingResult.hasErrors()) {
@@ -85,14 +73,12 @@ public class QuizController {
 		        return "editQuiz";
 		    }
 		    
-		    
 		    Optional<Quiz> existingQuizOptional = qrepository.findById(updatedQuiz.getId());
 		    if (!existingQuizOptional.isPresent()) {
-		        
+				model.addAttribute("errorMessage", "Quiz not found");
 		        return "error";
 		    }
 		    Quiz existingQuiz = existingQuizOptional.get();
-		    
 		
 		    existingQuiz.setQuizName(updatedQuiz.getQuizName());
 		    existingQuiz.setQuizDescription(updatedQuiz.getQuizDescription());

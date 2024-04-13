@@ -37,10 +37,11 @@
                 >Edit</a
               >
               <a
+                href="#"
                 th:href="@{/delete/{id}(id=${quiz.id})}"
                 th:attr="data-id=${quiz.id}"
-                th:onclick="'return confirmDelete(this);'"
                 class="btn btn-danger"
+                onclick="return confirm('Are you sure you want to delete this quiz?');"
                 >Delete</a
               >
             </td>
@@ -49,19 +50,6 @@
       </table>
 
       <a href="/addQuiz" class="btn btn-primary">Add a quiz</a>
-    </div>
-
-    <script th:inline="javascript">
-      function confirmDelete(element) {
-        let quizId = element.getAttribute("data-id");
-        let confirmation = confirm(
-          "Are you sure you want to delete this quiz?"
-        );
-        if (confirmation) {
-          window.location.href = "/delete/" + quizId;
-        }
-        return false;
-      }
-    </script>
+    </div>    
   </body>
 </html>
