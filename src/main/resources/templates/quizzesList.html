@@ -23,7 +23,8 @@
                         <button th:class="${quiz.published} ? 'btn btn-primary btn-sm' : 'btn btn-secondary btn-sm'" th:text="${quiz.published}? 'Published' : 'Not published' " ></button>
                     </td>
                     <td>
-                        <a th:href="@{/edit/{id}(id=${quiz.id})}" class="btn btn-secondary">Edit</a>
+                        <a th:href="@{'/editQuiz/' + ${quiz.id}}" class="btn btn-secondary">Edit</a>
+                        <a th:href="@{/delete/{id}(id=${quiz.id})}" class="btn btn-danger">Delete</a>
                     </td>
                 </tr>
             </tbody>
