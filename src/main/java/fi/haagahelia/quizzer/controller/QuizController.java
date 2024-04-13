@@ -9,6 +9,10 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,6 +37,7 @@ public class QuizController {
 		return "quizzesList";
 	}
 
+	// Add new quiz:
 	@GetMapping("/addQuiz")
 	public String renderAddQuizForm(Model model) {
 		model.addAttribute("quiz", new Quiz());
@@ -52,14 +57,19 @@ public class QuizController {
 		return "redirect:/";
 	}
 
-	@GetMapping("/editQuiz/{id}")
+	// Edit quiz by id:
+	@RequestMapping("/editQuiz/{id}")
 	public String editQuiz(@PathVariable("id") Long id, Model model) {
-		Optional<Quiz> quiz = qrepository.findById(id);
-		if (quiz.isPresent()) {
-            model.addAttribute("quiz", quiz.get());
-            return "editQuiz";
-		}
-		return "redirect:/";
+		Optional<Quiz> quizOptional = qrepository.findById(id);
+		Quiz quiz = quizOptional.orElse(new Quiz());
+		model.addAttribute("quiz", quiz);
+		return "editQuiz";
 	}
 
+	// Delete quiz by id:
+	@RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
+	public String deleteQuiz(@PathVariable("id") Long id, Model model) {
+		qrepository.deleteById(id);
+		return "redirect:/";
+	}
 }
