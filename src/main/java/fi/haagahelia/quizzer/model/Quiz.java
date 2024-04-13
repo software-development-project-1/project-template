@@ -103,6 +103,10 @@ public class Quiz {
         return published;
     }
 
+    public String getPublishedDisplay() {
+        return published ? "Published" : "Not Published";
+    }
+
     public void setPublished(Boolean published) {
         this.published = published;
     }
