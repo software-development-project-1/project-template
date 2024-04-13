@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -66,7 +65,7 @@ public class QuizController {
 		model.addAttribute("quiz", quiz);
 		return "editQuiz";
 	}
-
+/* 
 	// Update quize:
 	@PostMapping("/updateQuiz")
 	public String updateQuiz(@Valid @ModelAttribute("quiz") Quiz quiz, BindingResult bindingResult, Model model) {
@@ -78,6 +77,31 @@ public class QuizController {
 
 		return "redirect:/";
 	}
+*/
+	@PostMapping("/updateQuiz")
+		public String updateQuiz(@Valid @ModelAttribute("quiz") Quiz updatedQuiz, BindingResult bindingResult, Model model) {
+		    if (bindingResult.hasErrors()) {
+		        model.addAttribute("quiz", updatedQuiz);
+		        return "editQuiz";
+		    }
+		    
+		    
+		    Optional<Quiz> existingQuizOptional = qrepository.findById(updatedQuiz.getId());
+		    if (!existingQuizOptional.isPresent()) {
+		        
+		        return "error";
+		    }
+		    Quiz existingQuiz = existingQuizOptional.get();
+		    
+		
+		    existingQuiz.setQuizName(updatedQuiz.getQuizName());
+		    existingQuiz.setQuizDescription(updatedQuiz.getQuizDescription());
+		    existingQuiz.setPublished(updatedQuiz.getPublished());
+		
+		    qrepository.save(existingQuiz);
+
+		    return "redirect:/";
+		}
 
 	// Delete quiz by id:
 	@RequestMapping(value = "delete/{id}", method = RequestMethod.GET)

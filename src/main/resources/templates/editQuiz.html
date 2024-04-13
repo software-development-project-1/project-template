@@ -9,6 +9,7 @@
 <div layout:fragment="content">
     <h2>Edit Quiz</h2>
     <form th:action="@{/updateQuiz}" th:object="${quiz}" method="post" action="#">
+        <input type="hidden" th:field="*{id}" />
         <div>
             <label for="quizname" class="form-label">Name</label>
             <input type="text" th:field="*{quizName}" placeholder="Enter quiz name" class="form-control"/>
