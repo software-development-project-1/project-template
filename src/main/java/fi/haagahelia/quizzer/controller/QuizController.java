@@ -45,6 +45,7 @@ public class QuizController {
 		return "addQuiz";
 	}
 
+	// Save quize
 	@PostMapping("/saveQuiz")
 	public String saveQuiz(@Valid @ModelAttribute("quiz") Quiz quiz, BindingResult bindingResult,
 			Model model) {
@@ -64,6 +65,18 @@ public class QuizController {
 		Quiz quiz = quizOptional.orElse(new Quiz());
 		model.addAttribute("quiz", quiz);
 		return "editQuiz";
+	}
+
+	// Update quize:
+	@PostMapping("/updateQuiz")
+	public String updateQuiz(@Valid @ModelAttribute("quiz") Quiz quiz, BindingResult bindingResult, Model model) {
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("quiz", quiz);
+			return "editQuiz";
+		}
+		qrepository.save(quiz);
+
+		return "redirect:/";
 	}
 
 	// Delete quiz by id:
