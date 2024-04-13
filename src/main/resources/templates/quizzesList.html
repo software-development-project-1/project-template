@@ -12,7 +12,7 @@
         <table class="table table-striped" border="1">
             <thead>
                 <tr>
-                    <th>Name</th><th>Description</th><th>Published</th>
+                    <th>Name</th><th>Description</th><th>Published</th><th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -21,6 +21,9 @@
                     <td th:text="${quiz.quizDescription}"></td>
                     <td>
                         <button th:class="${quiz.published} ? 'btn btn-primary btn-sm' : 'btn btn-secondary btn-sm'" th:text="${quiz.published}? 'Published' : 'Not published' " ></button>
+                    </td>
+                    <td>
+                        <a th:href="@{/edit/{id}(id=${quiz.id})}" class="btn btn-secondary">Edit</a>
                     </td>
                 </tr>
             </tbody>
