@@ -1,6 +1,7 @@
 package fi.haagahelia.quizzer.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import fi.haagahelia.quizzer.model.Category;
 import fi.haagahelia.quizzer.model.Quiz;
@@ -49,4 +51,15 @@ public class QuizController {
 
 		return "redirect:/";
 	}
+
+	@GetMapping("/editQuiz/{id}")
+	public String editQuiz(@PathVariable("id") Long id, Model model) {
+		Optional<Quiz> quiz = qrepository.findById(id);
+		if (quiz.isPresent()) {
+            model.addAttribute("quiz", quiz.get());
+            return "editQuiz";
+		}
+		return "redirect:/";
+	}
+
 }
