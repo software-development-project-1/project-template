@@ -34,7 +34,9 @@
               <button
                 th:class="${quiz.published} ? 'btn btn-primary btn-sm' : 'btn btn-secondary btn-sm'"
                 th:text="${quiz.published}? 'Published' : 'Not published' "
-              ></button>            
+              ></button>
+            </td>
+
             <td>
               <a
                 th:href="@{'/editQuiz/' + ${quiz.id}}"
@@ -43,7 +45,8 @@
               >
               <a
                 th:href="@{/delete/{id}(id=${quiz.id})}"
-                th:attr="data-confirm='Are you sure you want to delete this quize?'"
+                th:attr="data-id=${quiz.id}"
+                th:onclick="'return confirmDelete(this);'"
                 class="btn btn-danger"
                 >Delete</a
               >
@@ -54,5 +57,18 @@
 
       <a href="/addQuiz" class="btn btn-primary">Add a quiz</a>
     </div>
+
+    <script th:inline="javascript">
+      function confirmDelete(element) {
+        let quizId = element.getAttribute("data-id");
+        let confirmation = confirm(
+          "Are you sure you want to delete this quiz?"
+        );
+        if (confirmation) {
+          window.location.href = "/delete/" + quizId;
+        }
+        return false;
+      }
+    </script>
   </body>
 </html>
