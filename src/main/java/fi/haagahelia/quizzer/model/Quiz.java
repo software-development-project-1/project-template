@@ -16,7 +16,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.validation.constraints.NotBlank;
+
 
 @Entity
 public class Quiz {
@@ -31,11 +31,9 @@ public class Quiz {
     @CreationTimestamp
 	private Instant createdAt;
 
-    //@NotBlank(message = "Name is required")
     @Column(nullable = false)
     private String quizName;
 
-    //@NotBlank(message = "Description is required")
     @Column(nullable = false)
     private String quizDescription;
 
