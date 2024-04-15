@@ -12,22 +12,30 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import fi.haagahelia.quizzer.model.Category;
+import fi.haagahelia.quizzer.model.Question;
 import fi.haagahelia.quizzer.model.Quiz;
 import fi.haagahelia.quizzer.repository.CategoryRepository;
+import fi.haagahelia.quizzer.repository.QuestionRepository;
 import fi.haagahelia.quizzer.repository.QuizRepository;
 
 @Controller
 public class QuizController {
-    
+    private static final Logger logger = LoggerFactory.getLogger(QuizController.class);
     @Autowired
     private QuizRepository qrepository;
     // @Autowired
     // private CategoryRepository catrepository;
+
+	@Autowired
+	private QuestionRepository questionrepository;
 
     @GetMapping("/")
 	public String listQuizzes(Model model) {
@@ -95,4 +103,32 @@ public class QuizController {
 		qrepository.deleteById(id);
 		return "redirect:/";
 	}
+
+	@RequestMapping(value = "/addquestion/{id}", method = RequestMethod.GET)
+	public String addQuestion(@PathVariable("id") Long id, Model model) {
+		Optional<Quiz> quizOptional = qrepository.findById(id);
+		if (quizOptional.isPresent()) {
+			Quiz quiz = quizOptional.get();
+
+			Question newQuestion = new Question();
+			newQuestion.setQuiz(quiz);
+
+			model.addAttribute("newquestion", newQuestion);
+			model.addAttribute("quiz", quiz);
+
+			return "addquestion";
+		} else {
+
+			return "error"; 
+		}
+	}
+
+	@RequestMapping(value = "/saveQuestion", method = RequestMethod.POST)
+	public String saveQuestion( Question newQuestion) {
+		questionrepository.save(newQuestion);
+		//logger.info("Question SAVED {}", newQuestion);
+		return "redirect:/";
+	}
+
+
 }
