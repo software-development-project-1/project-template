@@ -5,7 +5,7 @@ a status for the quizzes and questions.  Additionally, the app includes authenti
 allowing the teachers and students to sign up, log in, and access secure pages based on their roles.
 
 ## Team members:
-- Denis Chuvakov       <https://github.com/DenisHki>
+- [Denis Chuvakov](https://github.com/DenisHki "Github page")
 - Maksim Minenko       <https://github.com/madaraDance>
 - Phat Trong Nguyen    <https://github.com/padwhen>
 - Tatiana Lyubavskaya  <https://github.com/lTanjal>
