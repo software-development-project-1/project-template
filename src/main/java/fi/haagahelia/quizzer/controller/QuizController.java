@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
+import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -28,16 +28,16 @@ import fi.haagahelia.quizzer.repository.QuizRepository;
 
 @Controller
 public class QuizController {
-    private static final Logger logger = LoggerFactory.getLogger(QuizController.class);
-    @Autowired
-    private QuizRepository qrepository;
-    // @Autowired
-    // private CategoryRepository catrepository;
+	private static final Logger logger = LoggerFactory.getLogger(QuizController.class);
+	@Autowired
+	private QuizRepository qrepository;
+	// @Autowired
+	// private CategoryRepository catrepository;
 
 	@Autowired
 	private QuestionRepository questionrepository;
 
-    @GetMapping("/")
+	@GetMapping("/")
 	public String listQuizzes(Model model) {
 		List<Quiz> quizzes = qrepository.findAll();
 		model.addAttribute("quizzes", quizzes);
@@ -48,7 +48,7 @@ public class QuizController {
 	@GetMapping("/addQuiz")
 	public String renderAddQuizForm(Model model) {
 		model.addAttribute("quiz", new Quiz());
-        model.addAttribute("category", new Category());
+		model.addAttribute("category", new Category());
 		return "addQuiz";
 	}
 
@@ -60,7 +60,7 @@ public class QuizController {
 			model.addAttribute("quiz", quiz);
 			return "addQuiz";
 		}
-        qrepository.save(quiz);
+		qrepository.save(quiz);
 
 		return "redirect:/";
 	}
@@ -73,29 +73,31 @@ public class QuizController {
 		model.addAttribute("quiz", quiz);
 		return "editQuiz";
 	}
+
 	// update quiz
 	@PostMapping("/updateQuiz")
-		public String updateQuiz(@Valid @ModelAttribute("quiz") Quiz updatedQuiz, BindingResult bindingResult, Model model) {
-		    if (bindingResult.hasErrors()) {
-		        model.addAttribute("quiz", updatedQuiz);
-		        return "editQuiz";
-		    }
-		    
-		    Optional<Quiz> existingQuizOptional = qrepository.findById(updatedQuiz.getId());
-		    if (!existingQuizOptional.isPresent()) {
-				model.addAttribute("errorMessage", "Quiz not found");
-		        return "error";
-		    }
-		    Quiz existingQuiz = existingQuizOptional.get();
-		
-		    existingQuiz.setQuizName(updatedQuiz.getQuizName());
-		    existingQuiz.setQuizDescription(updatedQuiz.getQuizDescription());
-		    existingQuiz.setPublished(updatedQuiz.getPublished());
-		
-		    qrepository.save(existingQuiz);
-
-		    return "redirect:/";
+	public String updateQuiz(@Valid @ModelAttribute("quiz") Quiz updatedQuiz, BindingResult bindingResult,
+			Model model) {
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("quiz", updatedQuiz);
+			return "editQuiz";
 		}
+
+		Optional<Quiz> existingQuizOptional = qrepository.findById(updatedQuiz.getId());
+		if (!existingQuizOptional.isPresent()) {
+			model.addAttribute("errorMessage", "Quiz not found");
+			return "error";
+		}
+		Quiz existingQuiz = existingQuizOptional.get();
+
+		existingQuiz.setQuizName(updatedQuiz.getQuizName());
+		existingQuiz.setQuizDescription(updatedQuiz.getQuizDescription());
+		existingQuiz.setPublished(updatedQuiz.getPublished());
+
+		qrepository.save(existingQuiz);
+
+		return "redirect:/";
+	}
 
 	// Delete quiz by id:
 	@RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
@@ -119,16 +121,69 @@ public class QuizController {
 			return "addquestion";
 		} else {
 
-			return "error"; 
+			return "error";
+		}
+	}
+
+	@RequestMapping(value = "/addquestiontolist/{id}", method = RequestMethod.GET)
+	public String addQuestions(@PathVariable("id") Long id, Model model) {
+	
+		Optional<Quiz> quizOptional = qrepository.findById(id);
+		if (quizOptional.isPresent()) {
+			Quiz quiz = quizOptional.get();
+
+			Question newQuestion = new Question();
+			newQuestion.setQuiz(quiz);
+
+			model.addAttribute("newquestion", newQuestion);
+			model.addAttribute("quiz", quiz);
+
+			return "addquestiontolist";
+		} else {
+
+			return "error";
 		}
 	}
 
 	@RequestMapping(value = "/saveQuestion", method = RequestMethod.POST)
-	public String saveQuestion( Question newQuestion) {
+	public String saveQuestion(Question newQuestion) {
 		questionrepository.save(newQuestion);
-		//logger.info("Question SAVED {}", newQuestion);
+		// logger.info("Question SAVED {}", newQuestion);
 		return "redirect:/";
 	}
 
+	@RequestMapping(value = "/questionList/{id}", method = RequestMethod.GET)
+	public String questionList(@PathVariable("id") Long id, Model model) {
+		Optional<Quiz> quizOptional = qrepository.findById(id);
+		if (quizOptional.isPresent()) {
+			Quiz quiz = quizOptional.get();
+			List<Question> questionList = questionrepository.findByQuiz(quiz);
 
+			model.addAttribute("questionList", questionList);
+			model.addAttribute("quiz", quiz);
+
+		}
+		return "questionList";
+
+	}
+	@RequestMapping(value = "/saveQuestionToList", method = RequestMethod.POST)
+	public String saveQuestionToList(Question newQuestion) {
+		Long quizId = newQuestion.getQuiz().getId();
+		questionrepository.save(newQuestion);
+		return "redirect:/questionList/"+quizId;
+	}
+
+	// Delete question by id:
+	@RequestMapping(value = "/deleteQuestion/{id}", method = RequestMethod.GET)
+	public String deleteQuestion(@PathVariable("id") Long id, Model model) {
+
+		// To retrieve the Quiz Id to put it into the redirect URL
+		Optional<Question> questionOptional = questionrepository.findById(id);
+		Question question = questionOptional.get();
+		Quiz quiz = question.getQuiz();
+		Long quizId = quiz.getId();
+
+		questionrepository.deleteById(id);
+		return "redirect:/questionList/" + quizId;
+	}
 }
