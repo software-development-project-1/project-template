@@ -65,7 +65,7 @@ public class QuizController {
 		model.addAttribute("quiz", quiz);
 		return "editQuiz";
 	}
-
+	// update quiz
 	@PostMapping("/updateQuiz")
 		public String updateQuiz(@Valid @ModelAttribute("quiz") Quiz updatedQuiz, BindingResult bindingResult, Model model) {
 		    if (bindingResult.hasErrors()) {
