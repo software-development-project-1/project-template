@@ -6,10 +6,10 @@ allowing the teachers and students to sign up, log in, and access secure pages b
 
 ## Team members:
 - [Denis Chuvakov](https://github.com/DenisHki "Github page")
-- Maksim Minenko       <https://github.com/madaraDance>
-- Phat Trong Nguyen    <https://github.com/padwhen>
-- Tatiana Lyubavskaya  <https://github.com/lTanjal>
-- Un Che               <https://github.com/arielunkuanche>
+- [Maksim Minenko](https://github.com/madaraDance "Github page")
+- [Phat Trong Nguyen](https://github.com/padwhen "Github page")
+- [Tatiana Lyubavskaya](https://github.com/lTanjal "Github page")
+- [Un Kuan Che](https://github.com/arielunkuanche "Github page")
 
 ### Documentation:
 <https://github.com/orgs/https-github-com-DenisHki/projects/1>
