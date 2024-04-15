@@ -186,4 +186,18 @@ public class QuizController {
 		questionrepository.deleteById(id);
 		return "redirect:/questionList/" + quizId;
 	}
+
+	@RequestMapping(value = "/editQuestion/{id}", method = RequestMethod.GET)
+	public String editProduct(@PathVariable("id") Long id, Model model) {
+		Optional<Question> questionOptional = questionrepository.findById(id);
+		Question question = questionOptional.get();
+		Quiz quiz = question.getQuiz();
+		model.addAttribute("quiz", quiz);
+		model.addAttribute("questionToUpdate", question);
+		return "editQuestion";
+	}
+
+
+
+
 }
