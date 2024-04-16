@@ -41,6 +41,7 @@
           <td th:text="${quizz.name}"></td>
           <td th:text="${quizz.description}"></td>
           <td th:text="${quizz.status}"></td>
+          <td ><a th:href="@{/editquizz/{id}(id=${quizz.quizzId})}" class="btn btn-xs btn-danger">Edit</a></td> 
         </tr>
     </table>
    
