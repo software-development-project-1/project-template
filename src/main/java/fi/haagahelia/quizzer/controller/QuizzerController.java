@@ -1,5 +1,8 @@
 package fi.haagahelia.quizzer.controller;
 
+import java.time.Instant;
+
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +13,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 // import org.springframework.web.bind.annotation.ModelAttribute;
 // import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import fi.haagahelia.quizzer.model.Quizz;
+import fi.haagahelia.quizzer.repository.CategoryRepository;
+import fi.haagahelia.quizzer.repository.DifficultyRepository;
+import fi.haagahelia.quizzer.repository.QuestionRepository;
+import fi.haagahelia.quizzer.repository.QuizzRepository;
+import fi.haagahelia.quizzer.repository.StatusRepository;
 
 @Controller
 public class QuizzerController {
@@ -41,6 +53,14 @@ public class QuizzerController {
     }
 
     // filter quiz by date - Hong
+    @GetMapping("/filterQuizzes")
+    public String filterQuizzesByCreationDate(
+            @RequestParam Instant creationTime,
+            Model model) {
+        List<Quizz> quizzes = quizzRepository.findQuizzesByCreationDateAfter(creationTime);
+        model.addAttribute("quizzes", quizzes);
+        return "quizzlist"; // Thymeleaf template name
+    }
 
     @GetMapping(value = "/editquiz/{id}")
     public String editQuizForm(@PathVariable("id") Long id, Model model) {
@@ -57,8 +77,9 @@ public class QuizzerController {
     }
 
     // delete quizz
-   @GetMapping("/deletequizz/{quizzId}")
-   public String deleteQuizz(@PathVariable("quizzId") Long quizzId, Model model) {
-       quizzRepository.deleteById(quizzId);
-       return "redirect:../quizzlist"; 
-   }
+    @GetMapping("/deletequizz/{quizzId}")
+    public String deleteQuizz(@PathVariable("quizzId") Long quizzId, Model model) {
+        quizzRepository.deleteById(quizzId);
+        return "redirect:../quizzlist";
+    }
+}

@@ -15,8 +15,10 @@
           <label for="description">Description</label>
           <input type="text" id="description" th:field="*{description}" />
           <div style="clear: both; display: block; height: 10px"></div>
-          
-        <!-- published - boolean -->
+
+          <!-- published - boolean //not sure yet-->
+          <p th:if="${quiz.published}">Published</p>
+          <p th:unless="${quiz.published}">Unpublished</p>
         </div>
         <button>Add</button>
         <a href="/">Cancel</a>
