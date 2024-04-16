@@ -197,7 +197,37 @@ public class QuizController {
 		return "editQuestion";
 	}
 
+<<<<<<< HEAD
 
 
+=======
+	@GetMapping("/quiz/newest")
+	public String listNewestQuizzes(Model model) {
+		List<Quiz> quizzes = qrepository.findAllByOrderByCreatedAtDesc();
+		model.addAttribute("quizzes", quizzes);
+		return "quizzesList";
+	}
+
+	@GetMapping("/quiz/oldest")
+	public String listOldestQuizzes(Model model) {
+		List<Quiz> quizzes = qrepository.findAllByOrderByCreatedAtAsc();
+		model.addAttribute("quizzes", quizzes);
+		return "quizzesList";
+	}
+
+	@GetMapping("/quiz/published")
+	public String getPublishedQuizzes(Model model) {
+		List<Quiz> quizzes = qrepository.findByPublished(true);
+		model.addAttribute("quizzes", quizzes);
+		return "quizzesList";
+	}
+
+	@GetMapping("/quiz/unpublished")
+	public String getUnpublishedQuizzes(Model model) {
+		List<Quiz> quizzes = qrepository.findByPublished(false);
+		model.addAttribute("quizzes", quizzes);
+		return "quizzesList";
+	}
+>>>>>>> padwhen
 
 }
