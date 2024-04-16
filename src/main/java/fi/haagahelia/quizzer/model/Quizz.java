@@ -15,6 +15,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import java.time.LocalDate;
 
 @Entity
 public class Quizz {
@@ -23,8 +24,8 @@ public class Quizz {
     private Long quizzId;
 
     // time when the quizz is created
-    @CreationTimestamp
-    private Instant createdAt;
+    @Column(nullable = false)
+    private LocalDate creationTime;
 
     @Column(nullable = false)
     private String name;
@@ -47,11 +48,11 @@ public class Quizz {
     public Quizz() {
     }
 
-    public Quizz(String name, String description, Instant createAt, Status status, Category category) {
+    public Quizz(String name, String description, LocalDate createtionTime, Status status, Category category) {
         super();
         this.name = name;
         this.description = description;
-        this.createdAt = createAt;
+        this.creationTime = createtionTime;
         this.status = status;
         this.category = category;
     }
@@ -68,8 +69,8 @@ public class Quizz {
         return description;
     }
 
-    public Instant getCreateAt() {
-        return createdAt;
+    public LocalDate getCreationTime() {
+        return creationTime;
     }
 
     public List<Question> getQuestion() {
@@ -96,8 +97,8 @@ public class Quizz {
         this.description = description;
     }
 
-    public void setCreatedAt(Instant createAt) {
-        this.createdAt = createAt;
+    public void setCreatetionTime(LocalDate creationTime) {
+        this.creationTime = creationTime;
     }
 
     public void setQuestions(List<Question> questions) {
@@ -116,18 +117,18 @@ public class Quizz {
     public String toString() {
         if (this.status == null && this.category == null) {
             return "Quizz = [ Name = " + getName() + ", Description = " + getDescription() + ", Create at ="
-                    + getCreateAt() + " ]";
+                    + getCreationTime() + " ]";
         } else if (this.status == null) {
             return "Quizz = [ Name = " + getName() + ", Description = " + getDescription() + ", Create at ="
-                    + getCreateAt() + ", Category = " + getCategory() + " ]";
+                    + getCreationTime() + ", Category = " + getCategory() + " ]";
         }
         else if(this.category == null){
             return "Quizz = [ Name = " + getName() + ", Description = " + getDescription() + ", Create at ="
-                    + getCreateAt() + ", Status = " + getStatus() + " ]";
+                    + getCreationTime() + ", Status = " + getStatus() + " ]";
         }
         else{
             return "Quizz = [ Name = " + getName() + ", Description = " + getDescription() + ", Create at ="
-                    + getCreateAt() + ", Category = " + getCategory() + ", Status = " + getStatus() + " ]";
+                    + getCreationTime() + ", Category = " + getCategory() + ", Status = " + getStatus() + " ]";
         }
     }
 }
