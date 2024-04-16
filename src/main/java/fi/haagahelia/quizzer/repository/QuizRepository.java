@@ -8,7 +8,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 @Repository
 public interface QuizRepository extends JpaRepository<Quiz, Long>{
+<<<<<<< HEAD
+    
+=======
     List<Quiz> findAllByOrderByCreatedAtDesc();
     List<Quiz> findAllByOrderByCreatedAtAsc();
     List<Quiz> findByPublished(boolean published);
+>>>>>>> padwhen
 }

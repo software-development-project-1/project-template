@@ -197,6 +197,10 @@ public class QuizController {
 		return "editQuestion";
 	}
 
+<<<<<<< HEAD
+
+
+=======
 	@GetMapping("/quiz/newest")
 	public String listNewestQuizzes(Model model) {
 		List<Quiz> quizzes = qrepository.findAllByOrderByCreatedAtDesc();
@@ -224,5 +228,6 @@ public class QuizController {
 		model.addAttribute("quizzes", quizzes);
 		return "quizzesList";
 	}
+>>>>>>> padwhen
 
 }
