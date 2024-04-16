@@ -18,7 +18,10 @@ allowing the teachers and students to sign up, log in, and access secure pages b
 ### Developer guide:
 1. How to start the application
 
-    >-The project uses Spring Boot version 3, which requires Java version 17 or higher. Before you begin, you should check your current Java installation by running the following command: **$ java -version**.
-    >-Start the application by running: **./mvnw spring-boot:run** command on the command-line in project folder. 
-    >-To stop the application running simply press *Ctrl+C* in your terminal.
-    >-Or you can install Maven to run the application in your IDE. Spring Boot is compatible with Apache Maven 3.6.3 or later, you can follow the instructions at [maven.apache.org](https://maven.apache.org/). 
+    >The project uses Spring Boot version 3, which requires Java version 17 or higher. Before you begin, you should check your current Java installation by running the following command: **$ java -version**.
+
+    >Start the application by running: **./mvnw spring-boot:run** command on the command-line in project folder. 
+
+    >To stop the application running simply press *Ctrl+C* in your terminal.
+    
+    >Or you can install Maven to run the application in your IDE. Spring Boot is compatible with Apache Maven 3.6.3 or later, you can follow the instructions at [maven.apache.org](https://maven.apache.org/). 
