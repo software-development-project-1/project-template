@@ -33,29 +33,39 @@ public class QuizzerApplication {
 		return (args) -> {
 			log.info("save a couple of quizz");
 
-			//Category example data
-			Category category1 = new Category( "History", "Knowledge about world's history");
+			// Category example data
+			Category category1 = new Category("History", "Knowledge about world's history");
 			Category category2 = new Category("Culinary", "Knowledge about world's culinary");
 			Category category3 = new Category("Sports", "Knowledge about world's sport");
 
-			//save example data to category repository
+			// save example data to category repository
 			categoryRepository.save(category1);
 			categoryRepository.save(category2);
 			categoryRepository.save(category3);
 
-			//Status data
+			// Status data
 			Status status1 = new Status(true);
 			Status status2 = new Status(false);
 
-			//save example data to status repository
+			// save example data to status repository
 			statusRepository.save(status1);
 			statusRepository.save(status2);
 
-			//Quiz example data
-			Quizz quizz1 = new Quizz("Asian Food and Cuisine", "A delicious exploration of Asian cuisines and gastronomic knowledge. Perfect for foodies!", "2024-04-01T00:00:00Z", true, "Culinary");
-			Quizz quizz2 = new Quizz()
+			// Quiz example data
+			Quizz quizz1 = new Quizz("Asian Food and Cuisine",
+					"A delicious exploration of Asian cuisines and gastronomic knowledge. Perfect for foodies!",
+					status1, category2);
+			Quizz quizz2 = new Quizz("World Sports Trivia",
+					"A challenging quiz about various sports around the world. Perfect for sports enthusiasts!",
+					status1, category3);
+			Quizz quizz3 = new Quizz("History of Vietnam",
+					"A comprehensive quiz about the rich and diverse history of Vietnam. Perfect for history buffs!",
+					status2, category1);
 
-
+			// save example data to the db
+			quizzRepository.save(quizz1);
+			quizzRepository.save(quizz2);
+			quizzRepository.save(quizz3);
 		};
 	}
 

@@ -47,11 +47,10 @@ public class Quizz {
     public Quizz() {
     }
 
-    public Quizz(String name, String description, Instant createAt, Status status, Category category) {
+    public Quizz(String name, String description, Status status, Category category) {
         super();
         this.name = name;
         this.description = description;
-        this.createdAt = createAt;
         this.status = status;
         this.category = category;
     }
