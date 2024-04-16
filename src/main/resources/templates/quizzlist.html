@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="css/bootstrap.min.css"
+    th:href="@{css/bootstrap.min.css}"
+  />
+  <link rel="stylesheet" href="/css/recipientlist.css" />
+  <head>
+    <title>Quizzer</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+  <body>  
+    <div class="container">
+      <div class="col-md-4">
+        <h1>Quizzes</h1>
+      </div>
+
+      <div class="col-md-4">
+        <h3 th:inline="text">Welcome!</h3>
+        <h5 th:inline="text">You are <span  sec:authentication="name"></span>!</h5>
+        </div>
+
+
+      <div class="col-md-4" style="float: right; padding: 20px 0; margin-top: -5%; margin-right: -15%">
+        <form th:action="@{/logout}" method="post">
+          <input type="submit" value="Sign Out" class="btn btn-xs btn-danger"/>
+        </form>
+      </div>
+
+    <table class="table table-striped">
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Published</th>
+          <th sec:authorize="hasRole('ADMIN')"></th>
+        </tr>
+
+        <tr th:each="quizz: ${quizzlist}">
+          <td th:text="${quizz.name}"></td>
+          <td th:text="${quizz.description}"></td>
+          <td th:text="${quizz.status}"></td>
+        </tr>
+    </table>
+   
+  </body>
+</html>
