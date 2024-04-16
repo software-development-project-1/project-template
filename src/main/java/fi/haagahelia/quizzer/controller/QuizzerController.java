@@ -5,10 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-// import org.springframework.validation.BindingResult;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-// import org.springframework.web.bind.annotation.ModelAttribute;
-// import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import fi.haagahelia.quizzer.model.Difficulty;
 import fi.haagahelia.quizzer.model.Quizz;
@@ -29,4 +30,12 @@ public class QuizzerController {
     @Autowired
     private DifficultyRepository difficultyRepository;
 
+    // add new quiz with creation date - Hong
+    @RequestMapping(value = "/addquizz")
+    public String addQuizz(Model model) {
+        model.addAttribute("quiz", new Quizz());
+        return "addquiz";
+    }
+
+    // filter quiz by date - Hong
 }
