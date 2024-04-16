@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout.html}"
+>
+  <head>
+    <title>QuizzesSystem</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+  <body>
+    <div layout:fragment="content" class="container">
+     
+      <h2 th:text="'Questions of ' + ${quiz.quizName}"></h2>
+      <a th:href="@{/questionList/{id}(id=${quiz.id})}" class="btn btn-secondary"> 
+        All
+      </a>
+      <a th:href="@{/questionList/{id}/{difficultyLevel}(id=${quiz.id}, difficultyLevel='Easy')}" class="btn btn-secondary"> 
+        Easy
+      </a>
+      <a th:href="@{/questionList/{id}/{difficultyLevel}(id=${quiz.id}, difficultyLevel='Normal')}" class="btn btn-secondary"> 
+        Normal
+      </a> 
+      <a th:href="@{/questionList/{id}/{difficultyLevel}(id=${quiz.id}, difficultyLevel='Hard')}" class="btn btn-secondary"> 
+        Hard
+      </a>   
+      <table class="table table-striped" border="1">
+        <thead>
+          <tr>
+            <th>Question text</th>
+            <th>Correct answer</th>
+            <th>Difficulty level</th>
+        </tr>
+        </thead>
+        <tbody>
+          <tr th:if="${questionList.isEmpty()}">
+            <td colspan="4">
+                <h5>No Data to Show</h5>
+            </td>
+          </tr>
+        <tr th:each="question : ${questionList}" th:unless="${questionList.isEmpty()}">
+            <td th:text="${question.questionText}"></td>
+            <td th:text="${question.correctAnswer}"></td>
+            <td th:text="${question.difficultyLevel}"></td>
+            <td>
+              <a
+                th:href="@{'/editQuestion/' + ${question.questionId}}"
+                class="btn btn-secondary"
+                >Edit</a
+              >
+              <a
+                href="#"
+                th:href="@{/deleteQuestion/{id}(id=${question.questionId})}"
+                class="btn btn-danger"
+                onclick="return confirm('Are you sure you want to delete this question?');"
+                >Delete</a
+              >
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    <div>
+        <a th:href="'/addquestiontolist/' + ${quiz.id}" class="btn btn-primary">Add a question</a>
+      <a href="/" class="btn btn-secondary">Back to quizzes</a>
+    </div>
+    </div>    
+  </body>
+</html>
