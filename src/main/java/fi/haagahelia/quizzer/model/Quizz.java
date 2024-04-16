@@ -24,8 +24,8 @@ public class Quizz {
     private Long quizzId;
 
     // time when the quizz is created
-    @Column(nullable = false)
-    private LocalDate creationTime;
+	@CreationTimestamp
+    private Instant creationTime;
 
     @Column(nullable = false)
     private String name;
@@ -48,7 +48,7 @@ public class Quizz {
     public Quizz() {
     }
 
-    public Quizz(String name, String description, LocalDate createtionTime, Status status, Category category) {
+    public Quizz(String name, String description, Instant createtionTime, Status status, Category category) {
         super();
         this.name = name;
         this.description = description;
@@ -69,7 +69,7 @@ public class Quizz {
         return description;
     }
 
-    public LocalDate getCreationTime() {
+    public Instant getCreationTime() {
         return creationTime;
     }
 
@@ -97,7 +97,7 @@ public class Quizz {
         this.description = description;
     }
 
-    public void setCreatetionTime(LocalDate creationTime) {
+    public void setCreatetionTime(Instant creationTime) {
         this.creationTime = creationTime;
     }
 
