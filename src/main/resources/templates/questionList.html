@@ -11,6 +11,18 @@
     <div layout:fragment="content" class="container">
      
       <h2 th:text="'Questions of ' + ${quiz.quizName}"></h2>
+      <a th:href="@{/questionList/{id}(id=${quiz.id})}" class="btn btn-secondary"> 
+        All
+      </a>
+      <a th:href="@{/questionList/{id}/{difficultyLevel}(id=${quiz.id}, difficultyLevel='Easy')}" class="btn btn-secondary"> 
+        Easy
+      </a>
+      <a th:href="@{/questionList/{id}/{difficultyLevel}(id=${quiz.id}, difficultyLevel='Normal')}" class="btn btn-secondary"> 
+        Normal
+      </a> 
+      <a th:href="@{/questionList/{id}/{difficultyLevel}(id=${quiz.id}, difficultyLevel='Hard')}" class="btn btn-secondary"> 
+        Hard
+      </a>   
       <table class="table table-striped" border="1">
         <thead>
           <tr>
