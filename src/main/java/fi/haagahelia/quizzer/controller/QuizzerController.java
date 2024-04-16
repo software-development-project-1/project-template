@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import fi.haagahelia.quizzer.model.Difficulty;
 import fi.haagahelia.quizzer.model.Quizz;
+import fi.haagahelia.quizzer.repository.CategoryRepository;
 import fi.haagahelia.quizzer.repository.DifficultyRepository;
 import fi.haagahelia.quizzer.repository.QuestionRepository;
 import fi.haagahelia.quizzer.repository.QuizzRepository;
 import fi.haagahelia.quizzer.repository.StatusRepository;
+import fi.haagahelia.quizzer.repository.QuestionRepository;
 
 @Controller
 public class QuizzerController {
@@ -29,12 +31,14 @@ public class QuizzerController {
     private StatusRepository statusRepository;
     @Autowired
     private DifficultyRepository difficultyRepository;
+    @Autowired
+    private CategoryRepository categoryRepository;
 
-    //show all quizzes
-   @RequestMapping(value= "/quizzlist")
-   public String recipientList(Model model) {
-       model.addAttribute("quizzlist", quizzRepository.findAll());
-       return "quizzlist";
-   }
+    // show all quizzes
+    @RequestMapping(value = "/quizzlist")
+    public String recipientList(Model model) {
+        model.addAttribute("quizzlist", quizzRepository.findAll());
+        return "quizzlist";
+    }
 
 }
