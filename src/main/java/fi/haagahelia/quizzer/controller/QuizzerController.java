@@ -4,14 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import fi.haagahelia.quizzer.model.Quizz;
-import fi.haagahelia.quizzer.repository.CategoryRepository;
-import fi.haagahelia.quizzer.repository.DifficultyRepository;
-import fi.haagahelia.quizzer.repository.QuestionRepository;
-import fi.haagahelia.quizzer.repository.QuizzRepository;
-import fi.haagahelia.quizzer.repository.StatusRepository;
+// import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+// import org.springframework.web.bind.annotation.ModelAttribute;
+// import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class QuizzerController {
@@ -36,10 +34,31 @@ public class QuizzerController {
 
     // add new quiz with creation date - Hong
     @RequestMapping(value = "/addquizz")
+
     public String addQuizz(Model model) {
         model.addAttribute("quiz", new Quizz());
         return "addquiz";
     }
 
     // filter quiz by date - Hong
-}
+
+    @GetMapping(value = "/editquiz/{id}")
+    public String editQuizForm(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("quizz", quizzRepository.findById(id));
+        model.addAttribute("statuses", statusRepository.findAll());
+        model.addAttribute("categories", categoryRepository.findAll());
+        return "editquizz.html";
+    }
+
+    @PostMapping(value = "/savequizz")
+    public String save(Quizz quizz) {
+        quizzRepository.save(quizz);
+        return "redirect:/quizzlist";
+    }
+
+    // delete quizz
+   @GetMapping("/deletequizz/{quizzId}")
+   public String deleteQuizz(@PathVariable("quizzId") Long quizzId, Model model) {
+       quizzRepository.deleteById(quizzId);
+       return "redirect:../quizzlist"; 
+   }
