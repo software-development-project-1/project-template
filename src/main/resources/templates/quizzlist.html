@@ -42,8 +42,7 @@
           <td th:text="${quizz.description}"></td>
           <td th:text="${quizz.status}"></td>
           <td
-            td sec:authorize="hasRole('ADMIN')"><a
-              th:href="@{/delete/{id}(id=${quizz.id})}"
+              th:href="@{'/deletequizz/'+${quizz.id}}"
               class="btn btn-xs btn-danger"
               >Delete</a>
           </td>

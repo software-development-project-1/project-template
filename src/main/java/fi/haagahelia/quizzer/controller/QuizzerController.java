@@ -19,6 +19,8 @@ import fi.haagahelia.quizzer.repository.DifficultyRepository;
 import fi.haagahelia.quizzer.repository.QuestionRepository;
 import fi.haagahelia.quizzer.repository.QuizzRepository;
 import fi.haagahelia.quizzer.repository.StatusRepository;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Controller
 public class QuizzerController {
@@ -40,8 +42,8 @@ public class QuizzerController {
    }
 
    //delete quizz
-   @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-   public String deleteQuizz(@PathVariable("id") Long quizzId, Model model) {
+   @GetMapping("/deletequizz/{quizzId}")
+   public String deleteQuizz(@PathVariable("quizzId") Long quizzId, Model model) {
        quizzRepository.deleteById(quizzId);
        return "redirect:../quizzlist"; 
    }
