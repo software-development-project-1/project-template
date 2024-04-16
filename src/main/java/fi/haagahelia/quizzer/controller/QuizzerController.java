@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 // import org.springframework.web.bind.annotation.ModelAttribute;
 // import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import fi.haagahelia.quizzer.model.Difficulty;
 import fi.haagahelia.quizzer.model.Quizz;
@@ -21,6 +22,8 @@ import fi.haagahelia.quizzer.repository.QuestionRepository;
 import fi.haagahelia.quizzer.repository.QuizzRepository;
 import fi.haagahelia.quizzer.repository.StatusRepository;
 import fi.haagahelia.quizzer.repository.QuestionRepository;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Controller
 public class QuizzerController {
@@ -56,5 +59,12 @@ public class QuizzerController {
         quizzRepository.save(quizz);
         return "redirect:/quizzlist";
     }
+
+   //delete quizz
+   @GetMapping("/deletequizz/{quizzId}")
+   public String deleteQuizz(@PathVariable("quizzId") Long quizzId, Model model) {
+       quizzRepository.deleteById(quizzId);
+       return "redirect:../quizzlist"; 
+   }
 
 }

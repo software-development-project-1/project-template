@@ -48,11 +48,10 @@ public class Quizz {
     public Quizz() {
     }
 
-    public Quizz(String name, String description, Instant createtionTime, Status status, Category category) {
+    public Quizz(String name, String description, Status status, Category category) {
         super();
         this.name = name;
         this.description = description;
-        this.creationTime = createtionTime;
         this.status = status;
         this.category = category;
     }

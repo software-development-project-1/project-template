@@ -7,6 +7,6 @@ import fi.haagahelia.quizzer.model.Difficulty;
 import java.util.List;
 
 public interface DifficultyRepository extends CrudRepository<Difficulty, Long> {
-    List<Difficulty> findByLevel(String level);
+    List<Difficulty> findByLevel(String level); 
 
 }

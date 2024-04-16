@@ -51,8 +51,4 @@ public class Status {
     }
     
 
-    @Override
-    public String toString(){
-        return "Publish status = " +getStatus();
-    }
 }
