@@ -11,12 +11,12 @@ allowing the teachers and students to sign up, log in, and access secure pages b
 - [Tatiana Lyubavskaya](https://github.com/lTanjal "Github page")
 - [Un Kuan Che](https://github.com/arielunkuanche "Github page")
 
-### Documentation:
+## Documentation:
 <https://github.com/orgs/https-github-com-DenisHki/projects/1>
 
 
-### Developer guide:
-1. How to start the application
+## Developer guide:
+**1. How to start the application**
 
 >The project uses Spring Boot version 3, which requires Java version 17 or higher. Before you begin, you should check your current Java installation by running the following command: **$ java -version**.
 
@@ -28,7 +28,8 @@ allowing the teachers and students to sign up, log in, and access secure pages b
 
 >Once the application has started, visit [http://localhost:8080](http://localhost:8080) in a web browser to use the application.
 
-2. How to generate and run the application using the JAR file
+
+**2. How to generate and run the application using the JAR file**
 
 >Generate a JAR file by running **./mvnw package** in the terminal.
 
@@ -40,11 +41,13 @@ allowing the teachers and students to sign up, log in, and access secure pages b
 
 >Open the application in [http://localhost:8080](http://localhost:8080).
 
-3. URL of the backend application
 
-[URL LINK]()
+**3. URL of the backend application**
 
-4. The purpose of the project’s branches
+-[URL LINK]()
+
+
+**4. The purpose of the project’s branches**
 
 - **Isolation of Work** :Team members to work on different features or bug fixes without interfering with each other's work.
 - **Parallel Development** :Team members to work on different tasks simultaneously. This can significantly speed up the development process.
