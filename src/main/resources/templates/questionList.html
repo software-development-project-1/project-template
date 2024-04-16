@@ -32,7 +32,12 @@
         </tr>
         </thead>
         <tbody>
-          <tr th:each="question : ${questionList}">
+          <tr th:if="${questionList.isEmpty()}">
+            <td colspan="4">
+                <h5>No Data to Show</h5>
+            </td>
+          </tr>
+        <tr th:each="question : ${questionList}" th:unless="${questionList.isEmpty()}">
             <td th:text="${question.questionText}"></td>
             <td th:text="${question.correctAnswer}"></td>
             <td th:text="${question.difficultyLevel}"></td>
