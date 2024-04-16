@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 // import org.springframework.web.bind.annotation.ModelAttribute;
 // import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import fi.haagahelia.quizzer.model.Difficulty;
 import fi.haagahelia.quizzer.model.Quizz;
@@ -28,5 +29,12 @@ public class QuizzerController {
     private StatusRepository statusRepository;
     @Autowired
     private DifficultyRepository difficultyRepository;
+
+    //show all quizzes
+   @RequestMapping(value= "/quizzlist")
+   public String recipientList(Model model) {
+       model.addAttribute("quizzlist", quizzRepository.findAll());
+       return "quizzlist";
+   }
 
 }
