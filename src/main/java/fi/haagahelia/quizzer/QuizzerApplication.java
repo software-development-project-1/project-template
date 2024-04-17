@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Bean;
 import fi.haagahelia.quizzer.controller.QuizzerController;
 import fi.haagahelia.quizzer.model.Category;
 import fi.haagahelia.quizzer.model.Difficulty;
+import fi.haagahelia.quizzer.model.Question;
 import fi.haagahelia.quizzer.model.Quizz;
 import fi.haagahelia.quizzer.model.Status;
 import fi.haagahelia.quizzer.repository.CategoryRepository;
@@ -70,12 +71,51 @@ public class QuizzerApplication {
 
 			// Difficulty example data
 			Difficulty difficulty1 = new Difficulty("Easy");
-			Difficulty difficulty2 = new Difficulty("Noemal");
+			Difficulty difficulty2 = new Difficulty("Normal");
 			Difficulty difficulty3 = new Difficulty("Hard");
 			// save example data to db
 			difficultyRepository.save(difficulty1);
 			difficultyRepository.save(difficulty2);
 			difficultyRepository.save(difficulty3);
+
+			// Question example data
+			// question about quizz1
+			Question question1 = new Question("What is the staple food in most Asian countries?", "Rice", difficulty1,
+					quizz1);
+			Question question2 = new Question("Which Asian country is famous for its sushi?", "Japan", difficulty1,
+					quizz1);
+			Question question3 = new Question("What is a common method of cooking in Chinese cuisine?", "Stir-frying",
+					difficulty2, quizz1);
+			// question about quizz2
+			Question question4 = new Question("Which country has won the most FIFA World Cup titles?", "Brazil",
+					difficulty2, quizz2);
+			Question question5 = new Question("Who holds the record for the most home runs in Major League Baseball?",
+					"Barry Bonds", difficulty3, quizz2);
+			Question question6 = new Question("What is the distance of a marathon race?", "42 kilometers", difficulty3,
+					quizz2);
+			// question about quizz3
+			Question question7 = new Question(
+					"What is the name of the famous war that took place in Vietnam from 1955 to 1975?",
+					"The Vietnam War", difficulty3, quizz3);
+			Question question8 = new Question("Which foreign powers colonized Vietnam in the 19th and 20th centuries?",
+					"France and Japan", difficulty2, quizz3);
+			Question question9 = new Question("When did Vietnam gain full independence from France? ",
+					"September 2, 1945", difficulty3, quizz3);
+
+			// Saving questions about quizz1
+			questionRepository.save(question1);
+			questionRepository.save(question2);
+			questionRepository.save(question3);
+
+			// Saving questions about quizz2
+			questionRepository.save(question4);
+			questionRepository.save(question5);
+			questionRepository.save(question6);
+
+			// Saving questions about quizz3
+			questionRepository.save(question7);
+			questionRepository.save(question8);
+			questionRepository.save(question9);
 
 		};
 	}
