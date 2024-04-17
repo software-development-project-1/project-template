@@ -47,13 +47,14 @@ public class QuizzerController {
     // add new quiz with creation date - Hong
     @GetMapping(value = "/addquizz")
     public String addQuizz(Model model) {
-        Instant instant = Instant.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        String formattedInstant = formatter.format(instant);
-        // Add formatted instant to the model
-        model.addAttribute("formattedInstant", formattedInstant);
+        // Instant instant = Instant.now();
+        // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        // String formattedInstant = formatter.format(instant);
+        // // Add formatted instant to the model
+        // model.addAttribute("formattedInstant", formattedInstant);
         // Add empty Quizz object to the model
         model.addAttribute("quizz", new Quizz());
+        model.addAttribute("category", categoryRepository.findAll());
         return "addquizz";
     }
 

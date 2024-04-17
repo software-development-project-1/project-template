@@ -27,12 +27,15 @@
           <label for="description">Description</label>
           <input type="text" id="description" th:field="*{description}" />
           <div style="clear: both; display: block; height: 10px"></div>
-
+          <label for="category">Category</label>
+          <select id="category" th:field="*{category}" class="form-control">
+              <option th:each="category: ${categories}" th:value="${category.categoryId}" th:text="${category.name}"></option>
+              </select>
           <!-- published - boolean //not sure yet-->
           <label for="published">Published</label>
           <input type="checkbox" id="published" th:field="*{published}" />
         </div>
-        <button>Add</button>
+        <input type="submit" value="Save" class="btn btn-success"></input>
         <a href="/">Cancel</a>
       </form>
     </div>
