@@ -46,7 +46,7 @@ public class QuizzerController {
         return "quizzlist";
     }
 
-    @GetMapping(value = "/editquiz/{id}")
+    @GetMapping(value = "/editquizz/{id}")
     public String editQuizForm(@PathVariable("id") Long id, Model model) {
         model.addAttribute("quizz", quizzRepository.findById(id));
         model.addAttribute("statuses", statusRepository.findAll());

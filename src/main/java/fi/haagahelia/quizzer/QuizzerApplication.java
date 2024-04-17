@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 
 import fi.haagahelia.quizzer.controller.QuizzerController;
 import fi.haagahelia.quizzer.model.Category;
+import fi.haagahelia.quizzer.model.Difficulty;
 import fi.haagahelia.quizzer.model.Quizz;
 import fi.haagahelia.quizzer.model.Status;
 import fi.haagahelia.quizzer.repository.CategoryRepository;
@@ -66,6 +67,16 @@ public class QuizzerApplication {
 			quizzRepository.save(quizz1);
 			quizzRepository.save(quizz2);
 			quizzRepository.save(quizz3);
+
+			// Difficulty example data
+			Difficulty difficulty1 = new Difficulty("Easy");
+			Difficulty difficulty2 = new Difficulty("Noemal");
+			Difficulty difficulty3 = new Difficulty("Hard");
+			// save example data to db
+			difficultyRepository.save(difficulty1);
+			difficultyRepository.save(difficulty2);
+			difficultyRepository.save(difficulty3);
+
 		};
 	}
 
