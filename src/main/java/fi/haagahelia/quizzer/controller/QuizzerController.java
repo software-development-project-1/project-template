@@ -54,7 +54,8 @@ public class QuizzerController {
         // model.addAttribute("formattedInstant", formattedInstant);
         // Add empty Quizz object to the model
         model.addAttribute("quizz", new Quizz());
-        model.addAttribute("category", categoryRepository.findAll());
+        model.addAttribute("statuses", statusRepository.findAll());
+        model.addAttribute("categories", categoryRepository.findAll());
         return "addquizz";
     }
 

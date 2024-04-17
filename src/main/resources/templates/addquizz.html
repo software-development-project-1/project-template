@@ -6,12 +6,18 @@
       href="css/bootstrap.min.css"
       th:href="@{css/bootstrap.min.css}"
     />
+    <style>
+      .center {
+          margin: 0 auto; /* Centerize the form horizontally */
+          width: 50%; /* Adjust the width as needed */
+      }
+  </style>
   <head>
     <title>Add Quizz</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   </head>
   <body>
-    <div layout:fragment="content">
+    <div layout:fragment="content" class="center">
       <h2>Add a quizz</h2>
       <form
         th:action="@{/savequizz}"
@@ -32,11 +38,12 @@
               <option th:each="category: ${categories}" th:value="${category.categoryId}" th:text="${category.name}"></option>
               </select>
           <!-- published - boolean //not sure yet-->
-          <label for="published">Published</label>
-          <input type="checkbox" id="published" th:field="*{published}" />
-        </div>
-        <input type="submit" value="Save" class="btn btn-success"></input>
-        <a href="/">Cancel</a>
+          <label for="status">Status</label>
+          <select id="status" th:field="*{status}" class="form-control">
+          <option th:each="status: ${statuses}" th:value="${status.statusId}" th:text="${status.status ? 'Published' : 'Not published'}"></option>
+
+            <input type="submit" value="Save" class="btn btn-success"/>
+        <a href="/quizzlist" class="btn btn-success">Cancel</a>
       </form>
     </div>
   </body>
