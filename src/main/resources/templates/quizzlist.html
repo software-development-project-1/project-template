@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
   <link
-    type="text/css"
-    rel="stylesheet"
-    href="css/bootstrap.min.css"
-    th:href="@{css/bootstrap.min.css}"
-  />
-  <link rel="stylesheet" href="/css/recipientlist.css" />
+      type="text/css"
+      rel="stylesheet"
+      href="css/bootstrap.min.css"
+      th:href="@{css/bootstrap.min.css}"
+    />
   <head>
     <title>Quizzer</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -41,7 +40,7 @@
           <td th:text="${quizz.name}"></td>
           <td th:text="${quizz.creationTime}"></td>
           <td th:text="${quizz.description}"></td>
-          <td th:text="${quizz.status.getStatus()  ? 'publish':'not published'}"></td>
+          <td th:text="${quizz.status.getStatus()  ? 'Publish':'Not published'}"></td>
           <td ><a th:href="@{/editquizz/{id}(id=${quizz.quizzId})}" class="btn btn-xs btn-danger">Edit</a></td> 
           <td ><a
               th:href="@{'/deletequizz/'+${quizz.quizzId}}"
