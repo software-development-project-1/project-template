@@ -1,7 +1,7 @@
 package fi.haagahelia.quizzer.controller;
 
 import java.time.Instant;
-
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -47,6 +47,12 @@ public class QuizzerController {
     // add new quiz with creation date - Hong
     @GetMapping(value = "/addquizz")
     public String addQuizz(Model model) {
+        Instant instant = Instant.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        String formattedInstant = formatter.format(instant);
+        // Add formatted instant to the model
+        model.addAttribute("formattedInstant", formattedInstant);
+        // Add empty Quizz object to the model
         model.addAttribute("quizz", new Quizz());
         return "addquizz";
     }
