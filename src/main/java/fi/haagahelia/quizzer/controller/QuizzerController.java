@@ -46,6 +46,7 @@ public class QuizzerController {
         return "quizzlist";
     }
 
+    // edit quizzes
     @GetMapping(value = "/editquizz/{id}")
     public String editQuizForm(@PathVariable("id") Long id, Model model) {
         model.addAttribute("quizz", quizzRepository.findById(id));
@@ -54,6 +55,7 @@ public class QuizzerController {
         return "editquizz.html";
     }
 
+    // save quizz
     @PostMapping(value = "/savequizz")
     public String save(Quizz quizz) {
         quizzRepository.save(quizz);

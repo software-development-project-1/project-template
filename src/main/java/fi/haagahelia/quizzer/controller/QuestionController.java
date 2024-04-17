@@ -29,7 +29,7 @@ public class QuestionController {
     @Autowired
     private DifficultyRepository difficultyRepository;
 
-
+// show question list
     @GetMapping("/questionlist/{quizzId}")
     public String questionList(@PathVariable("quizzId") Long quizzId, Model model) {
         Quizz quizz = quizzRepository.findById(quizzId)
@@ -40,6 +40,7 @@ public class QuestionController {
         return "questionlist";
     }
 
+    // edit question
     @GetMapping(value = "/editquestion/{questionId}")
     public String editQuizForm(@PathVariable("questionId") Long questionId, Model model) {
         model.addAttribute("question", questionRepository.findById(questionId));
@@ -48,6 +49,7 @@ public class QuestionController {
         return "editquestion.html";
     }
 
+    // save question
     @PostMapping(value = "/savequestion")
     public String save(Question question) {
         questionRepository.save(question);

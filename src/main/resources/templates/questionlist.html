@@ -8,7 +8,8 @@
 </head>
 
 <body>
-    <h1 th:text="${quizzName}"></h1>
+    <h1 th:text="'Questions of ' + ${quizzName}"></h1>
+
     <table class="table table-striped">
         <tr>
             <th>Question Text</th>

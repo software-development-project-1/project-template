@@ -41,8 +41,8 @@
           <td th:text="${quizz.name}"></td>
           <td th:text="${quizz.creationTime}"></td>
           <td th:text="${quizz.description}"></td>
-          <td th:text="${quizz.status.getStatus()  ? 'publish':'not published'}"></td>
-          <td ><a th:href="@{/editquizz/{id}(id=${quizz.quizzId})}" class="btn btn-xs btn-danger">Edit</a></td> 
+          <td th:text="${quizz.status.getStatus()  ? 'published':'not published'}"></td>
+          <td ><a th:href="@{/editquizz/{id}(id=${quizz.quizzId})}" class="btn btn-xs btn-warning">Edit</a></td> 
           <td ><a
               th:href="@{'/deletequizz/'+${quizz.quizzId}}"
               class="btn btn-xs btn-danger"
