@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Quizz Question List</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+</head>
+
+<body>
+    <h1 th:text="${quizzName}"></h1>
+    <table class="table table-striped">
+        <tr>
+            <th>Question Text</th>
+            <th>Correct Answer</th>
+            <th>Difficulty Level</th>
+        </tr>
+
+        <tr th:each="question : ${questions}">
+            <td th:text="${question.questionText}"></td>
+            <td th:text="${question.correctAnswer}"></td>
+            <td th:text="${question.getDifficulty().getDifficulty()}"></td>
+            <td><a th:href="@{'/editquestion/'+${question.questionId}}" >Edit</a></td>
+        </tr>
+
+        </div>
+</body>
+
+</html>
