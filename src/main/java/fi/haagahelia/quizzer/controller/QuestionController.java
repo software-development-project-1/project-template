@@ -51,7 +51,7 @@ public class QuestionController {
     @PostMapping(value = "/savequestion")
     public String save(Question question) {
         questionRepository.save(question);
-        return "redirect:/quizzlist";
+        return "redirect:/questionlist/" + question.getQuizz().getQuizzId();
     }
 
 }

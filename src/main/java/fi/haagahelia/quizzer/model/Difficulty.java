@@ -33,9 +33,10 @@ public class Difficulty {
     public Long getDifficultyId(){
         return difficultyId;
     }
-    public String getDifficulty(){
+    public String getLevel(){
         return level;
     }
+    
 
     public List<Question> getQuestion(){
         return questions;
