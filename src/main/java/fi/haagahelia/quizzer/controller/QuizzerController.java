@@ -45,20 +45,21 @@ public class QuizzerController {
     }
 
     // add new quiz with creation date - Hong
-    @RequestMapping(value = "/addquizz")
-
+    @GetMapping(value = "/addquizz")
     public String addQuizz(Model model) {
-        model.addAttribute("quiz", new Quizz());
-        return "addquiz";
+        model.addAttribute("quizz", new Quizz());
+        return "addquizz";
     }
 
     // filter quiz by date - Hong
-    @GetMapping("/filterQuizzes")
+    @GetMapping("/filterQuizzesByDate")
     public String filterQuizzesByCreationDate(
             @RequestParam Instant creationTime,
             Model model) {
         List<Quizz> quizzes = quizzRepository.findQuizzesByCreationDateAfter(creationTime);
         model.addAttribute("quizzes", quizzes);
+        model.addAttribute("filterDate", creationTime);
+        // Pass the filter date to Thymeleaf
         return "quizzlist"; // Thymeleaf template name
     }
 
