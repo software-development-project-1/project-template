@@ -47,7 +47,7 @@ public class Difficulty {
     public void setDifficultyId(Long difficultyId){
         this.difficultyId = difficultyId;
     }
-    public void setDifficulty(String level){
+    public void setLevel(String level){
         this.level=level;
     }
 
@@ -59,7 +59,7 @@ public class Difficulty {
 
     @Override
     public String toString(){
-        return "Difficulty level = " +getDifficulty();
+        return "Difficulty level = " + getLevel();
     }
     
 }
