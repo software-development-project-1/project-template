@@ -56,7 +56,7 @@ public class QuizzerController {
     public String filterQuizzesByCreationDate(
             @RequestParam Instant creationTime,
             Model model) {
-        List<Quizz> quizzes = quizzRepository.findQuizzesByCreationDateAfter(creationTime);
+        List<Quizz> quizzes = quizzRepository.findByCreationTimeAfter(creationTime);
         model.addAttribute("quizzes", quizzes);
         model.addAttribute("filterDate", creationTime);
         // Pass the filter date to Thymeleaf
