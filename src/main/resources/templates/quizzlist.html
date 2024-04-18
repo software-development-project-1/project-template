@@ -46,7 +46,7 @@
 
         <tr th:each="quizz: ${quizzlist}">
           <td th:text="${quizz.name}"></td>
-          <td th:text="${quizz.creationTime}"></td>
+          <td th:text="${quizz.getCreationTime()}"></td>
           <td th:text="${quizz.description}"></td>
           <td th:text="${quizz.status.getStatus()  ? 'Publish':'Not published'}"></td>
           <td ><a th:href="@{/editquizz/{id}(id=${quizz.quizzId})}" class="btn btn-xs btn-danger">Edit</a></td> 
