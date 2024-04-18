@@ -1,5 +1,6 @@
 package fi.haagahelia.quizzer.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -197,7 +198,57 @@ public class QuizController {
 		return "editQuestion";
 	}
 
+	@GetMapping("/quiz/newest")
+	public String listNewestQuizzes(Model model) {
+		List<Quiz> quizzes = qrepository.findAllByOrderByCreatedAtDesc();
+		model.addAttribute("quizzes", quizzes);
+		return "quizzesList";
+	}
 
+	@GetMapping("/quiz/oldest")
+	public String listOldestQuizzes(Model model) {
+		List<Quiz> quizzes = qrepository.findAllByOrderByCreatedAtAsc();
+		model.addAttribute("quizzes", quizzes);
+		return "quizzesList";
+	}
 
+	@GetMapping("/quiz/published")
+	public String getPublishedQuizzes(Model model) {
+		List<Quiz> quizzes = qrepository.findByPublished(true);
+		model.addAttribute("quizzes", quizzes);
+		return "quizzesList";
+	}
+
+	@GetMapping("/quiz/unpublished")
+	public String getUnpublishedQuizzes(Model model) {
+		List<Quiz> quizzes = qrepository.findByPublished(false);
+		model.addAttribute("quizzes", quizzes);
+		return "quizzesList";
+	}
+
+	@RequestMapping(value = "/questionList/{id}/{difficultyLevel}", method = RequestMethod.GET)
+	public String questionListByDifficultyLevel(@PathVariable("id") Long id, @PathVariable("difficultyLevel") String difficultyLevel, Model model) {
+
+		Optional<Quiz> quizOptional = qrepository.findById(id);
+		ArrayList<Question> questionsByDifficultyLevel = new ArrayList<Question>();
+
+		if (quizOptional.isPresent()) {
+
+			Quiz quiz = quizOptional.get();
+			List<Question> questionList = questionrepository.findByQuiz(quiz);
+
+			for (Question question : questionList) {
+				if (question.getDifficultyLevel().equals(difficultyLevel)) {
+					questionsByDifficultyLevel.add(question);
+				}
+			}
+
+			model.addAttribute("questionList", questionsByDifficultyLevel);
+			model.addAttribute("quiz", quiz);
+
+		}
+		return "questionList";
+
+	}
 
 }

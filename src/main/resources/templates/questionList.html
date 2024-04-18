@@ -11,6 +11,18 @@
     <div layout:fragment="content" class="container">
      
       <h2 th:text="'Questions of ' + ${quiz.quizName}"></h2>
+      <a th:href="@{/questionList/{id}(id=${quiz.id})}" class="btn btn-secondary"> 
+        All
+      </a>
+      <a th:href="@{/questionList/{id}/{difficultyLevel}(id=${quiz.id}, difficultyLevel='Easy')}" class="btn btn-secondary"> 
+        Easy
+      </a>
+      <a th:href="@{/questionList/{id}/{difficultyLevel}(id=${quiz.id}, difficultyLevel='Normal')}" class="btn btn-secondary"> 
+        Normal
+      </a> 
+      <a th:href="@{/questionList/{id}/{difficultyLevel}(id=${quiz.id}, difficultyLevel='Hard')}" class="btn btn-secondary"> 
+        Hard
+      </a>   
       <table class="table table-striped" border="1">
         <thead>
           <tr>
@@ -20,7 +32,12 @@
         </tr>
         </thead>
         <tbody>
-          <tr th:each="question : ${questionList}">
+          <tr th:if="${questionList.isEmpty()}">
+            <td colspan="4">
+                <h5>No Data to Show</h5>
+            </td>
+          </tr>
+        <tr th:each="question : ${questionList}" th:unless="${questionList.isEmpty()}">
             <td th:text="${question.questionText}"></td>
             <td th:text="${question.correctAnswer}"></td>
             <td th:text="${question.difficultyLevel}"></td>

@@ -30,7 +30,7 @@ public class Quiz {
 
     @CreationTimestamp
 	private Instant createdAt;
-
+    
     @Column(nullable = false)
     private String quizName;
 
