@@ -23,16 +23,17 @@
             <input type="text" th:field="*{correctAnswer}" />
 
             <label for="difficulties">Difficulty: </label>
-<select id="difficulty" th:field="*{difficulty.difficultyId}" class="form-control">
-    <option th:each="difficulty: ${difficulties}" th:value="${difficulty.difficultyId}" th:text="${difficulty.level}"></option>
-</select>
-            
+            <select id="difficulty" th:field="*{difficulty.difficultyId}" class="form-control">
+                <option th:each="difficulty: ${difficulties}" th:value="${difficulty.difficultyId}"
+                    th:text="${difficulty.level}"></option>
+            </select>
+
 
 
             <input type="hidden" id="quizz" th:field="*{quizz}" />
 
             <input type="submit" value="Save" />
-            
+
         </form>
     </div>
 </body>

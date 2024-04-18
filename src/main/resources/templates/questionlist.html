@@ -30,8 +30,27 @@
         </form>
       </div>
     <h1 th:text="${quizzName}"></h1>
+
+
     <table class="table table-striped">
         <thead>
+            <tr>
+                <th></th>
+                <th></th>
+                <th>
+                    <form id="filterForm" th:action="@{/questionlist/{quizzId}(quizzId=${quizzId})}" method="get" class="form-inline">
+                        <div class="form-group">
+                            <label for="difficulty">Filter by Difficulty:</label>
+                            <select id="difficulty" name="difficulty" class="form-control" onchange="this.form.submit()">
+                                <option value="">All</option>
+                                <option th:each="difficulty: ${difficulties}" th:value="${difficulty.difficultyId}"
+                                        th:text="${difficulty.level}" th:selected="${difficulty.difficultyId == selectedDifficultyId}"></option>
+                            </select>
+                        </div>
+                    </form>
+                    
+                </th>
+            </tr>
         <tr>
             <th>Question Text</th>
             <th>Correct Answer</th>

@@ -46,6 +46,7 @@ public class QuizzerController {
     @RequestMapping(value = "/quizzlist")
     public String recipientList(Model model) {
         model.addAttribute("quizzlist", quizzRepository.findAll());
+        
         return "quizzlist";
     }
 
@@ -75,7 +76,7 @@ public class QuizzerController {
         return "quizzlist"; // Return the name of the Thymeleaf template
     }
 
-    @GetMapping(value = "/editquiz/{id}")
+    @GetMapping(value = "/editquizz/{id}")
     public String editQuizForm(@PathVariable("id") Long id, Model model) {
         model.addAttribute("quizz", quizzRepository.findById(id));
         model.addAttribute("statuses", statusRepository.findAll());
