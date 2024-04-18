@@ -16,6 +16,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotEmpty;
 
 
 @Entity
@@ -31,9 +32,11 @@ public class Quiz {
     @CreationTimestamp
 	private Instant createdAt;
     
+    @NotEmpty(message = "Please provide a quiz name")
     @Column(nullable = false)
     private String quizName;
 
+    @NotEmpty(message = "Please provide a quiz description")
     @Column(nullable = false)
     private String quizDescription;
 

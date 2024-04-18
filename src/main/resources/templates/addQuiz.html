@@ -31,6 +31,7 @@
             placeholder="Type in your quiz name"
             class="form-control"
           />
+          <div th:if="${#fields.hasErrors('quizName')}" class="text-danger" th:errors="*{quizName}"></div>
         </div>
         <div class="mb-3">
           <label for="description" class="form-label">Description</label>
@@ -41,6 +42,7 @@
             class="form-control"
             rows="3"
           ></textarea>
+          <div th:if="${#fields.hasErrors('quizDescription')}" class="text-danger" th:errors="*{quizDescription}"></div>
         </div>
         <div class="mb-3">
           <div class="form-check">
