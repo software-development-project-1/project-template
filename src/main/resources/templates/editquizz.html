@@ -25,21 +25,22 @@
             <label for="creationTime">Creation Time: </label>
             <input type="text" th:field="*{creationTime}" />
 
-            <label for="statuses">Status: </label>
+            <label for="status">Status: </label>
             <select id="status" th:field="*{status}" class="form-control">
                 <option th:each="status: ${statuses}" th:value="${status.statusId}"
-                    th:text="${status.status}"></option>
+                    th:text="${status.status  ? 'published':'not published'}"></option>
             </select>
+
 
 
             <label for="category">Category:</label>
             <select id="category" th:field="*{category}" class="form-control">
-                <option th:each="category: ${categories}" th:value="${category.categoryId}"
-                    th:text="${category.name}"></option>
+                <option th:each="category: ${categories}" th:value="${category.categoryId}" th:text="${category.name}">
+                </option>
             </select>
 
             <input type="submit" value="Save" />
-            
+
         </form>
     </div>
 </body>
