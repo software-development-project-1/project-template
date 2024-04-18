@@ -2,7 +2,12 @@ package fi.haagahelia.quizzer.controller;
 
 import java.time.Instant;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -61,14 +66,13 @@ public class QuizzerController {
 
     // filter quiz by date - Hong
     @GetMapping("/filterQuizzesByDate")
-    public String filterQuizzesByCreationDate(
-            @RequestParam Instant creationTime,
-            Model model) {
-        List<Quizz> quizzes = quizzRepository.findByCreationTimeAfter(creationTime);
-        model.addAttribute("quizzes", quizzes);
-        model.addAttribute("filterDate", creationTime);
-        // Pass the filter date to Thymeleaf
-        return "quizzlist"; // Thymeleaf template name
+    public String filterQuizzesByCreationDate(Model model) {
+        List<Quizz> quizzes = quizzRepository.findAll();
+        // Sort quizzes by creation time in descending order
+        Collections.sort(quizzes, Comparator.comparing(Quizz::getCreationTime).reversed());
+
+        model.addAttribute("quizzlist", quizzes); // Use the correct attribute name
+        return "quizzlist"; // Return the name of the Thymeleaf template
     }
 
     @GetMapping(value = "/editquiz/{id}")

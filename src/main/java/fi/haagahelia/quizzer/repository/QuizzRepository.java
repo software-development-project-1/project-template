@@ -1,12 +1,14 @@
 package fi.haagahelia.quizzer.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 
+import ch.qos.logback.core.status.Status;
 import fi.haagahelia.quizzer.model.Quizz;
 
 import java.util.List;
-import java.time.Instant;
 
-public interface QuizzRepository extends JpaRepository<Quizz, Long> {
-    List<Quizz> findByCreationTimeAfter(Instant creationTime);
+public interface QuizzRepository extends CrudRepository<Quizz, Long> {
+    List<Quizz> findByStatus(Status status);
+
+    List<Quizz> findAll();
 }

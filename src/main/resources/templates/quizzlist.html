@@ -20,7 +20,11 @@
         <h3 th:inline="text">Welcome!</h3>
         <h5 th:inline="text">You are <span  sec:authentication="name"></span>!</h5>
         </div>
-
+        <!-- filter by date -->
+        <form th:action="@{/filterQuizzesByDate}" method="get">
+          <button type="submit" class="btn btn-primary">Filter Newest to Oldest</button>
+      </form>
+      
 
       <div class="col-md-4" style="float: right; padding: 20px 0; margin-top: -5%; margin-right: -15%">
         <form th:action="@{/logout}" method="post">
