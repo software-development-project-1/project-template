@@ -139,7 +139,7 @@ public class QuizController {
 			model.addAttribute("newquestion", newQuestion);
 			model.addAttribute("quiz", quiz);
 
-			return "addquestiontolist";
+			return "addQuestionToList";
 		} else {
 
 			return "error";
