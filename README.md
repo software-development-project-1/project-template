@@ -14,6 +14,9 @@ allowing the teachers and students to sign up, log in, and access secure pages b
 ### Documentation:
 <https://github.com/orgs/https-github-com-DenisHki/projects/1>
 
+### Link to the deployed application:
+<https://quizzer-app.onrender.com/>
+
 
 #### Run Program Via Jar file.
  1. Download the quizzer-0.0.1-SNAPSHOT.jar file to your localmachine.
