@@ -15,4 +15,9 @@ allowing the teachers and students to sign up, log in, and access secure pages b
 <https://github.com/orgs/https-github-com-DenisHki/projects/1>
 
 
+#### Run Program Via Jar file.
+ 1. Download the quizzer-0.0.1-SNAPSHOT.jar file to your localmachine.
+ 2. Open terminal in theh target folder and write: java -jar target/quizzer-0.0.1-SNAPSHOT.jar.
+ 3. It will start the server which can be accessed from http://localhost:8080 url.
+
 
