@@ -126,7 +126,7 @@ public class QuizController {
 		}
 	}
 
-	@RequestMapping(value = "/addQuestionToList/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/addquestiontolist/{id}", method = RequestMethod.GET)
 	public String addQuestions(@PathVariable("id") Long id, Model model) {
 	
 		Optional<Quiz> quizOptional = qrepository.findById(id);
@@ -141,7 +141,7 @@ public class QuizController {
 
 			return "addQuestionToList";
 		} else {
-
+			System.out.println("Something went wrong");
 			return "error";
 		}
 	}
