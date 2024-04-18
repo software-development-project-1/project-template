@@ -57,7 +57,11 @@
           >
             <td th:text="${question.questionText}"></td>
             <td th:text="${question.correctAnswer}"></td>
-            <td th:text="${question.difficultyLevel}"></td>
+            <td>
+              <span class="badge bg-secondary">
+                <span th:text="${question.difficultyLevel}"></span>
+              </span>
+            </td>
             <td>
               <a
                 th:href="@{'/editQuestion/' + ${question.questionId}}"
