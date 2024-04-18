@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
   <link
-    type="text/css"
-    rel="stylesheet"
-    href="css/bootstrap.min.css"
-    th:href="@{css/bootstrap.min.css}"
-  />
-  <link rel="stylesheet" href="/css/recipientlist.css" />
+      type="text/css"
+      rel="stylesheet"
+      href="css/bootstrap.min.css"
+      th:href="@{css/bootstrap.min.css}"
+    />
   <head>
     <title>Quizzer</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -21,7 +20,11 @@
         <h3 th:inline="text">Welcome!</h3>
         <h5 th:inline="text">You are <span  sec:authentication="name"></span>!</h5>
         </div>
-
+        <!-- filter by date -->
+        <form th:action="@{/filterQuizzesByDate}" method="get">
+          <button type="submit" class="btn btn-primary">Filter Newest to Oldest</button>
+      </form>
+      
 
       <div class="col-md-4" style="float: right; padding: 20px 0; margin-top: -5%; margin-right: -15%">
         <form th:action="@{/logout}" method="post">
@@ -29,7 +32,11 @@
         </form>
       </div>
 
+
     <table class="table table-striped">
+
+
+
         <tr>
           <th>Name</th>
           <th>Create time</th>
@@ -39,10 +46,15 @@
 
         <tr th:each="quizz: ${quizzlist}">
           <td th:text="${quizz.name}"></td>
-          <td th:text="${quizz.creationTime}"></td>
+          <td th:text="${quizz.getCreationTime()}"></td>
           <td th:text="${quizz.description}"></td>
+<<<<<<< HEAD
           <td th:text="${quizz.status.getStatus()  ? 'published':'not published'}"></td>
           <td ><a th:href="@{/editquizz/{id}(id=${quizz.quizzId})}" class="btn btn-xs btn-warning">Edit</a></td> 
+=======
+          <td th:text="${quizz.status.getStatus()  ? 'Publish':'Not published'}"></td>
+          <td ><a th:href="@{/editquizz/{id}(id=${quizz.quizzId})}" class="btn btn-xs btn-danger">Edit</a></td> 
+>>>>>>> origin/main
           <td ><a
               th:href="@{'/deletequizz/'+${quizz.quizzId}}"
               class="btn btn-xs btn-danger"
@@ -51,6 +63,6 @@
           <td ><a th:href="@{'/questionlist/'+${quizz.quizzId}}">See Question</a></td> 
         </tr>
     </table>
-   
+    <a href="/addquizz" class="btn btn-success">Add a Quizz</a>
   </body>
 </html>

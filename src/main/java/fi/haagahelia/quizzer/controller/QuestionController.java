@@ -1,5 +1,6 @@
 package fi.haagahelia.quizzer.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 // import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 // import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import fi.haagahelia.quizzer.model.Question;
 import fi.haagahelia.quizzer.model.Quizz;
@@ -29,14 +31,35 @@ public class QuestionController {
     @Autowired
     private DifficultyRepository difficultyRepository;
 
+<<<<<<< HEAD
 // show question list
+=======
+>>>>>>> origin/main
     @GetMapping("/questionlist/{quizzId}")
-    public String questionList(@PathVariable("quizzId") Long quizzId, Model model) {
+    public String questionList(@PathVariable("quizzId") Long quizzId,
+            @RequestParam(name = "difficulty", required = false) Long difficultyId,
+            Model model) {
         Quizz quizz = quizzRepository.findById(quizzId)
-                .orElseThrow(() -> new EntityNotFoundException("project not found"));
+                .orElseThrow(() -> new EntityNotFoundException("Quiz not found"));
+
         List<Question> questions = quizz.getQuestion();
+
+        if (difficultyId != null) {
+            if (difficultyId != 0) {
+                List<Question> filteredQuestions = new ArrayList<>();
+                for (Question question : questions) {
+                    if (question.getDifficulty().getDifficultyId().equals(difficultyId)) {
+                        filteredQuestions.add(question);
+                    }
+                }
+                questions = filteredQuestions;
+            }
+        }
+
         model.addAttribute("quizzName", quizz.getName().toUpperCase());
         model.addAttribute("questions", questions);
+        model.addAttribute("difficulties", difficultyRepository.findAll());
+        model.addAttribute("selectedDifficultyId", difficultyId); // Pass the selected difficulty id to the template
         return "questionlist";
     }
 

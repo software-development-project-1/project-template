@@ -16,6 +16,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 public class Quizz {
@@ -24,7 +27,7 @@ public class Quizz {
     private Long quizzId;
 
     // time when the quizz is created
-	@CreationTimestamp
+    @CreationTimestamp
     private Instant creationTime;
 
     @Column(nullable = false)
@@ -57,9 +60,10 @@ public class Quizz {
     }
 
     // getter
-    public Long getQuizzId(){
+    public Long getQuizzId() {
         return quizzId;
     }
+
     public String getName() {
         return name;
     }
@@ -68,8 +72,10 @@ public class Quizz {
         return description;
     }
 
-    public Instant getCreationTime() {
-        return creationTime;
+    public String getCreationTime() {
+        ZonedDateTime zdt = creationTime.atZone(ZoneId.systemDefault());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH.mm");
+        return formatter.format(zdt);
     }
 
     public List<Question> getQuestion() {
@@ -85,9 +91,10 @@ public class Quizz {
     }
 
     // setter
-    public void setQuizzId(Long quizzId){
+    public void setQuizzId(Long quizzId) {
         this.quizzId = quizzId;
     }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -120,12 +127,10 @@ public class Quizz {
         } else if (this.status == null) {
             return "Quizz = [ Name = " + getName() + ", Description = " + getDescription() + ", Create at ="
                     + getCreationTime() + ", Category = " + getCategory() + " ]";
-        }
-        else if(this.category == null){
+        } else if (this.category == null) {
             return "Quizz = [ Name = " + getName() + ", Description = " + getDescription() + ", Create at ="
                     + getCreationTime() + ", Status = " + getStatus() + " ]";
-        }
-        else{
+        } else {
             return "Quizz = [ Name = " + getName() + ", Description = " + getDescription() + ", Create at ="
                     + getCreationTime() + ", Category = " + getCategory() + ", Status = " + getStatus() + " ]";
         }
