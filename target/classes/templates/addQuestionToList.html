@@ -34,6 +34,11 @@
             placeholder="Type in question"
             class="form-control"
           />
+          <div
+            th:if="${#fields.hasErrors('questionText')}"
+            class="text-danger"
+            th:errors="*{questionText}"
+          ></div>
         </div>
         <div class="mb-3">
           <label for="correctAnswer" class="form-label">Correct answer</label>
@@ -44,6 +49,11 @@
             class="form-control"
             rows="3"
           ></textarea>
+          <div
+            th:if="${#fields.hasErrors('correctAnswer')}"
+            class="text-danger"
+            th:errors="*{correctAnswer}"
+          ></div>
         </div>
 
         <div class="mb-3">
