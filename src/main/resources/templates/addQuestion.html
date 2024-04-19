@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+<style>
+    .center {
+        margin: 0 auto;
+        /* Centerize the form horizontally */
+        width: 50%;
+        /* Adjust the width as needed */
+    }
+</style>
+
+<head>
+    <title>Add Question</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+    <div layout:fragment="content" class="center">
+        <h2>Add a Question</h2>
+        <form th:action="@{/saveQuestion}" th:object="${question}" action="#" method="post">
+            <div>
+                <label for="questionText">Question Text</label>
+                <input type="text" id="questionText" th:field="*{questionText}" />
+                <div style="clear: both; display: block; height: 10px"></div>
+
+                <label for="correctAnswer">Correct Answer</label>
+                <input type="text" id="correctAnswer" th:field="*{correctAnswer}" />
+                <div style="clear: both; display: block; height: 10px"></div>
+                <label for="difficulty">Difficulty</label>
+                <select id="difficulty" th:field="*{difficulty}" class="form-control">
+                    <option th:each="difficulty: ${difficulties}" th:value="${difficulty.difficultyId}"
+                        th:text="${difficulty.level}"></option>
+                </select>
+                <!-- published - boolean //not sure yet-->
+
+
+                <input type="submit" value="Save" class="btn btn-success" />
+                <a href="/quizzlist" class="btn btn-success">Cancel</a>
+        </form>
+    </div>
+</body>
+
+</html>

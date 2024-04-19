@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import fi.haagahelia.quizzer.model.Quizz;
+import fi.haagahelia.quizzer.model.Status;
 import fi.haagahelia.quizzer.repository.CategoryRepository;
 import fi.haagahelia.quizzer.repository.DifficultyRepository;
 import fi.haagahelia.quizzer.repository.QuestionRepository;
@@ -46,7 +47,7 @@ public class QuizzerController {
     @RequestMapping(value = "/quizzlist")
     public String recipientList(Model model) {
         model.addAttribute("quizzlist", quizzRepository.findAll());
-        
+
         return "quizzlist";
     }
 
@@ -75,6 +76,15 @@ public class QuizzerController {
 
         model.addAttribute("quizzlist", quizzes); // Use the correct attribute name
         return "quizzlist"; // Return the name of the Thymeleaf template
+    }
+
+    // filter quiz by public status
+    @GetMapping("/filterQuizzesByPublicity/{urlstatus}")
+    public String filterQuizzesByPublicity(@PathVariable("urlstatus") Boolean urlstatus, Model model) {
+        Status status = statusRepository.findByStatus(urlstatus);
+        List<Quizz> quizzes = quizzRepository.findByStatus(status);
+        model.addAttribute("quizzlist", quizzes);
+        return "quizzlist";
     }
 
     @GetMapping(value = "/editquizz/{id}")

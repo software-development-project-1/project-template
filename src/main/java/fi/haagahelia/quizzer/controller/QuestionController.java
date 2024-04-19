@@ -31,7 +31,7 @@ public class QuestionController {
     @Autowired
     private DifficultyRepository difficultyRepository;
 
-// show question list
+    // show question list
     @GetMapping("/questionlist/{quizzId}")
     public String questionList(@PathVariable("quizzId") Long quizzId,
             @RequestParam(name = "difficulty", required = false) Long difficultyId,
@@ -58,6 +58,21 @@ public class QuestionController {
         model.addAttribute("difficulties", difficultyRepository.findAll());
         model.addAttribute("selectedDifficultyId", difficultyId); // Pass the selected difficulty id to the template
         return "questionlist";
+    }
+
+    // add question
+    @GetMapping("/addQuestion")
+    public String addQuestion(Model model) {
+        model.addAttribute("question", new Question());
+        model.addAttribute("difficulties", difficultyRepository.findAll());
+        return "addQuestion";
+    }
+
+    // save question
+    @PostMapping("/saveQuestion")
+    public String saveQuestion(Question question) {
+        questionRepository.save(question);
+        return "redirect:/questionlist/{quizzId}";
     }
 
     // edit question
