@@ -50,6 +50,7 @@ public class QuizzerController {
         return "quizzlist";
     }
 
+    // edit quizzes
     // add new quiz with creation date - Hong
     @GetMapping(value = "/addquizz")
     public String addQuizz(Model model) {
