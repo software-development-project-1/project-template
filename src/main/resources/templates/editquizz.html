@@ -12,7 +12,7 @@
 
     <h1>Edit Quiz</h1>
     <div>
-        <form th:object="${quizz}" th:action="@{../savequizz}" action="#" method="post">
+        <form th:object="${quizz}" th:action="@{/savequizz}" action="#" method="post">
 
             <input type="hidden" id="quizzId" th:field="*{quizzId}" />
 
@@ -21,9 +21,6 @@
 
             <label for="description">Description: </label>
             <input type="text" th:field="*{description}" />
-
-            <label for="creationTime">Creation Time: </label>
-            <input type="text" th:field="*{creationTime}" />
 
             <label for="status">Status: </label>
             <select id="status" th:field="*{status}" class="form-control">
