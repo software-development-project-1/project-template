@@ -48,13 +48,8 @@
           <td th:text="${quizz.name}"></td>
           <td th:text="${quizz.getCreationTime()}"></td>
           <td th:text="${quizz.description}"></td>
-<<<<<<< HEAD
-          <td th:text="${quizz.status.getStatus()  ? 'published':'not published'}"></td>
-          <td ><a th:href="@{/editquizz/{id}(id=${quizz.quizzId})}" class="btn btn-xs btn-warning">Edit</a></td> 
-=======
           <td th:text="${quizz.status.getStatus()  ? 'Publish':'Not published'}"></td>
           <td ><a th:href="@{/editquizz/{id}(id=${quizz.quizzId})}" class="btn btn-xs btn-danger">Edit</a></td> 
->>>>>>> origin/main
           <td ><a
               th:href="@{'/deletequizz/'+${quizz.quizzId}}"
               class="btn btn-xs btn-danger"
