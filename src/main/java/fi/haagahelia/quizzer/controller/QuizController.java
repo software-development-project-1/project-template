@@ -127,13 +127,6 @@ public class QuizController {
 		}
 	}
 
-	@RequestMapping(value = "/saveQuestion", method = RequestMethod.POST)
-	public String saveQuestion(Question newQuestion) {
-		questionrepository.save(newQuestion);
-		// logger.info("Question SAVED {}", newQuestion);
-		return "redirect:/";
-	}
-
 	@RequestMapping(value = "/questionList/{id}", method = RequestMethod.GET)
 	public String questionList(@PathVariable("id") Long id, Model model) {
 		Optional<Quiz> quizOptional = qrepository.findById(id);
