@@ -107,25 +107,6 @@ public class QuizController {
 		return "redirect:/";
 	}
 
-	@RequestMapping(value = "/addquestion/{id}", method = RequestMethod.GET)
-	public String addQuestion(@PathVariable("id") Long id, Model model) {
-		Optional<Quiz> quizOptional = qrepository.findById(id);
-		if (quizOptional.isPresent()) {
-			Quiz quiz = quizOptional.get();
-
-			Question newQuestion = new Question();
-			newQuestion.setQuiz(quiz);
-
-			model.addAttribute("newquestion", newQuestion);
-			model.addAttribute("quiz", quiz);
-
-			return "addQuestion";
-		} else {
-
-			return "error";
-		}
-	}
-
 	@RequestMapping(value = "/addquestiontolist/{id}", method = RequestMethod.GET)
 	public String addQuestions(@PathVariable("id") Long id, Model model) {
 	
