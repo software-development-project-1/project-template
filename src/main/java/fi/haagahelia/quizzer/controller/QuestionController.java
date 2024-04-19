@@ -31,10 +31,7 @@ public class QuestionController {
     @Autowired
     private DifficultyRepository difficultyRepository;
 
-<<<<<<< HEAD
 // show question list
-=======
->>>>>>> origin/main
     @GetMapping("/questionlist/{quizzId}")
     public String questionList(@PathVariable("quizzId") Long quizzId,
             @RequestParam(name = "difficulty", required = false) Long difficultyId,

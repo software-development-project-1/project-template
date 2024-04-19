@@ -1,21 +1,17 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
-<head>
+  <head>
     <title>Quizz Question List</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link
-    type="text/css"
-    rel="stylesheet"
-    href="css/bootstrap.min.css"
-    th:href="@{css/bootstrap.min.css}"
-  />
-</head>
+      type="text/css"
+      rel="stylesheet"
+      href="/css/bootstrap.min.css"
+      th:href="@{/css/bootstrap.min.css}"
+    />
+  </head>
 
-<<<<<<< HEAD
-<body>
-    <h1 th:text="'Questions of ' + ${quizzName}"></h1>
-=======
+  <body>
 <body>  
     <div class="container">
       <div class="col-md-4">
@@ -24,54 +20,83 @@
 
       <div class="col-md-4">
         <h3 th:inline="text">Welcome!</h3>
-        <h5 th:inline="text">You are <span  sec:authentication="name"></span>!</h5>
-        </div>
+        <h5 th:inline="text">
+          You are <span sec:authentication="name"></span>!
+        </h5>
+      </div>
 
-
-      <div class="col-md-4" style="float: right; padding: 20px 0; margin-top: -5%; margin-right: -15%">
+      <div
+        class="col-md-4"
+        style="
+          float: right;
+          padding: 20px 0;
+          margin-top: -5%;
+          margin-right: -15%;
+        "
+      >
         <form th:action="@{/logout}" method="post">
-          <input type="submit" value="Sign Out" class="btn btn-xs btn-danger"/>
+          <input type="submit" value="Sign Out" class="btn btn-xs btn-danger" />
         </form>
       </div>
+      <h3 th:text="'Questions of ' + ${quizzName}"></h3>
+      <table class="table table-striped">
     <h1 th:text="${quizzName}"></h1>
 
->>>>>>> origin/main
 
     <table class="table table-striped">
         <thead>
-            <tr>
-                <th></th>
-                <th></th>
-                <th>
-                    <form id="filterForm" th:action="@{/questionlist/{quizzId}(quizzId=${quizzId})}" method="get" class="form-inline">
-                        <div class="form-group">
-                            <label for="difficulty">Filter by Difficulty:</label>
-                            <select id="difficulty" name="difficulty" class="form-control" onchange="this.form.submit()">
-                                <option value="">All</option>
-                                <option th:each="difficulty: ${difficulties}" th:value="${difficulty.difficultyId}"
-                                        th:text="${difficulty.level}" th:selected="${difficulty.difficultyId == selectedDifficultyId}"></option>
-                            </select>
-                        </div>
-                    </form>
-                    
-                </th>
-            </tr>
-        <tr>
+          <tr>
+            <th></th>
+            <th></th>
+            <th>
+              <form
+                id="filterForm"
+                th:action="@{/questionlist/{quizzId}(quizzId=${quizzId})}"
+                method="get"
+                class="form-inline"
+              >
+                <div class="form-group">
+                  <label for="difficulty">Filter by Difficulty:</label>
+                  <select
+                    id="difficulty"
+                    name="difficulty"
+                    class="form-control"
+                    onchange="this.form.submit()"
+                  >
+                    <option value="">All</option>
+                    <option
+                      th:each="difficulty: ${difficulties}"
+                      th:value="${difficulty.difficultyId}"
+                      th:text="${difficulty.level}"
+                      th:selected="${difficulty.difficultyId == selectedDifficultyId}"
+                    ></option>
+                  </select>
+                </div>
+              </form>
+            </th>
+          </tr>
+          <tr>
             <th>Question Text</th>
             <th>Correct Answer</th>
             <th>Difficulty Level</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr th:each="question : ${questions}">
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="question : ${questions}">
             <td th:text="${question.questionText}"></td>
             <td th:text="${question.correctAnswer}"></td>
             <td th:text="${question.getDifficulty().getLevel()}"></td>
-            <td><a th:href="@{'/editquestion/'+${question.questionId}}" class="btn btn-danger">Edit</a></td>
-        </tr>
-    </tbody>
-    </table>
-        </div>
-</body>
-
+            <td>
+              <a
+                th:href="@{'/editquestion/'+${question.questionId}}"
+                class="btn btn-danger"
+                >Edit</a
+              >
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <a href="/quizzlist" class="btn btn-primary">Back to Quizz List</a>
+    </div>
+  </body>
 </html>

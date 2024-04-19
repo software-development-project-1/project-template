@@ -24,18 +24,14 @@
         <form th:action="@{/filterQuizzesByDate}" method="get">
           <button type="submit" class="btn btn-primary">Filter Newest to Oldest</button>
       </form>
-      
-
+    
       <div class="col-md-4" style="float: right; padding: 20px 0; margin-top: -5%; margin-right: -15%">
         <form th:action="@{/logout}" method="post">
           <input type="submit" value="Sign Out" class="btn btn-xs btn-danger"/>
         </form>
       </div>
 
-
     <table class="table table-striped">
-
-
 
         <tr>
           <th>Name</th>
@@ -48,21 +44,16 @@
           <td th:text="${quizz.name}"></td>
           <td th:text="${quizz.getCreationTime()}"></td>
           <td th:text="${quizz.description}"></td>
-<<<<<<< HEAD
-          <td th:text="${quizz.status.getStatus()  ? 'published':'not published'}"></td>
+          <td th:text="${quizz.status.getStatus()  ? 'Published':'Not published'}"></td>
           <td ><a th:href="@{/editquizz/{id}(id=${quizz.quizzId})}" class="btn btn-xs btn-warning">Edit</a></td> 
-=======
-          <td th:text="${quizz.status.getStatus()  ? 'Publish':'Not published'}"></td>
-          <td ><a th:href="@{/editquizz/{id}(id=${quizz.quizzId})}" class="btn btn-xs btn-danger">Edit</a></td> 
->>>>>>> origin/main
           <td ><a
               th:href="@{'/deletequizz/'+${quizz.quizzId}}"
               class="btn btn-xs btn-danger"
               >Delete</a>
           </td>
-          <td ><a th:href="@{'/questionlist/'+${quizz.quizzId}}">See Question</a></td> 
+          <td ><a th:href="@{'/questionlist/'+${quizz.quizzId}}" class="btn btn-xs btn-info">See Question</a></td> 
         </tr>
     </table>
-    <a href="/addquizz" class="btn btn-success">Add a Quizz</a>
+    <a href="/addquizz" class="btn btn-primary">Add a Quizz</a>
   </body>
 </html>
