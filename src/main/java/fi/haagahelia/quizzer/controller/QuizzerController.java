@@ -50,9 +50,6 @@ public class QuizzerController {
         return "quizzlist";
     }
 
-<<<<<<< HEAD
-    // edit quizzes
-=======
     // add new quiz with creation date - Hong
     @GetMapping(value = "/addquizz")
     public String addQuizz(Model model) {
@@ -79,7 +76,6 @@ public class QuizzerController {
         return "quizzlist"; // Return the name of the Thymeleaf template
     }
 
->>>>>>> origin/main
     @GetMapping(value = "/editquizz/{id}")
     public String editQuizForm(@PathVariable("id") Long id, Model model) {
         model.addAttribute("quizz", quizzRepository.findById(id));
