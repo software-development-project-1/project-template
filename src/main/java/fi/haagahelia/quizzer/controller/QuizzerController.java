@@ -1,4 +1,5 @@
 package fi.haagahelia.quizzer.controller;
+
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -16,10 +17,6 @@ import fi.haagahelia.quizzer.repository.QuizzRepository;
 import fi.haagahelia.quizzer.repository.StatusRepository;
 import jakarta.persistence.EntityNotFoundException;
 
-
-
-
-
 @Controller
 public class QuizzerController {
 
@@ -36,7 +33,6 @@ public class QuizzerController {
         model.addAttribute("quizzlist", quizzRepository.findAll());
         return "quizzlist";
     }
-
 
     // edit quizzes
     // add new quiz with creation date - Hong
