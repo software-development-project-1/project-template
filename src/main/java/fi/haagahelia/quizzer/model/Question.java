@@ -2,20 +2,8 @@ package fi.haagahelia.quizzer.model;
 
 
 
-<<<<<<< HEAD
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.validation.constraints.NotEmpty;
-
-=======
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
->>>>>>> f7cc09fc4cb5478cde92f10324e991d23916f76c
 
 
 @Entity
@@ -23,16 +11,6 @@ public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long questionId;
-<<<<<<< HEAD
-
-    @NotEmpty(message = "Please provide some text")
-    @Column(nullable = false)
-    private String questionText;
-    @NotEmpty(message = "Please provide some text")
-    @Column(nullable = false)
-    private String correctAnswer;
-    @NotEmpty(message = "Please provide some text")
-=======
     @NotEmpty(message = "Please provide a question")
     @Column(nullable = false)
     private String questionText;
@@ -40,7 +18,6 @@ public class Question {
     @Column(nullable = false)
     private String correctAnswer;
     @NotEmpty(message = "Please provide a difficulty level")
->>>>>>> f7cc09fc4cb5478cde92f10324e991d23916f76c
     @Column(nullable = false)
     private String difficultyLevel;
 

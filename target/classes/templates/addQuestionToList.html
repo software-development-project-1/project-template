@@ -26,7 +26,7 @@
 
         <div class="mb-3">
             <input type="hidden" th:field="*{questionId}" />
-            <input type="hidden" th:field="*{quiz.id}" th:value="${quiz.id}"/>
+            <input type="hidden" th:field="*{quiz}" th:value="${quiz}" />
           <label for="questionname" class="form-label">Question text</label>
           <input
             type="text"
@@ -34,15 +34,7 @@
             placeholder="Type in question"
             class="form-control"
           />
-<<<<<<< HEAD
-          <div
-            th:if="${#fields.hasErrors('questionText')}"
-            class="text-danger"
-            th:errors="*{questionText}"
-          ></div>
-=======
           <div th:if="${#fields.hasErrors('questionText')}" class="text-danger" th:errors="*{questionText}"></div>
->>>>>>> f7cc09fc4cb5478cde92f10324e991d23916f76c
         </div>
         <div class="mb-3">
           <label for="correctAnswer" class="form-label">Correct answer</label>
@@ -53,15 +45,7 @@
             class="form-control"
             rows="3"
           ></textarea>
-<<<<<<< HEAD
-          <div
-            th:if="${#fields.hasErrors('correctAnswer')}"
-            class="text-danger"
-            th:errors="*{correctAnswer}"
-          ></div>
-=======
           <div th:if="${#fields.hasErrors('correctAnswer')}" class="text-danger" th:errors="*{correctAnswer}"></div>
->>>>>>> f7cc09fc4cb5478cde92f10324e991d23916f76c
         </div>
 
         <div class="mb-3">

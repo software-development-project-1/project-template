@@ -54,13 +54,15 @@ public class QuestionController {
     @RequestMapping(value = "/saveQuestionToList", method = RequestMethod.POST)
     public String saveQuestionToList(@Valid @ModelAttribute("newQuestion") Question newQuestion, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            model.addAttribute("newQuestion", newQuestion);
+        model.addAttribute("newQuestion", newQuestion);
+        if (newQuestion.getQuiz() != null) {
             model.addAttribute("quiz", newQuestion.getQuiz());
-            return "addQuestionToList";
         }
-        Long quizId = newQuestion.getQuiz().getId();
-        questionrepository.save(newQuestion);
-        return "redirect:/questionList/"+quizId;
+        return "addQuestionToList";
+    }
+    Long quizId = newQuestion.getQuiz().getId();
+    questionrepository.save(newQuestion);
+    return "redirect:/questionList/"+quizId;
     }
     // Delete question by id:
     @RequestMapping(value = "/deleteQuestion/{id}", method = RequestMethod.GET)
