@@ -4,9 +4,12 @@ import fi.haagahelia.quizzer.model.Question;
 import fi.haagahelia.quizzer.model.Quiz;
 import fi.haagahelia.quizzer.repository.QuestionRepository;
 import fi.haagahelia.quizzer.repository.QuizRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,7 +31,7 @@ public class QuestionController {
             Quiz quiz = quizOptional.get();
             Question newQuestion = new Question();
             newQuestion.setQuiz(quiz);
-            model.addAttribute("newquestion", newQuestion);
+            model.addAttribute("newQuestion", newQuestion);
             model.addAttribute("quiz", quiz);
             return "addQuestionToList";
         } else {
@@ -49,7 +52,12 @@ public class QuestionController {
         return "questionList";
     }
     @RequestMapping(value = "/saveQuestionToList", method = RequestMethod.POST)
-    public String saveQuestionToList(Question newQuestion) {
+    public String saveQuestionToList(@Valid @ModelAttribute("newQuestion") Question newQuestion, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("newQuestion", newQuestion);
+            model.addAttribute("quiz", newQuestion.getQuiz());
+            return "addQuestionToList";
+        }
         Long quizId = newQuestion.getQuiz().getId();
         questionrepository.save(newQuestion);
         return "redirect:/questionList/"+quizId;

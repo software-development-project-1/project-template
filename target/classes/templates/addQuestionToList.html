@@ -18,12 +18,12 @@
     <div layout:fragment="content" class="container mt-4 mb-4">
         <h2 th:text="'Add a question to ' + ${quiz.quizName}"></h2>
       <form
-        th:object="${newquestion}" 
+        th:object="${newQuestion}"
         th:action="@{/saveQuestionToList}"
         action="#"
         method="post"
       >
-       
+
         <div class="mb-3">
             <input type="hidden" th:field="*{questionId}" />
             <input type="hidden" th:field="*{quiz.id}" th:value="${quiz.id}"/>
@@ -34,6 +34,7 @@
             placeholder="Type in question"
             class="form-control"
           />
+          <div th:if="${#fields.hasErrors('questionText')}" class="text-danger" th:errors="*{questionText}"></div>
         </div>
         <div class="mb-3">
           <label for="correctAnswer" class="form-label">Correct answer</label>
@@ -44,17 +45,19 @@
             class="form-control"
             rows="3"
           ></textarea>
+          <div th:if="${#fields.hasErrors('correctAnswer')}" class="text-danger" th:errors="*{correctAnswer}"></div>
         </div>
 
         <div class="mb-3">
           <div class="form-check">
             <label for="correctAnswer" class="form-label">Difficulty level</label><br>
-           
+
             <label><input type="radio" name="difficultyLevel" value="Easy"> Easy</label><br>
             <label><input type="radio" name="difficultyLevel" value="Normal"> Normal</label><br>
             <label><input type="radio" name="difficultyLevel" value="Hard"> Hard</label><br>
-           
+
           </div>
+          <div th:if="${#fields.hasErrors('difficultyLevel')}" class="text-danger" th:errors="*{difficultyLevel}"></div>
         </div>
         <button type="submit" class="btn btn-primary">Add</button>
         <a th:href="'/questionList/' + ${quiz.id}" class="btn btn-secondary">Cancel</a>

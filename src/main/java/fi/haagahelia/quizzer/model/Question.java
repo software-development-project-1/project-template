@@ -2,13 +2,8 @@ package fi.haagahelia.quizzer.model;
 
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 
 
 @Entity
@@ -16,8 +11,14 @@ public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long questionId;
+    @NotEmpty(message = "Please provide a question")
+    @Column(nullable = false)
     private String questionText;
+    @NotEmpty(message = "Please provide a correct answer")
+    @Column(nullable = false)
     private String correctAnswer;
+    @NotEmpty(message = "Please provide a difficulty level")
+    @Column(nullable = false)
     private String difficultyLevel;
 
     @ManyToOne
