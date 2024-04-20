@@ -178,4 +178,11 @@ public class QuizController {
         return "editCategory";
     }
 
+	// Delete category by id:
+    @RequestMapping(value = "/deleteCategory/{id}", method = RequestMethod.GET)
+    public String deleteCategory(@PathVariable("id") Long id, Model model) {
+        categoryrepository.deleteById(id);
+        return "redirect:/categoryList";
+    }
+
 }
