@@ -57,22 +57,27 @@ public class QuestionController {
         model.addAttribute("questions", questions);
         model.addAttribute("difficulties", difficultyRepository.findAll());
         model.addAttribute("selectedDifficultyId", difficultyId); // Pass the selected difficulty id to the template
+        model.addAttribute("quizzId", quizzId);
         return "questionlist";
     }
 
     // add question
-    @GetMapping("/addQuestion")
-    public String addQuestion(Model model) {
+    @GetMapping("/addQuestion/{quizzId}")
+    public String addQuestion(@PathVariable("quizzId") Long quizzId,Model model) {
         model.addAttribute("question", new Question());
         model.addAttribute("difficulties", difficultyRepository.findAll());
+        model.addAttribute("quizzId", quizzId);
         return "addQuestion";
     }
 
     // save question
-    @PostMapping("/saveQuestion")
-    public String saveQuestion(Question question) {
+    @PostMapping("/saveQuestion/{quizzId}")
+    public String saveQuestion(@PathVariable("quizzId") Long quizzId,Question question) {
+        Quizz quizz = quizzRepository.findById(quizzId)
+                .orElseThrow(() -> new EntityNotFoundException("Quiz not found"));
+        question.setQuizz(quizz);
         questionRepository.save(question);
-        return "redirect:/questionlist/{quizzId}";
+        return "redirect:/questionlist/" +quizzId;
     }
 
     // edit question

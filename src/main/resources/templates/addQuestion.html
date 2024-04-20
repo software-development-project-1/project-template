@@ -18,7 +18,7 @@
 <body>
     <div layout:fragment="content" class="center">
         <h2>Add a Question</h2>
-        <form th:action="@{/saveQuestion}" th:object="${question}" action="#" method="post">
+        <form th:action="@{'/saveQuestion/'+ ${quizzId}}" th:object="${question}" action="#" method="post">
             <div>
                 <label for="questionText">Question Text</label>
                 <input type="text" id="questionText" th:field="*{questionText}" />
@@ -36,7 +36,7 @@
 
 
                 <input type="submit" value="Save" class="btn btn-success" />
-                <a href="/quizzlist" class="btn btn-success">Cancel</a>
+                <a th:href="@{'/questionlist/'+${quizzId}}" class="btn btn-danger">Cancel</a>
         </form>
     </div>
 </body>

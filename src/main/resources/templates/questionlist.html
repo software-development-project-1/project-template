@@ -74,8 +74,8 @@
             </tr>
           </tbody>
         </table>
-        <a href="/addQuestion" class="btn btn-primary">Add a Question</a>
-        <a href="/quizzlist" class="btn btn-primary">Back to Quizz List</a>
+        <a th:href="@{'/addQuestion/'+${quizzId}}" class="btn btn-primary">Add a Question</a>
+        <a th:href="@{/quizzlist}" class="btn btn-primary">Back to Quizz List</a>
     </div>
   </body>
 
