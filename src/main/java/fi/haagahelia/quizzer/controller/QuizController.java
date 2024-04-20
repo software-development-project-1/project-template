@@ -189,6 +189,30 @@ public class QuizController {
         return "editCategory";
     }
 
+	// Save updated category
+	@PostMapping("/saveUpdatedCategory")
+	public String saveUpdatedCategory(@Valid @ModelAttribute("category") Category category, BindingResult bindingResult,
+			Model model) {
+
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("category", category);
+			return "editCategory";
+		}
+
+		List<Category> categories = categoryrepository.findAll();
+		String updatedCategoryName = category.getName();
+		for (Category c : categories) {
+			if (!c.getId().equals(category.getId()) && c.getName().equalsIgnoreCase(updatedCategoryName)) {
+				model.addAttribute("errorMessage", "Category name already exists");
+				model.addAttribute("category", category);
+				return "editCategory";
+			}
+		}
+
+		categoryrepository.save(category);
+		return "redirect:/categoryList";
+	}
+
 	// Delete category by id:
     @RequestMapping(value = "/deleteCategory/{id}", method = RequestMethod.GET)
     public String deleteCategory(@PathVariable("id") Long id, Model model) {

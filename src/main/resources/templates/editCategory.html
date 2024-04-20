@@ -16,10 +16,15 @@
     </head>
     <body>
         <div layout:fragment="content" class="container mt-4 mb-4">
-            <h2>Edit category</h2>
+        <h2>Edit category</h2>
+        <div 
+            th:if="${errorMessage}" 
+            class="text-danger" 
+            th:text="${errorMessage}"
+        ></div>
         <form
             th:object="${category}" 
-            th:action="@{/saveCategory}"
+            th:action="@{/saveUpdatedCategory}"
             action="#"
             method="post"
         >
