@@ -28,6 +28,7 @@ import fi.haagahelia.quizzer.repository.DifficultyRepository;
 import fi.haagahelia.quizzer.repository.QuestionRepository;
 import fi.haagahelia.quizzer.repository.QuizzRepository;
 import fi.haagahelia.quizzer.repository.StatusRepository;
+import jakarta.persistence.EntityNotFoundException;
 
 @Controller
 public class QuizzerController {
@@ -87,17 +88,27 @@ public class QuizzerController {
         return "quizzlist";
     }
 
-    @GetMapping(value = "/editquizz/{id}")
-    public String editQuizForm(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("quizz", quizzRepository.findById(id));
+    @GetMapping(value = "/editquizz/{quizzId}")
+    public String editQuizForm(@PathVariable("quizzId") Long quizzId, Model model) {
+        model.addAttribute("quizz", quizzRepository.findById(quizzId));
         model.addAttribute("statuses", statusRepository.findAll());
         model.addAttribute("categories", categoryRepository.findAll());
+        model.addAttribute("quizzId", quizzId);
         return "editquizz.html";
     }
 
     // save quizz
     @PostMapping(value = "/savequizz")
     public String save(Quizz quizz) {
+        quizzRepository.save(quizz);
+        return "redirect:/quizzlist";
+    }
+
+    @PostMapping(value = "/updatequizz/{quizzId}")
+    public String update(@PathVariable("quizzId")Long quizzId,Quizz quizz) {
+        Quizz Quizz = quizzRepository.findById(quizzId)
+                .orElseThrow(() -> new EntityNotFoundException("Quiz not found"));
+        quizz.setCreatetionTime(Quizz.getCreationTime());
         quizzRepository.save(quizz);
         return "redirect:/quizzlist";
     }

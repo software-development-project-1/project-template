@@ -1,64 +1,55 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-  <link
-    type="text/css"
-    rel="stylesheet"
-    href="/css/bootstrap.min.css"
-    th:href="@{css/bootstrap.min.css}"
-  />
 
-  <head>
-    <title>Edit Quiz</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  </head>
+<head>
+  <title>Edit Quiz</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-  <body>
-    <h1>Edit Quiz</h1>
-    <div>
-      <form
-        th:object="${quizz}"
-        th:action="@{../savequizz}"
-        action="#"
-        method="post"
-      >
-        <input type="hidden" id="quizzId" th:field="*{quizzId}" />
-        <form th:object="${quizz}" th:action="@{/savequizz}" action="#" method="post">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
-        <label for="name">Name: </label>
-        <input type="text" th:field="*{name}" />
+  <style>
+    .center {
+      margin: 0 auto;
+      /* Centerize the form horizontally */
+      width: 50%;
+      /* Adjust the width as needed */
+    }
+  </style>
+</head>
 
-        <label for="description">Description: </label>
-        <input type="text" th:field="*{description}" />
+<body class="center">
+  <h1>Edit Quiz</h1>
+  <div>
+    <form th:object="${quizz}" th:action="@{'/updatequizz/'+${quizzId}}" action="#" method="post">
+      <input type="hidden" id="quizzId" th:field="*{quizzId}" />
 
-        <label for="creationTime">Creation Time: </label>
-        <input type="text" th:field="*{creationTime}" />
+      <label for="name">Name: </label>
+      <input type="text" th:field="*{name}" class="form-control" />
+      <div style="clear: both; display: block; height: 10px;"></div>
 
-        <label for="status">Status: </label>
-        <select id="status" th:field="*{status}" class="form-control">
-          <option
-            th:each="status: ${statuses}"
-            th:value="${status.statusId}"
-            th:text="${status.status  ? 'published':'not published'}"
-          ></option>
-        </select>
+      <label for="description">Description: </label>
+      <input type="text" th:field="*{description}" class="form-control" />
+      <div style="clear: both; display: block; height: 10px;"></div>
 
-        <label for="category">Category:</label>
-        <select id="category" th:field="*{category}" class="form-control">
-          <option
-            th:each="category: ${categories}"
-            th:value="${category.categoryId}"
-            th:text="${category.name}"
-          ></option>
-        </select>
-            <label for="status">Status: </label>
-            <select id="status" th:field="*{status}" class="form-control">
-                <option th:each="status: ${statuses}" th:value="${status.statusId}"
-                    th:text="${status.status  ? 'published':'not published'}"></option>
-            </select>
 
-        <input type="submit" value="Save" />
-        <a href="/quizzlist" class="btn btn-success">Cancel</a>
-      </form>
-    </div>
-  </body>
+      <label for="category">Category:</label>
+      <select id="category" th:field="*{category}" class="form-control">
+        <option th:each="category: ${categories}" th:value="${category.categoryId}" th:text="${category.name}">
+        </option>
+      </select>
+      <div style="clear: both; display: block; height: 10px;"></div>
+
+      <label for="status">Status: </label>
+      <select id="status" th:field="*{status}" class="form-control">
+        <option th:each="status: ${statuses}" th:value="${status.statusId}"
+          th:text="${status.status  ? 'published':'not published'}"></option>
+      </select>
+      <div style="clear: both; display: block; height: 10px;"></div>
+
+      <input type="submit" value="Save" class="btn btn-success" />
+      <a href="/quizzlist" class="btn btn-danger">Cancel</a>
+    </form>
+  </div>
+</body>
+
 </html>

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <style>
   .center {
     margin: 0 auto;
@@ -21,11 +21,11 @@
     <form th:action="@{/savequizz}" th:object="${quizz}" action="#" method="post">
       <div>
         <label for="name">Name</label>
-        <input type="text" id="name" th:field="*{name}" />
+        <input type="text" id="name" th:field="*{name}" class="form-control" />
         <div style="clear: both; display: block; height: 10px"></div>
 
         <label for="description">Description</label>
-        <input type="text" id="description" th:field="*{description}" />
+        <input type="text" id="description" th:field="*{description}" class="form-control" />
         <div style="clear: both; display: block; height: 10px"></div>
         <label for="category">Category</label>
         <select id="category" th:field="*{category}" class="form-control">
@@ -33,13 +33,15 @@
           </option>
         </select>
         <!-- published - boolean //not sure yet-->
+        <div style="clear: both; display: block; height: 10px"></div>
         <label for="status">Status</label>
         <select id="status" th:field="*{status}" class="form-control">
           <option th:each="status: ${statuses}" th:value="${status.statusId}"
             th:text="${status.status ? 'Published' : 'Not published'}"></option>
-
-          <input type="submit" value="Save" class="btn btn-success" />
-          <a href="/quizzlist" class="btn btn-success">Cancel</a>
+        </select>
+        <div style="clear: both; display: block; height: 10px"></div>
+        <input type="submit" value="Save" class="btn btn-success" />
+        <a href="/quizzlist" class="btn btn-danger">Cancel</a>
     </form>
   </div>
 </body>

@@ -69,13 +69,13 @@
               <td th:text="${question.correctAnswer}"></td>
               <td th:text="${question.getDifficulty().getLevel()}"></td>
               <td>
-                <a th:href="@{'/editquestion/'+${question.questionId}}" class="btn btn-danger">Edit</a>
+                <a th:href="@{'/editquestion/'+${question.questionId}+'/'+${question.getQuizz().getQuizzId()}}" class="btn btn-danger">Edit</a>
               </td>
             </tr>
           </tbody>
         </table>
         <a th:href="@{'/addQuestion/'+${quizzId}}" class="btn btn-primary">Add a Question</a>
-        <a th:href="@{/quizzlist}" class="btn btn-primary">Back to Quizz List</a>
+        <a th:href="@{/quizzlist}" class="btn btn-info">Back to Quizz List</a>
     </div>
   </body>
 

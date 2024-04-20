@@ -81,19 +81,23 @@ public class QuestionController {
     }
 
     // edit question
-    @GetMapping(value = "/editquestion/{questionId}")
-    public String editQuizForm(@PathVariable("questionId") Long questionId, Model model) {
+    @GetMapping(value = "/editquestion/{questionId}/{quizzId}")
+    public String editQuizForm(@PathVariable("questionId") Long questionId,@PathVariable("quizzId") Long quizzId, Model model) {
         model.addAttribute("question", questionRepository.findById(questionId));
         model.addAttribute("difficulties", difficultyRepository.findAll());
         model.addAttribute("quizzes", quizzRepository.findAll());
+        model.addAttribute("quizzId", quizzId);
         return "editquestion.html";
     }
 
     // save question
-    @PostMapping(value = "/savequestion")
-    public String save(Question question) {
+    @PostMapping("/updatequestion/{quizzId}")
+    public String save(@PathVariable("quizzId") Long quizzId,Question question) {
+        Quizz quizz = quizzRepository.findById(quizzId)
+                .orElseThrow(() -> new EntityNotFoundException("Quiz not found"));
+        question.setQuizz(quizz);
         questionRepository.save(question);
-        return "redirect:/questionlist/" + question.getQuizz().getQuizzId();
+        return "redirect:/questionlist/" + quizzId;
     }
 
 }

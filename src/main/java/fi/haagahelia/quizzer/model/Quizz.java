@@ -72,12 +72,15 @@ public class Quizz {
         return description;
     }
 
-    public String getCreationTime() {
+    public Instant getCreationTime() {
+        return creationTime;
+    }
+
+    public String getCreationTimeFormatted() {
         ZonedDateTime zdt = creationTime.atZone(ZoneId.systemDefault());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH.mm");
         return formatter.format(zdt);
     }
-
     public List<Question> getQuestion() {
         return questions;
     }
