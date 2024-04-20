@@ -149,12 +149,23 @@ public class QuizController {
 	@PostMapping("/saveCategory")
 	public String saveCategoryToList(@Valid @ModelAttribute("category") Category category, BindingResult bindingResult,
 			Model model) {
+
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("category", category);
 			return "addCategory";
 		}
+		
+		List<Category> categories = categoryrepository.findAll();
+		String newCategoryName = category.getName();		
+		for(Category existingCategory : categories ){
+			if(existingCategory.getName().equalsIgnoreCase(newCategoryName)){
+				model.addAttribute("errorMessage", "Category name has already existed!");
+				model.addAttribute("category", category);
+				return "addCategory";
+			}
+		}
+		
 		categoryrepository.save(category);
-
 		return "redirect:/categoryList";
 	}
 

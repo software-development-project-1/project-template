@@ -36,6 +36,11 @@
                 class="text-danger"
                 th:errors="*{name}"
             ></div>
+            <div
+                th:if="${errorMessage}"
+                class="text-danger"
+                th:text="${errorMessage}"
+            ></div>
             </div>
             <div class="mb-3">
             <label for="description" class="form-label">Description</label>
