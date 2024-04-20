@@ -67,6 +67,21 @@
                 ></div> -->
           </div>
         </div>
+        <div class="mb-3" th:if="${#fields.hasErrors('quizName')} or ${#fields.hasErrors('quizDescription')}">
+            <label for="category" class="form-select-label">Category</label>
+            <select class="form-select" th:field="*{category}" aria-label="select-category" style="width: 300px;">
+              <option value="">Select category here</option>
+              <option th:each="category: ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+            </select>
+            <div class="text-danger">Possible error in other field.</div>
+        </div>
+        <div class="mb-3" th:unless="${#fields.hasErrors('quizName')} or ${#fields.hasErrors('quizDescription')}">
+            <label for="category" class="form-select-label">Category</label>
+            <select class="form-select" th:field="*{category}" aria-label="select-category" style="width: 300px;">
+              <option value="">Select category here</option>
+              <option th:each="category: ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+            </select>
+        </div>
         <button type="submit" class="btn btn-primary">Add</button>
         <a href="/" class="btn btn-secondary">Cancel</a>
       </form>

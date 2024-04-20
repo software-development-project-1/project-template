@@ -49,6 +49,13 @@
               <label class="form-check-label" for="published">Published</label>
             </div>
           </div>
+          <div class="mb-3">
+            <label for="category" class="form-select-label">Category</label><br>
+            <select class="form-select" th:field="*{category}" aria-label="select-category" style="width: 300px;">
+              <option value="">Select category here</option>
+              <option th:each="category: ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+            </select>
+          </div>
         </div>
         <button type="submit" class="btn btn-primary">Update</button>
         <a href="/" class="btn btn-secondary">Cancel</a>

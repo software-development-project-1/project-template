@@ -26,7 +26,7 @@ public class Quiz {
 	private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "categoryId")
+    @JoinColumn(name = "categoryId", nullable = true)
     private Category category;
 
     @CreationTimestamp
