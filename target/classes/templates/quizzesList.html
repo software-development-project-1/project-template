@@ -10,18 +10,27 @@
 <body>
 <div layout:fragment="content" class="container">
   <h2>Quizzes</h2>
-  <div class="dropdown mb-4 mt-4">
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="quiz-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      Sort By
-    </button>
-    <ul class="dropdown-menu" aria-labelledby="quiz-dropdown">
-      <li><a class="dropdown-item" href="/">Default</a></li>
-      <li><a class="dropdown-item" href="/quiz/newest">Newest First</a></li>
-      <li><a class="dropdown-item" href="/quiz/oldest">Oldest First</a></li>
-      <li><a class="dropdown-item" href="/quiz/published">Published</a></li>
-      <li><a class="dropdown-item" href="/quiz/unpublished">Unpublished</a></li>
-    </ul>
-  </div>
+    <div class="mb-3">
+      <div class="dropdown mb-4 mt-4">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="quiz-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Sort By
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="quiz-dropdown">
+          <li><a class="dropdown-item" href="/">Default</a></li>
+          <li><a class="dropdown-item" href="/quiz/newest">Newest First</a></li>
+          <li><a class="dropdown-item" href="/quiz/oldest">Oldest First</a></li>
+          <li><a class="dropdown-item" href="/quiz/published">Published</a></li>
+          <li><a class="dropdown-item" href="/quiz/unpublished">Unpublished</a></li>
+        </ul>
+      </div>
+      <a
+        th:href="@{/categoryList}"
+        class="btn btn-info"
+      >
+      Categories
+      </a>
+    </div>
+  
   <table class="table table-striped" border="1">
     <thead>
     <tr>

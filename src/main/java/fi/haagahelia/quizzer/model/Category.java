@@ -11,6 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotEmpty;
 
 @Entity
 public class Category {
@@ -23,10 +24,21 @@ public class Category {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
     private List<Quiz> quizzes;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique=true)
+    @NotEmpty(message = "Please provide a category name")
     private String name;
 
+    @Column(nullable = true)
+    private String categoryDescription;
+
     public Category() {
+    }
+
+    public Category(List<Quiz> quizzes, String name, String categoryDescription) {
+        super();
+        this.quizzes = quizzes;
+        this.name = name;
+        this.categoryDescription = categoryDescription;
     }
 
     public Category(String name) {
@@ -56,6 +68,14 @@ public class Category {
 
     public void setQuizzes(List<Quiz> quizzes) {
         this.quizzes = quizzes;
+    }
+
+    public String getCategoryDescription() {
+        return categoryDescription;
+    }
+
+    public void setCategoryDescription(String categoryDescription) {
+        this.categoryDescription = categoryDescription;
     }
 
     

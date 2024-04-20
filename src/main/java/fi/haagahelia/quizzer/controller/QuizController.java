@@ -1,6 +1,7 @@
 package fi.haagahelia.quizzer.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,10 +22,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import fi.haagahelia.quizzer.model.Category;
-import fi.haagahelia.quizzer.model.Question;
 import fi.haagahelia.quizzer.model.Quiz;
 import fi.haagahelia.quizzer.repository.CategoryRepository;
-import fi.haagahelia.quizzer.repository.QuestionRepository;
 import fi.haagahelia.quizzer.repository.QuizRepository;
 
 @Controller
@@ -33,7 +32,7 @@ public class QuizController {
 	@Autowired
 	private QuizRepository qrepository;
 	@Autowired
-	private QuestionRepository questionrepository;
+	private CategoryRepository categoryrepository;
 
 	@GetMapping("/")
 	public String listQuizzes(Model model) {
@@ -129,6 +128,36 @@ public class QuizController {
 		List<Quiz> quizzes = qrepository.findByPublished(false);
 		model.addAttribute("quizzes", quizzes);
 		return "quizzesList";
+	}
+
+	// Add new category:
+	@GetMapping("/addCategory")
+	public String addCategoryForm(Model model) {
+		model.addAttribute("category", new Category());
+		return "addCategory";
+	}
+
+	// Save category
+	@PostMapping("/saveCategory")
+	public String saveCategoryToList(@Valid @ModelAttribute("category") Category category, BindingResult bindingResult,
+			Model model) {
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("category", category);
+			return "addCategory";
+		}
+		categoryrepository.save(category);
+
+		return "redirect:/categoryList";
+	}
+
+	// Show list of categories
+	@GetMapping(value = "/categoryList")
+	public String listCategories(Model model) {
+		List<Category> categories = categoryrepository.findAll();
+		Collections.sort(categories, (c1, c2) -> c1.getName().compareTo(c2.getName()));
+
+		model.addAttribute("categoryList", categories);
+		return "categoryList";
 	}
 
 }
