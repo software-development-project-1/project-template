@@ -33,10 +33,6 @@
         </form>
       </div>
       <h3 th:text="'Questions of ' + ${quizzName}"></h3>
-      <table class="table table-striped">
-        <h1 th:text="${quizzName}"></h1>
-
-
         <table class="table table-striped">
           <thead>
             <tr>
@@ -69,7 +65,7 @@
               <td th:text="${question.correctAnswer}"></td>
               <td th:text="${question.getDifficulty().getLevel()}"></td>
               <td>
-                <a th:href="@{'/editquestion/'+${question.questionId}+'/'+${question.getQuizz().getQuizzId()}}" class="btn btn-danger">Edit</a>
+                <a th:href="@{'/editquestion/'+${question.questionId}+'/'+${question.getQuizz().getQuizzId()}}" class="btn btn-warning">Edit</a>
               </td>
             </tr>
           </tbody>
