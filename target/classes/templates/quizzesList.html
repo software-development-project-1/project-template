@@ -36,6 +36,7 @@
     <tr>
       <th>Name</th>
       <th>Description</th>
+      <th>Category</th>
       <th>Published</th>
       <th>Actions</th>
     </tr>
@@ -45,11 +46,15 @@
       <td th:text="${quiz.quizName}"></td>
       <td th:text="${quiz.quizDescription}"></td>
       <td>
-              <span
-                      th:class="${quiz.published} ? 'badge bg-primary' : 'badge bg-secondary'"
-              >
-                <span th:text="${quiz.publishedDisplay}"></span>
-              </span>
+          <span th:if="${quiz.category != null}" th:text="${quiz.category.name}" class="badge bg-primary" ></span>
+          <span th:unless="${quiz.category != null}" class="badge bg-secondary">Not categorized</span>
+      </td>
+      <td>
+          <span
+          th:class="${quiz.published} ? 'badge bg-primary' : 'badge bg-secondary'"
+          >
+          <span th:text="${quiz.publishedDisplay}"></span>
+          </span>
       </td>
       <td>
         <a

@@ -15,6 +15,7 @@
                 <tr>
                     <th>Name</th>
                     <th>Description</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -31,7 +32,7 @@
                     <td th:text="${category.categoryDescription}"></td>
                     <td>
                     <a
-                        th:href="@{'/editCategory/' + ${category.id}}"
+                        th:href="@{/editCategory/{id}(id=${category.id})}"
                         class="btn btn-secondary"
                         >Edit</a
                     >

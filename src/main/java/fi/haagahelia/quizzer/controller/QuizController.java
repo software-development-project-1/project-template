@@ -45,7 +45,10 @@ public class QuizController {
 	@GetMapping("/addQuiz")
 	public String renderAddQuizForm(Model model) {
 		model.addAttribute("quiz", new Quiz());
-		model.addAttribute("category", new Category());
+		List<Category> categories = categoryrepository.findAll();
+		Collections.sort(categories, (c1, c2) -> c1.getName().compareTo(c2.getName()));
+		model.addAttribute("categories", categories);
+
 		return "addQuiz";
 	}
 
@@ -68,6 +71,10 @@ public class QuizController {
 		Optional<Quiz> quizOptional = qrepository.findById(id);
 		Quiz quiz = quizOptional.orElse(new Quiz());
 		model.addAttribute("quiz", quiz);
+
+		List<Category> categories = categoryrepository.findAll();
+		Collections.sort(categories, (c1, c2) -> c1.getName().compareTo(c2.getName()));
+		model.addAttribute("categories", categories);
 		return "editQuiz";
 	}
 
@@ -90,6 +97,7 @@ public class QuizController {
 		existingQuiz.setQuizName(updatedQuiz.getQuizName());
 		existingQuiz.setQuizDescription(updatedQuiz.getQuizDescription());
 		existingQuiz.setPublished(updatedQuiz.getPublished());
+		existingQuiz.setCategory(updatedQuiz.getCategory());
 
 		qrepository.save(existingQuiz);
 
@@ -159,5 +167,15 @@ public class QuizController {
 		model.addAttribute("categoryList", categories);
 		return "categoryList";
 	}
+
+	// Edit category by id:
+	@RequestMapping(value = "/editCategory/{id}", method = RequestMethod.GET)
+    public String editCategory(@PathVariable("id") Long id, Model model) {
+        Optional<Category> categoryOptional = categoryrepository.findById(id);
+        Category category = categoryOptional.get();
+        model.addAttribute("category", category);
+
+        return "editCategory";
+    }
 
 }

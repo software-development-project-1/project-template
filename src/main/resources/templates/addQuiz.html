@@ -67,6 +67,14 @@
                 ></div> -->
           </div>
         </div>
+        <div>
+          <label for="category" class="form-select-label">Category</label><br>
+          <select class="form-select" th:field="*{category}" aria-label="select-category" style="width: 300px;">
+            <option value="">Select category here</option>
+            <option th:each="category: ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+          </select>
+        </div>
+        <br>
         <button type="submit" class="btn btn-primary">Add</button>
         <a href="/" class="btn btn-secondary">Cancel</a>
       </form>
