@@ -1,14 +1,10 @@
 package fi.haagahelia.quizzer;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-
-import fi.haagahelia.quizzer.controller.QuizzerController;
 import fi.haagahelia.quizzer.model.Category;
 import fi.haagahelia.quizzer.model.Difficulty;
 import fi.haagahelia.quizzer.model.Question;
@@ -19,6 +15,11 @@ import fi.haagahelia.quizzer.repository.DifficultyRepository;
 import fi.haagahelia.quizzer.repository.QuestionRepository;
 import fi.haagahelia.quizzer.repository.QuizzRepository;
 import fi.haagahelia.quizzer.repository.StatusRepository;
+
+
+
+
+
 
 @SpringBootApplication
 public class QuizzerApplication {

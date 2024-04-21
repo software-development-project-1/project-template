@@ -32,7 +32,7 @@
           <input type="submit" value="Sign Out" class="btn btn-xs btn-danger" />
         </form>
       </div>
-      <h3 th:text="'Questions of ' + ${quizzName}"></h3>
+      <h3 th:text="'QUESTIONS OF ' + ${quizzName}"></h3>
         <table class="table table-striped">
           <thead>
             <tr>
@@ -66,6 +66,9 @@
               <td th:text="${question.getDifficulty().getLevel()}"></td>
               <td>
                 <a th:href="@{'/editquestion/'+${question.questionId}+'/'+${question.getQuizz().getQuizzId()}}" class="btn btn-warning">Edit</a>
+              </td>
+              <td>
+                <a th:href="@{'/deletequestion/'+${question.questionId}+'/'+${question.getQuizz().getQuizzId()}}" class="btn btn-danger">Delete</a>
               </td>
             </tr>
           </tbody>
