@@ -20,6 +20,7 @@ A web-base application designed for teachers to create various kinds of topic-ba
 - Start the application by running the ./mvnw spring-boot:run command on the command-line in the repository folder
 - Once the application has started, visit http://localhost:8080 in a web browser to use the application
 - If you have trouble starting the application with the ./mvnw spring-boot:run command
+- URL: https://quizzer-project-teamb-wbwh.onrender.com/quizzlist
 
 ## Generate a JAR file for the application and run the application using the JAR file
 - Use the command: ./mvnw package
