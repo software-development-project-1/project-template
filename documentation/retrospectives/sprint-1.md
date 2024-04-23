@@ -2,11 +2,9 @@
 
 ## Issues
 
-- The Spring Boot application won't start on my computer.
-- I always have conflicts when I try to pull code from the GitHub.
+- Lack of visibility into the overall project status and progress of individual tasks.
+
 
 ## Actions
 
-- Fix the broken Spring Boot setups together.
-- Pull code from GitHub more often.
-- Create smaller commits and push code to GitHub more often.
+- Implement a practice where team members regularly update their status on Teams, detailing their ongoing activities and any modifications made.
