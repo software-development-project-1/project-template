@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<style>
+    .center {
+        margin: 0 auto;
+        /* Centerize the form horizontally */
+        width: 50%;
+        /* Adjust the width as needed */
+    }
+</style>
+
+<head>
+    <title>Add Category</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+    <div layout:fragment="content" class="center">
+        <h2>Add a Category</h2>
+        <form th:action="@{'/saveCategory/'}" th:object="${category}" action="#" method="post">
+            <div>
+                <label for="name">Category Name</label>
+                <input type="text" id="name" th:field="*{name}" class="form-control"/>
+                <div style="clear: both; display: block; height: 10px"></div>
+
+                <label for="description">Description</label>
+                <input type="text" id="description" th:field="*{description}" class="form-control"/>
+                <div style="clear: both; display: block; height: 10px"></div>
+
+                <input type="submit" value="Add" class="btn btn-success" />
+                <a th:href="@{'/quizzlist/'}" class="btn btn-danger">Cancel</a>
+        </form>
+    </div>
+</body>
+
+</html>
