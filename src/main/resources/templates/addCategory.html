@@ -28,8 +28,8 @@
                 <input type="text" id="description" th:field="*{description}" class="form-control"/>
                 <div style="clear: both; display: block; height: 10px"></div>
 
-                <input type="submit" value="Add" class="btn btn-success" />
-                <a th:href="@{'/quizzlist/'}" class="btn btn-danger">Cancel</a>
+                <a href="/addCategory" class="btn btn-primary">Add a Category</a>
+                <a th:href="@{/quizzlist}" class="btn btn-info">Back to Quizz List</a>
         </form>
     </div>
 </body>

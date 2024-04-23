@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+
+<head>
+  <title>Categories</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="col-md-4">
+      <h1>Categories</h1>
+      </div>
+
+    <div class="col-md-4">
+      <h3 th:inline="text">Welcome!</h3>
+      <h5 th:inline="text">You are <span sec:authentication="name"></span>!</h5>
+    </div>
+
+    <table class="table table-striped">
+
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+
+      <tr th:each="category: ${categorylist}">
+        <td th:text="${category.name}"></td>
+        <td th:text="${category.description}"></td>
+        
+      </tr>
+    </table>
+    <a href="/addCategory" class="btn btn-primary">Add a category</a>
+</body>
+
+</html>
