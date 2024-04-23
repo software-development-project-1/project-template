@@ -17,8 +17,13 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotEmpty;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 public class Quiz {
     @Id
@@ -50,9 +55,6 @@ public class Quiz {
     @JoinColumn(name = "userId")
     private User user;
 
-    public Quiz() {
-    }
-
     public Quiz(Category category, Instant createdAt, String quizName, String quizDescription, Boolean published, User user) {
         super();
         this.category = category;
@@ -63,72 +65,7 @@ public class Quiz {
         this.user= user;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    public Instant getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Instant createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public String getQuizName() {
-        return quizName;
-    }
-
-    public void setQuizName(String quizName) {
-        this.quizName = quizName;
-    }
-
-    public String getQuizDescription() {
-        return quizDescription;
-    }
-
-    public void setQuizDescription(String quizDescription) {
-        this.quizDescription = quizDescription;
-    }
-
-    public Boolean getPublished() {
-        return published;
-    }
-
     public String getPublishedDisplay() {
         return published ? "Published" : "Not Published";
     }
-
-    public void setPublished(Boolean published) {
-        this.published = published;
-    }
-
-    public List<Question> getQuestions() {
-        return questions;
-    }
-
-    public void setQuestions(List<Question> questions) {
-        this.questions = questions;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
 }
