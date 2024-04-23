@@ -12,6 +12,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotEmpty;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
 
 @Entity
 public class Category {
@@ -31,9 +38,6 @@ public class Category {
     @Column(nullable = true)
     private String categoryDescription;
 
-    public Category() {
-    }
-
     public Category(List<Quiz> quizzes, String name, String categoryDescription) {
         super();
         this.quizzes = quizzes;
@@ -44,41 +48,5 @@ public class Category {
     public Category(String name) {
         super();
         this.name = name;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public List<Quiz> getQuizzes() {
-        return quizzes;
-    }
-
-    public void setQuizzes(List<Quiz> quizzes) {
-        this.quizzes = quizzes;
-    }
-
-    public String getCategoryDescription() {
-        return categoryDescription;
-    }
-
-    public void setCategoryDescription(String categoryDescription) {
-        this.categoryDescription = categoryDescription;
-    }
-
-    
-
-
+    }  
 }

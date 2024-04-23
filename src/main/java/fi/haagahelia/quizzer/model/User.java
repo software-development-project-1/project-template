@@ -12,7 +12,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "users")
 public class User {
@@ -39,9 +45,6 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Quiz> quizzes;
 
-    public User() {
-
-    }
 
     public User(String userName, String role, String firstName, String lastName) {
         super();
@@ -51,61 +54,10 @@ public class User {
         this.lastName = lastName;
     }
 
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public List<Quiz> getQuizzes() {
-        return quizzes;
-    }
-
-    public void setQuizzes(List<Quiz> quizzes) {
-        this.quizzes = quizzes;
-    }
-
     @Override
     public String toString() {
         return "User [userId=" + userId + ", userName=" + userName + ", role=" + role + ", firstName=" + firstName
                 + ", lastName=" + lastName + ", quizzes=" + quizzes + "]";
     }
-
-
-    
 
 }
