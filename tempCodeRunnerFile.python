@@ -1,9 +1,0 @@
-countries = {}
-countries["Finland"] = {"name": "Suomi", "area": 338_472,
-                         "capitol": {"name": "Helsinki", "population": 660_821}}
-countries["Sweden"] = {"name": "Sverige", "area": 440_295, 
-                       "capitol": {"name": "Stockholm", "population": 978_770}}
-print(countries["Finland"]["capitol"]["name"], end=", ") 
-print(countries["Finland"]["name"]) 
-print(countries["Sweden"]["capitol"]["name"], end=", ") 
-print(countries["Sweden"]["name"])
