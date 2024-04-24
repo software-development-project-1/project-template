@@ -26,10 +26,9 @@
         <th>Description</th>
       </tr>
 
-      <tr th:each="category: ${categorylist}">
+      <tr th:each="category: ${categories}">
         <td th:text="${category.name}"></td>
         <td th:text="${category.description}"></td>
-        
       </tr>
     </table>
     <a href="/addCategory" class="btn btn-primary">Add a category</a>
