@@ -32,11 +32,10 @@ public class QuizzerController {
 
     // show all quizzes
     @RequestMapping(value = "/quizzlist")
-    public String recipientList(Model model) {
+    public String quizzList(Model model) {
         model.addAttribute("quizzlist", quizzRepository.findAll());
         return "quizzlist";
     }
-
 
     // edit quizzes
     // add new quiz with creation date - Hong
@@ -117,5 +116,12 @@ public class QuizzerController {
     public String deleteQuizz(@PathVariable("quizzId") Long quizzId, Model model) {
         quizzRepository.deleteById(quizzId);
         return "redirect:../quizzlist";
+    }
+
+    // delete category
+    @GetMapping("/deletecategory/{categoryId}")
+    public String deleteCategory(@PathVariable("categoryId") Long categoryId, Model model) {
+        categoryRepository.deleteById(categoryId);
+        return "redirect:../categorylist";
     }
 }
