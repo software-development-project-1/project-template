@@ -18,17 +18,17 @@
 <body>
     <div layout:fragment="content" class="center">
         <h2>Add a Category</h2>
-        <form th:action="@{'/saveCategory/'}" th:object="${category}" action="#" method="post">
+        <form th:action="@{/saveCategory}" th:object="${category}" action="#" method="post">
             <div>
                 <label for="name">Category Name</label>
-                <input type="text" id="name" th:field="*{name}" class="form-control"/>
+                <input type="text" id="name" th:field="*{name}" class="form-control" />
                 <div style="clear: both; display: block; height: 10px"></div>
 
                 <label for="description">Description</label>
-                <input type="text" id="description" th:field="*{description}" class="form-control"/>
+                <input type="text" id="description" th:field="*{description}" class="form-control" />
                 <div style="clear: both; display: block; height: 10px"></div>
 
-                <a href="/addCategory" class="btn btn-primary">Add a Category</a>
+                <input type="submit" value="Save" class="btn btn-success" />
                 <a th:href="@{/quizzlist}" class="btn btn-info">Back to Quizz List</a>
         </form>
     </div>
