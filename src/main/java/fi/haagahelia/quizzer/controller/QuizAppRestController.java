@@ -17,8 +17,10 @@ import org.springframework.web.server.ResponseStatusException;
 
 import fi.haagahelia.quizzer.repository.CategoryRepository;
 import fi.haagahelia.quizzer.repository.QuizRepository;
+import fi.haagahelia.quizzer.repository.QuestionRepository;
 import fi.haagahelia.quizzer.model.Category;
 import fi.haagahelia.quizzer.model.Quiz;
+import fi.haagahelia.quizzer.model.Question;
 
 
 @RestController
@@ -30,6 +32,9 @@ public class QuizAppRestController {
 
     @Autowired
     private QuizRepository quizRepository;
+
+    @Autowired
+    private QuestionRepository questionRepository;
 
     @GetMapping("/categories")
     public @ResponseBody List<Category> getCategories() {
@@ -68,12 +73,36 @@ public class QuizAppRestController {
     @GetMapping("/quiz/{id}")
     public @ResponseBody Quiz getQuizById(@PathVariable("id") Long id) {
         Optional<Quiz> existingQuizOptional = quizRepository.findById(id);
+
         if (existingQuizOptional.isPresent()) {
             Quiz existingQuiz = existingQuizOptional.get();
             return existingQuiz;
         }	
+
         throw new ResponseStatusException(
             HttpStatus.NOT_FOUND, "Quiz with id: "+ id + " not found"
         );
     }
+
+    @GetMapping("/quiz/{id}/questions")
+    public @ResponseBody List<Question> getQuestionsOfQuiz(@PathVariable("id") Long id) {
+        Optional<Quiz> existingQuizOptional = quizRepository.findById(id);
+        if (existingQuizOptional.isPresent()) {
+            Quiz existingQuiz = existingQuizOptional.get();
+            List <Question> questionListOfQuiz = questionRepository.findByQuiz(existingQuiz);
+            if (!questionListOfQuiz.isEmpty()) {
+                return questionListOfQuiz;
+            } else {
+                throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "Questions for Quiz with id: " + id + " were not found"
+                );
+            }
+        }	
+
+        throw new ResponseStatusException(
+            HttpStatus.NOT_FOUND, "Quiz with id: "+ id + " not found"
+        );
+    }
+
+
 }
