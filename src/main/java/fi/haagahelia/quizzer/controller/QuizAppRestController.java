@@ -34,7 +34,7 @@ public class QuizAppRestController {
 
     @GetMapping("/quizes")
     public @ResponseBody List<Quiz> getQuizes() {
-        return quizRepository.findAllByOrderByNameAsc();
+        return quizRepository.findAllByOrderByQuizNameAsc();
     }
 
     @GetMapping("/quiz/{id}")
