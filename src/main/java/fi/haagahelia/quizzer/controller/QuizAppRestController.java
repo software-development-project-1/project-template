@@ -32,6 +32,11 @@ public class QuizAppRestController {
         return categoryRepository.findAllByOrderByNameAsc();
     }
 
+    @GetMapping("/quizes")
+    public @ResponseBody List<Category> getQuizes() {
+        return quizRepository.findAllByOrderByNameAsc();
+    }
+
     @GetMapping("/quiz/{id}")
     public @ResponseBody Quiz getQuizById(@PathVariable("id") Long id) {
         Optional<Quiz> existingQuizOptional = quizRepository.findById(id);
