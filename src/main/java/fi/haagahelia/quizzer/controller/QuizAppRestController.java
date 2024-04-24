@@ -33,7 +33,7 @@ public class QuizAppRestController {
     }
 
     @GetMapping("/quizes")
-    public @ResponseBody List<Category> getQuizes() {
+    public @ResponseBody List<Quiz> getQuizes() {
         return quizRepository.findAllByOrderByNameAsc();
     }
 
