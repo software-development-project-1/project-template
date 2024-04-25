@@ -44,6 +44,8 @@ public class Category {
     public String getDescription(){
         return description;
     }
+
+    @JsonIgnore
     public List<Quizz> getQuizzes(){
         return quizzes;
     }
@@ -58,11 +60,14 @@ public class Category {
     public void setDescription(String description){
         this.description = description;
     }
+
+    @JsonIgnore
     public void setQuizzes(List<Quizz> quizzes){
         this.quizzes = quizzes;
     }
 
 
+    @JsonIgnore
     @Override
     public String toString(){
         return "Category [ Name = "+getName()+", Description = "+ getDescription()+" ]";
