@@ -1,4 +1,5 @@
 package fi.haagahelia.quizzer.controller;
+
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -9,16 +10,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import fi.haagahelia.quizzer.model.Category;
 import fi.haagahelia.quizzer.model.Quizz;
 import fi.haagahelia.quizzer.model.Status;
 import fi.haagahelia.quizzer.repository.CategoryRepository;
 import fi.haagahelia.quizzer.repository.QuizzRepository;
 import fi.haagahelia.quizzer.repository.StatusRepository;
 import jakarta.persistence.EntityNotFoundException;
-
-
-
-
 
 @Controller
 public class QuizzerController {
@@ -37,17 +36,10 @@ public class QuizzerController {
         return "quizzlist";
     }
 
-
     // edit quizzes
     // add new quiz with creation date - Hong
     @GetMapping(value = "/addquizz")
     public String addQuizz(Model model) {
-        // Instant instant = Instant.now();
-        // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        // String formattedInstant = formatter.format(instant);
-        // // Add formatted instant to the model
-        // model.addAttribute("formattedInstant", formattedInstant);
-        // Add empty Quizz object to the model
         model.addAttribute("quizz", new Quizz());
         model.addAttribute("statuses", statusRepository.findAll());
         model.addAttribute("categories", categoryRepository.findAll());
@@ -117,5 +109,33 @@ public class QuizzerController {
     public String deleteQuizz(@PathVariable("quizzId") Long quizzId, Model model) {
         quizzRepository.deleteById(quizzId);
         return "redirect:../quizzlist";
+    }
+
+    // add category - Hong
+    @GetMapping(value = "/addCategory")
+    public String addCategory(Model model) {
+        model.addAttribute("category", new Category());
+        return "addCategory";
+    }
+
+    // save category - Hong
+    @PostMapping(value = "/saveCategory")
+    public String saveCategory(Category category) {
+        categoryRepository.save(category);
+        return "redirect:/quizzlist";
+    }
+
+    // show all category
+    @GetMapping("/categorylist")
+    public String showCat(Model model) {
+        model.addAttribute("categories", categoryRepository.findAll());
+        return "categorylist";
+    }
+
+    //delete category
+    @GetMapping("/deletecategory/{categoryId}")
+    public String deleteCategory(@PathVariable("categoryId") Long categoryId, Model model) {
+        categoryRepository.deleteById(categoryId);
+        return "redirect:../categorylist";
     }
 }
