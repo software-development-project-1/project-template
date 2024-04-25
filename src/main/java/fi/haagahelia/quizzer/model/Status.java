@@ -36,6 +36,8 @@ public class Status {
     public Boolean getStatus(){
         return status;
     }
+
+    @JsonIgnore
     public List<Quizz> getQuizzes(){
         return quizzes;
     }
@@ -43,6 +45,8 @@ public class Status {
     public void setStatus(boolean status){
         this.status = status;
     }
+
+    @JsonIgnore
     public void setQuizzes(List<Quizz> quizzes){
         this.quizzes = quizzes;
     }
