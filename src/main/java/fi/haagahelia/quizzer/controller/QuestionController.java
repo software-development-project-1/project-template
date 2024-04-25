@@ -31,38 +31,33 @@ public class QuestionController {
     @Autowired
     private DifficultyRepository difficultyRepository;
 
-
     @GetMapping("/questionlist/{quizzId}")
-public String questionList(@PathVariable("quizzId") Long quizzId,
-                           @RequestParam(name = "difficulty", required = false) Long difficultyId,
-                           Model model) {
-    Quizz quizz = quizzRepository.findById(quizzId)
-            .orElseThrow(() -> new EntityNotFoundException("Quiz not found"));
+    public String questionList(@PathVariable("quizzId") Long quizzId,
+            @RequestParam(name = "difficulty", required = false) Long difficultyId,
+            Model model) {
+        Quizz quizz = quizzRepository.findById(quizzId)
+                .orElseThrow(() -> new EntityNotFoundException("Quiz not found"));
 
-    List<Question> questions = quizz.getQuestion();
+        List<Question> questions = quizz.getQuestion();
 
-    
-    if (difficultyId != null) {
-        if (difficultyId != 0) {
-        List<Question> filteredQuestions = new ArrayList<>();
-        for (Question question : questions) {
-            if (question.getDifficulty().getDifficultyId().equals(difficultyId)) {
-                filteredQuestions.add(question);
+        if (difficultyId != null) {
+            if (difficultyId != 0) {
+                List<Question> filteredQuestions = new ArrayList<>();
+                for (Question question : questions) {
+                    if (question.getDifficulty().getDifficultyId().equals(difficultyId)) {
+                        filteredQuestions.add(question);
+                    }
+                }
+                questions = filteredQuestions;
             }
         }
-        questions = filteredQuestions;
+
+        model.addAttribute("quizzName", quizz.getName().toUpperCase());
+        model.addAttribute("questions", questions);
+        model.addAttribute("difficulties", difficultyRepository.findAll());
+        model.addAttribute("selectedDifficultyId", difficultyId); 
+        return "questionlist";
     }
-        }
-    
-
-    model.addAttribute("quizzName", quizz.getName().toUpperCase());
-    model.addAttribute("questions", questions);
-    model.addAttribute("difficulties", difficultyRepository.findAll());
-    model.addAttribute("selectedDifficultyId", difficultyId); // Pass the selected difficulty id to the template
-    return "questionlist";
-}
-
-    
 
     @GetMapping(value = "/editquestion/{questionId}")
     public String editQuizForm(@PathVariable("questionId") Long questionId, Model model) {
