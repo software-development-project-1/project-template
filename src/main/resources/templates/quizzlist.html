@@ -9,15 +9,18 @@
 </head>
 
 <body>
-  <div class="container">
-    <div class="col-md-4">
-      <h1>Quizzes</h1>
+  <div class="col-md-4">
+    <h3 th:inline="text">Welcome!</h3>
+    <h5 th:inline="text">You are <span sec:authentication="name"></span>!</h5>
+  </div>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="nav-item nav-link" href="@{/quizzlist}">Quizzer</a>
+    <div class="navbar-nav">
+      <a class="nav-item nav-link" href="@{/quizzlist}">Quizzes</a>
+      <a class="nav-item nav-link" th:href="@{/categorylist}">Categories</a>
     </div>
-
-    <div class="col-md-4">
-      <h3 th:inline="text">Welcome!</h3>
-      <h5 th:inline="text">You are <span sec:authentication="name"></span>!</h5>
-    </div>
+  </nav>
+</body> 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
