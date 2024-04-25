@@ -31,7 +31,7 @@ public class QuizzerController {
 
     // show all quizzes
     @RequestMapping(value = "/quizzlist")
-    public String recipientList(Model model) {
+    public String quizzList(Model model) {
         model.addAttribute("quizzlist", quizzRepository.findAll());
         return "quizzlist";
     }
@@ -130,5 +130,12 @@ public class QuizzerController {
     public String showCat(Model model) {
         model.addAttribute("categories", categoryRepository.findAll());
         return "categorylist";
+    }
+
+    //delete category
+    @GetMapping("/deletecategory/{categoryId}")
+    public String deleteCategory(@PathVariable("categoryId") Long categoryId, Model model) {
+        categoryRepository.deleteById(categoryId);
+        return "redirect:../categorylist";
     }
 }
