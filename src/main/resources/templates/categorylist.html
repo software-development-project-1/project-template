@@ -29,9 +29,11 @@
       <tr th:each="category: ${categories}">
         <td th:text="${category.name}"></td>
         <td th:text="${category.description}"></td>
+        <td><a th:href="@{'/deletecategory/'+${category.categoryId}}" class="btn btn-xs btn-danger">Delete</a></td>
       </tr>
     </table>
     <a href="/addCategory" class="btn btn-primary">Add a category</a>
+  </div>
 </body>
 
 </html>
