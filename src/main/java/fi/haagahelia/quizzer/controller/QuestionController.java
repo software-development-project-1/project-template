@@ -22,7 +22,6 @@ import fi.haagahelia.quizzer.repository.QuizzRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.web.bind.annotation.RequestBody;
 
-
 @Controller
 public class QuestionController {
 
@@ -102,12 +101,11 @@ public class QuestionController {
         return "redirect:/questionlist/" + quizzId;
     }
 
-    //deleting question
+    // deleting question
     @GetMapping("/deletequestion/{questionId}/{quizzId}")
-    public String deletequestion(@PathVariable("questionId")Long questionId, @PathVariable("quizzId")Long quizzId) {
+    public String deletequestion(@PathVariable("questionId") Long questionId, @PathVariable("quizzId") Long quizzId) {
         questionRepository.deleteById(questionId);
-        return "redirect:/questionlist/"+quizzId;
+        return "redirect:/questionlist/" + quizzId;
     }
-    
 
 }

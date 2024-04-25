@@ -38,6 +38,7 @@ public class Difficulty {
     }
     
 
+    @JsonIgnore
     public List<Question> getQuestion(){
         return questions;
     }
@@ -51,12 +52,14 @@ public class Difficulty {
         this.level=level;
     }
 
+    @JsonIgnore
     public void setQuestions(List<Question> questions){
         this.questions=questions;
     }
 
 
 
+    @JsonIgnore
     @Override
     public String toString(){
         return "Difficulty level = " + getLevel();
