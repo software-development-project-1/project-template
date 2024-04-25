@@ -79,6 +79,7 @@ public class Quizz {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH.mm");
         return formatter.format(zdt);
     }
+    @JsonIgnore
     public List<Question> getQuestion() {
         return questions;
     }
@@ -108,6 +109,7 @@ public class Quizz {
         this.creationTime = creationTime;
     }
 
+    @JsonIgnore
     public void setQuestions(List<Question> questions) {
         this.questions = questions;
     }
@@ -120,6 +122,7 @@ public class Quizz {
         this.category = category;
     }
 
+    @JsonIgnore
     @Override
     public String toString() {
         if (this.status == null && this.category == null) {
