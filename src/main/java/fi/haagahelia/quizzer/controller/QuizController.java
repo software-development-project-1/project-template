@@ -58,6 +58,9 @@ public class QuizController {
 			Model model) {
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("quiz", quiz);
+			List<Category> categories = categoryrepository.findAll();
+			Collections.sort(categories, (c1, c2) -> c1.getName().compareTo(c2.getName()));
+			model.addAttribute("categories", categories);
 			return "addQuiz";
 		}
 		qrepository.save(quiz);
