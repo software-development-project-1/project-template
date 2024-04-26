@@ -20,6 +20,7 @@ import fi.haagahelia.quizzer.repository.DifficultyRepository;
 import fi.haagahelia.quizzer.repository.QuestionRepository;
 import fi.haagahelia.quizzer.repository.QuizzRepository;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 public class QuestionController {
@@ -31,15 +32,15 @@ public class QuestionController {
     @Autowired
     private DifficultyRepository difficultyRepository;
 
+    // show question list
     @GetMapping("/questionlist/{quizzId}")
     public String questionList(@PathVariable("quizzId") Long quizzId,
             @RequestParam(name = "difficulty", required = false) Long difficultyId,
             Model model) {
         Quizz quizz = quizzRepository.findById(quizzId)
                 .orElseThrow(() -> new EntityNotFoundException("Quiz not found"));
-
+        // filtering function for question difficulty
         List<Question> questions = quizz.getQuestion();
-
         if (difficultyId != null) {
             if (difficultyId != 0) {
                 List<Question> filteredQuestions = new ArrayList<>();
@@ -55,22 +56,56 @@ public class QuestionController {
         model.addAttribute("quizzName", quizz.getName().toUpperCase());
         model.addAttribute("questions", questions);
         model.addAttribute("difficulties", difficultyRepository.findAll());
-        model.addAttribute("selectedDifficultyId", difficultyId); 
+        model.addAttribute("selectedDifficultyId", difficultyId); // Pass the selected difficulty id to the template
+        model.addAttribute("quizzId", quizzId);
         return "questionlist";
     }
 
-    @GetMapping(value = "/editquestion/{questionId}")
-    public String editQuizForm(@PathVariable("questionId") Long questionId, Model model) {
+    // add question
+    @GetMapping("/addQuestion/{quizzId}")
+    public String addQuestion(@PathVariable("quizzId") Long quizzId, Model model) {
+        model.addAttribute("question", new Question());
+        model.addAttribute("difficulties", difficultyRepository.findAll());
+        model.addAttribute("quizzId", quizzId);
+        return "addQuestion";
+    }
+
+    // save question
+    @PostMapping("/saveQuestion/{quizzId}")
+    public String saveQuestion(@PathVariable("quizzId") Long quizzId, Question question) {
+        Quizz quizz = quizzRepository.findById(quizzId)
+                .orElseThrow(() -> new EntityNotFoundException("Quiz not found"));
+        question.setQuizz(quizz);
+        questionRepository.save(question);
+        return "redirect:/questionlist/" + quizzId;
+    }
+
+    // edit question
+    @GetMapping(value = "/editquestion/{questionId}/{quizzId}")
+    public String editQuizForm(@PathVariable("questionId") Long questionId, @PathVariable("quizzId") Long quizzId,
+            Model model) {
         model.addAttribute("question", questionRepository.findById(questionId));
         model.addAttribute("difficulties", difficultyRepository.findAll());
         model.addAttribute("quizzes", quizzRepository.findAll());
+        model.addAttribute("quizzId", quizzId);
         return "editquestion.html";
     }
 
-    @PostMapping(value = "/savequestion")
-    public String save(Question question) {
+    // update editted question
+    @PostMapping("/updatequestion/{quizzId}")
+    public String save(@PathVariable("quizzId") Long quizzId, Question question) {
+        Quizz quizz = quizzRepository.findById(quizzId)
+                .orElseThrow(() -> new EntityNotFoundException("Quiz not found"));
+        question.setQuizz(quizz);
         questionRepository.save(question);
-        return "redirect:/questionlist/" + question.getQuizz().getQuizzId();
+        return "redirect:/questionlist/" + quizzId;
+    }
+
+    // deleting question
+    @GetMapping("/deletequestion/{questionId}/{quizzId}")
+    public String deletequestion(@PathVariable("questionId") Long questionId, @PathVariable("quizzId") Long quizzId) {
+        questionRepository.deleteById(questionId);
+        return "redirect:/questionlist/" + quizzId;
     }
 
 }

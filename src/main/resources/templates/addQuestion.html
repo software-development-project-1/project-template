@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<style>
+    .center {
+        margin: 0 auto;
+        /* Centerize the form horizontally */
+        width: 50%;
+        /* Adjust the width as needed */
+    }
+</style>
+
+<head>
+    <title>Add Question</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+    <div layout:fragment="content" class="center">
+        <h2>Add a Question</h2>
+        <form th:action="@{'/saveQuestion/'+ ${quizzId}}" th:object="${question}" action="#" method="post">
+            <div>
+                <label for="questionText">Question Text</label>
+                <input type="text" id="questionText" th:field="*{questionText}" class="form-control"/>
+                <div style="clear: both; display: block; height: 10px"></div>
+
+                <label for="correctAnswer">Correct Answer</label>
+                <input type="text" id="correctAnswer" th:field="*{correctAnswer}" class="form-control"/>
+                <div style="clear: both; display: block; height: 10px"></div>
+                <label for="difficulty">Difficulty</label>
+                <select id="difficulty" th:field="*{difficulty}" class="form-control">
+                    <option th:each="difficulty: ${difficulties}" th:value="${difficulty.difficultyId}"
+                        th:text="${difficulty.level}"></option>
+                </select>
+
+                <div style="clear: both; display: block; height: 10px"></div>
+
+                <input type="submit" value="Save" class="btn btn-success" />
+                <a th:href="@{'/questionlist/'+${quizzId}}" class="btn btn-danger">Cancel</a>
+        </form>
+    </div>
+</body>
+
+</html>

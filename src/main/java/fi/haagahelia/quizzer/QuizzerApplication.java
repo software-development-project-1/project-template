@@ -2,13 +2,10 @@ package fi.haagahelia.quizzer;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-
-import fi.haagahelia.quizzer.controller.QuizzerController;
 import fi.haagahelia.quizzer.model.Category;
 import fi.haagahelia.quizzer.model.Difficulty;
 import fi.haagahelia.quizzer.model.Question;
@@ -42,6 +39,7 @@ public class QuizzerApplication {
 
 			// save example data to category repository
 			categoryRepository.save(category1);
+			log.info(category1.toString());
 			categoryRepository.save(category2);
 			categoryRepository.save(category3);
 
@@ -51,6 +49,7 @@ public class QuizzerApplication {
 
 			// save example data to status repository
 			statusRepository.save(status1);
+			log.info(status1.toString());
 			statusRepository.save(status2);
 
 			// Quiz example data
@@ -66,6 +65,7 @@ public class QuizzerApplication {
 
 			// save example data to the db
 			quizzRepository.save(quizz1);
+			log.info(quizz1.toString());
 			quizzRepository.save(quizz2);
 			quizzRepository.save(quizz3);
 
@@ -75,6 +75,7 @@ public class QuizzerApplication {
 			Difficulty difficulty3 = new Difficulty("Hard");
 			// save example data to db
 			difficultyRepository.save(difficulty1);
+			log.info(difficulty1.toString());
 			difficultyRepository.save(difficulty2);
 			difficultyRepository.save(difficulty3);
 
@@ -104,6 +105,7 @@ public class QuizzerApplication {
 
 			// Saving questions about quizz1
 			questionRepository.save(question1);
+			log.info(question1.toString());
 			questionRepository.save(question2);
 			questionRepository.save(question3);
 

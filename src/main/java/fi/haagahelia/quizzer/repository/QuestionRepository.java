@@ -7,5 +7,5 @@ import fi.haagahelia.quizzer.model.Question;
 import java.util.List;
 
 public interface QuestionRepository extends CrudRepository<Question, Long> {
-    List<Question> findByQuizzQuizzId(Long quizzId );
+    List<Question> findByQuestionId(Long quizzId);
 }

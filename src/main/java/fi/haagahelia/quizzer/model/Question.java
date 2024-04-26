@@ -39,9 +39,10 @@ public class Question {
     }
 
     // getter
-    public Long getQuestionId(){
+    public Long getQuestionId() {
         return questionId;
     }
+
     public String getQuestionText() {
         return questionText;
     }
@@ -54,14 +55,15 @@ public class Question {
         return difficulty;
     }
 
-    public Quizz getQuizz(){
+    public Quizz getQuizz() {
         return quizz;
     }
 
     // setter
-    public void setQuestionId(Long questionId){
+    public void setQuestionId(Long questionId) {
         this.questionId = questionId;
     }
+
     public void setQuestionText(String questionText) {
         this.questionText = questionText;
     }
@@ -74,25 +76,23 @@ public class Question {
         this.difficulty = difficulty;
     }
 
-    public void setQuizz(Quizz quizz){
+    public void setQuizz(Quizz quizz) {
         this.quizz = quizz;
     }
 
-    
-
     @Override
     public String toString() {
-        if (this.difficulty == null&& this.quizz == null) {
+        if (this.difficulty == null && this.quizz == null) {
             return "Question [ QuestionText = " + getQuestionText() + ", CorrectAnswer = " + getCorrectAnswer() + " ]";
-        }
-        else if(this.quizz == null){
-            return "Question [ QuestionText = " + getQuestionText() + ", CorrectAnswer = " + getCorrectAnswer() +", Difficulty = "+getDifficulty()+ " ]";
-        }
-        else if(this.difficulty ==null){
-            return "Question [ QuestionText = " + getQuestionText() + ", CorrectAnswer = " + getCorrectAnswer() +", Quizz = "+getQuizz()+ " ]";
-        }
-        else{
-            return "Question [ QuestionText = " + getQuestionText() + ", CorrectAnswer = " + getCorrectAnswer() +", Difficulty = "+getDifficulty()+", Quizz = "+getQuizz()+ " ]";
+        } else if (this.quizz == null) {
+            return "Question [ QuestionText = " + getQuestionText() + ", CorrectAnswer = " + getCorrectAnswer()
+                    + ", Difficulty = " + getDifficulty() + " ]";
+        } else if (this.difficulty == null) {
+            return "Question [ QuestionText = " + getQuestionText() + ", CorrectAnswer = " + getCorrectAnswer()
+                    + ", Quizz = " + getQuizz() + " ]";
+        } else {
+            return "Question [ QuestionText = " + getQuestionText() + ", CorrectAnswer = " + getCorrectAnswer()
+                    + ", Difficulty = " + getDifficulty() + ", Quizz = " + getQuizz() + " ]";
         }
     }
 }

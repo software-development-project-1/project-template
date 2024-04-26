@@ -1,42 +1,47 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Edit Question</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+  <title>Edit Question</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <style>
+    .center {
+      margin: 0 auto;
+      /* Centerize the form horizontally */
+      width: 50%;
+      /* Adjust the width as needed */
+    }
+  </style>
 </head>
 
-<body>
 
+<body  class="center">
+  <h1>Edit Question</h1>
+  <div>
+    <form th:object="${question}" th:action="@{'/updatequestion/'+${quizzId}}" action="#" method="post">
+      <input type="hidden" id="questionId" th:field="*{questionId}" />
 
-    <h1>Edit Question</h1>
-    <div>
-        <form th:object="${question}" th:action="@{../savequestion}" action="#" method="post">
+      <label for="questionText">Question: </label>
+      <input type="text" th:field="*{questionText}" class="form-control"/>
+      <div style="clear: both; display: block; height: 10px;"></div>
 
-            <input type="hidden" id="questionId" th:field="*{questionId}" />
+      <label for="correctAnswer">Answer: </label>
+      <input type="text" th:field="*{correctAnswer}" class="form-control"/>
+      <div style="clear: both; display: block; height: 10px;"></div>
 
-            <label for="questionText">Question: </label>
-            <input type="text" th:field="*{questionText}" />
+      <label for="difficulties">Difficulty: </label>
+      <select id="difficulty" th:field="*{difficulty.difficultyId}" class="form-control">
+        <option th:each="difficulty: ${difficulties}" th:value="${difficulty.difficultyId}"
+          th:text="${difficulty.level}"></option>
+      </select>
 
-            <label for="correctAnswer">Answer: </label>
-            <input type="text" th:field="*{correctAnswer}" />
+      <div style="clear: both; display: block; height: 10px;"></div>
 
-            <label for="difficulties">Difficulty: </label>
-            <select id="difficulty" th:field="*{difficulty.difficultyId}" class="form-control">
-                <option th:each="difficulty: ${difficulties}" th:value="${difficulty.difficultyId}"
-                    th:text="${difficulty.level}"></option>
-            </select>
-
-
-
-            <input type="hidden" id="quizz" th:field="*{quizz}" />
-
-            <input type="submit" value="Save" />
-
-        </form>
-    </div>
+      <input type="submit" value="Save" class="btn btn-success" />
+      <a th:href="@{'/questionlist/'+${quizzId}}" class="btn btn-danger">Cancel</a>
+    </form>
+  </div>
 </body>
-
 
 </html>
