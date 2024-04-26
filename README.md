@@ -43,8 +43,8 @@ A web-base application designed for teachers to create various kinds of topic-ba
 
 ```mermaid
 erDiagram
-    CATEGORIES ||--|{ QUIZZ (TOPIC) : contains
-    QUIZZ (TOPIC) ||--o{ QUESTION : includes
+    CATEGORIES ||--|{ QUIZZ : contains
+    QUIZZ ||--o{ QUESTION : includes
     QUIZZ }o--|| STATUS : has
     QUESTION }|--|| DIFFICULTY : has
 
