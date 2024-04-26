@@ -58,7 +58,7 @@ erDiagram
         int quizId PK
         string name
         string description
-        datetime createdAt
+        Instant createdAt
         int statusId FK
         int categoryId FK
     }
@@ -72,7 +72,7 @@ erDiagram
 
     STATUS {
         int statusId PK
-        string status
+        boolean status
     }
 
     DIFFICULTY {
