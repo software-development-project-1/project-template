@@ -36,4 +36,47 @@ A web-base application designed for teachers to create various kinds of topic-ba
 - Copy the values for “Username”, “Password” and “Internal Database URL” in Connections section
 
 
+## Data Model
+
+- The application's data model is designed to structure the information related to quizzes and their associated data. 
+- Below is an entity relationship diagram (ERD) that outlines the data model's entities, attributes, and relationships using Mermaid syntax.
+
+```mermaid
+erDiagram
+    CATEGORIES ||--|{ QUIZZ (TOPIC) : contains
+    QUIZZ (TOPIC) ||--o{ QUESTION : includes
+    QUIZZ }o--|| STATUS : has
+    QUESTION }|--|| DIFFICULTY : has
+
+    CATEGORIES {
+        int categoryId PK
+        string name
+        string description
+    }
+
+    QUIZZ {
+        int quizId PK
+        string name
+        string description
+        datetime createdAt
+        int statusId FK
+        int categoryId FK
+    }
+
+    QUESTION {
+        int questionId PK
+        string questionText
+        string correctAnswer
+        int difficultyId
+    }
+
+    STATUS {
+        int statusId PK
+        string status
+    }
+
+    DIFFICULTY {
+        int difficultyId PK
+        string level
+    }
 
