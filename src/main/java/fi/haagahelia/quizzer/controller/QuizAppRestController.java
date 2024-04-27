@@ -149,7 +149,7 @@ public class QuizAppRestController {
 
     //getting all answers of a published quiz
     @GetMapping("/quiz/{id}/answers")
-    public @ResponseBody ResponseEntity<?> getAnswersOfQuiz(@PathVariable("id") Long quizId) {
+    public @ResponseBody ResponseEntity<List <AnswerDto>> getAnswersOfQuiz(@PathVariable("id") Long quizId) {
         Optional<Quiz> existingQuizOptional = quizRepository.findById(quizId);
         
         if (!existingQuizOptional.isPresent()) {
@@ -165,11 +165,11 @@ public class QuizAppRestController {
             );
         } 
 
-    List <Question> questions = questionRepository.findByQuizId(quizId);
-    List <Answer> answers = answerRepository.findByQuestionIn(questions);
+        List <Question> questions = questionRepository.findByQuizId(quizId);
+        List <Answer> answers = answerRepository.findByQuestionIn(questions);
 
-    List <AnswerDto> answerDtos = answers.stream()
-            .map(answer -> new AnswerDto(answer.getQuestion().getQuestionId(), answer.getQuestion().getCorrectAnswer(), answer.getAnswerId()))
+        List <AnswerDto> answerDtos = answers.stream()
+            .map(answer -> new AnswerDto(answer.getAnswerId(), answer.getQuestion().getCorrectAnswer(), answer.getQuestion().getQuestionId()))
             .collect(Collectors.toList());
 
         return ResponseEntity.ok(answerDtos);

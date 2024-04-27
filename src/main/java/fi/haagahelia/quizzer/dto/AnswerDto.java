@@ -10,13 +10,13 @@ import lombok.Setter;
 @NoArgsConstructor
 public class AnswerDto {
 
-    private Long id;
+    private Long answerDtoId;
     @NotEmpty(message = "Please provide an answer")
     private String answerText;
     private Long questionId;
 
-    public AnswerDto(Long id, String answerText, Long questionId) {
-        this.id = id;
+    public AnswerDto(Long answerDtoId, String answerText, Long questionId) {
+        this.answerDtoId = answerDtoId;
         this.answerText = answerText;
         this.questionId = questionId;
     }
