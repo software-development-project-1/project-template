@@ -35,24 +35,28 @@
       <h3 th:text="'QUESTIONS OF ' + ${quizzName}"></h3>
         <table class="table table-striped">
           <thead>
-            <tr>
-              <th></th>
-              <th></th>
-              <th>
-                <form id="filterForm" th:action="@{/questionlist/{quizzId}(quizzId=${quizzId})}" method="get"
-                  class="form-inline">
-                  <div class="form-group">
-                    <label for="difficulty">Filter by Difficulty:</label>
-                    <select id="difficulty" name="difficulty" class="form-control" onchange="this.form.submit()">
-                      <option value="">All</option>
-                      <option th:each="difficulty: ${difficulties}" th:value="${difficulty.difficultyId}"
-                        th:text="${difficulty.level}" th:selected="${difficulty.difficultyId == selectedDifficultyId}">
-                      </option>
-                    </select>
-                  </div>
-                </form>
-              </th>
-            </tr>
+            
+                
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+              <div class="collapse navbar-collapse" id="navbarNav">
+                  <ul class="navbar-nav">
+                      <li class="nav-item active">
+                          <a class="nav-link" th:href="@{/questionlist/{quizzId}(quizzId=${quizzId})}">All</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" th:href="@{/easyquestionlist/{quizzId}(quizzId=${quizzId})}">easy</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" th:href="@{/normalquestionlist/{quizzId}(quizzId=${quizzId})}">normal</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" th:href="@{/hardquestionlist/{quizzId}(quizzId=${quizzId})}">hard</a>
+                      </li>
+                  </ul>
+              </div>
+          </nav>
+           
+
             <tr>
               <th>Question Text</th>
               <th>Correct Answer</th>
