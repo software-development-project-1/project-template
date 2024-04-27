@@ -108,10 +108,4 @@ public class QuizzerController {
         return "redirect:../quizzlist";
     }
 
-    // RESTful service to get all quizzes
-    @RequestMapping(value = "/api/quizzes", method = RequestMethod.GET)
-    public @ResponseBody List<Quizz> quizzListRest() {
-        return (List<Quizz>) quizzRepository.findAll();
-    }
-
 }
