@@ -108,34 +108,6 @@ public class QuizzerController {
         return "redirect:../quizzlist";
     }
 
-    // add category - Hong
-    @GetMapping(value = "/addCategory")
-    public String addCategory(Model model) {
-        model.addAttribute("category", new Category());
-        return "addCategory";
-    }
-
-    // save category - Hong
-    @PostMapping(value = "/saveCategory")
-    public String saveCategory(Category category) {
-        categoryRepository.save(category);
-        return "redirect:/quizzlist";
-    }
-
-    // show all category
-    @GetMapping("/categorylist")
-    public String showCat(Model model) {
-        model.addAttribute("categories", categoryRepository.findAll());
-        return "categorylist";
-    }
-
-    // delete category
-    @GetMapping("/deletecategory/{categoryId}")
-    public String deleteCategory(@PathVariable("categoryId") Long categoryId, Model model) {
-        categoryRepository.deleteById(categoryId);
-        return "redirect:../categorylist";
-    }
-
     // RESTful service to get all quizzes
     @RequestMapping(value = "/api/quizzes", method = RequestMethod.GET)
     public @ResponseBody List<Quizz> quizzListRest() {
