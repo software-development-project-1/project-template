@@ -129,7 +129,7 @@ public class QuizzerController {
         return "categorylist";
     }
 
-    //delete category
+    // delete category
     @GetMapping("/deletecategory/{categoryId}")
     public String deleteCategory(@PathVariable("categoryId") Long categoryId, Model model) {
         categoryRepository.deleteById(categoryId);
@@ -141,6 +141,5 @@ public class QuizzerController {
     public @ResponseBody List<Quizz> quizzListRest() {
         return (List<Quizz>) quizzRepository.findAll();
     }
-
 
 }

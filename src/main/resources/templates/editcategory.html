@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <title>Edit Category</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <style>
+    .center {
+      margin: 0 auto;
+      /* Centerize the form horizontally */
+      width: 50%;
+      /* Adjust the width as needed */
+    }
+  </style>
+</head>
+
+
+<body  class="center">
+  <h1>Edit Category</h1>
+  <div>
+    <form th:object="${category}" th:action="@{'/saveCategory'}" action="#" method="post">
+
+
+      <input type="hidden" id="categoryId" th:field="*{categoryId}" />
+
+      <label for="categoryName">Category Name: </label>
+      <input type="text" th:field="*{name}" class="form-control"/>
+      <div style="clear: both; display: block; height: 10px;"></div>
+
+      <label for="categoryDescription">Description: </label>
+      <input type="text" th:field="*{description}" class="form-control"/>
+      <div style="clear: both; display: block; height: 10px;"></div>
+
+     
+
+      <div style="clear: both; display: block; height: 10px;"></div>
+
+      <input type="submit" value="Save" class="btn btn-success" />
+      <a th:href="@{'/categorylist'}" class="btn btn-danger">Cancel</a>
+    </form>
+  </div>
+</body>
+
+</html>
