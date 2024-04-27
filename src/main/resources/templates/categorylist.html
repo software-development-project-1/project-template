@@ -45,6 +45,13 @@
               >Delete</a
             >
           </td>
+          <td>
+            <a
+              th:href="@{'/editcategory/'+${category.categoryId}}"
+              class="btn btn-xs btn-danger"
+              >Edit</a
+            >
+          </td>
         </tr>
       </table>
       <a href="/addCategory" class="btn btn-primary">Add a category</a>
