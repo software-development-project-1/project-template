@@ -4,7 +4,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import fi.haagahelia.quizzer.model.Question;
 import fi.haagahelia.quizzer.model.Status;
+import fi.haagahelia.quizzer.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
@@ -21,10 +23,6 @@ import ch.qos.logback.core.model.Model;
 import fi.haagahelia.quizzer.dto.CreateMessageDto;
 import fi.haagahelia.quizzer.model.Message;
 import fi.haagahelia.quizzer.model.Quizz;
-import fi.haagahelia.quizzer.repository.CategoryRepository;
-import fi.haagahelia.quizzer.repository.MessageRepository;
-import fi.haagahelia.quizzer.repository.QuizzRepository;
-import fi.haagahelia.quizzer.repository.StatusRepository;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -40,6 +38,9 @@ public class QuizzerRestController {
     private StatusRepository statusRepository;
     @Autowired
     private CategoryRepository categoryRepository;
+    @Autowired
+    private QuestionRepository questionRepository;
+
 
     // show all quizzes
     @GetMapping("/quizzlist")
@@ -60,4 +61,10 @@ public class QuizzerRestController {
         // Return the sorted list
         return publishedQuizzes;
     }
+    @GetMapping("/questionlist")
+    public List<Question> getQuestionList() {
+        // Return question list
+        return (List<Question>) questionRepository.findAll();
+    }
+
 }
