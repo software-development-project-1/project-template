@@ -1,6 +1,7 @@
 package fi.haagahelia.quizzer.model;
 
-
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
@@ -30,6 +31,9 @@ public class Question {
     @JoinColumn(name = "quizId")
     private Quiz quiz;
 
+    @JsonIgnore 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "question")
+    private List<Answer> answers;
 
     public Question(String questionText, String correctAnswer, String difficultyLevel, Quiz quiz) {
         this.questionText = questionText;

@@ -178,7 +178,8 @@ public class QuizController {
 		List<Category> categories = categoryrepository.findAll();
 		Collections.sort(categories, (c1, c2) -> c1.getName().compareTo(c2.getName()));
 
-		model.addAttribute("categoryList", categories);
+		
+		;
 		return "categoryList";
 	}
 

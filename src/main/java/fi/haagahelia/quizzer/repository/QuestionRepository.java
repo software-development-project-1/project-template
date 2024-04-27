@@ -9,4 +9,5 @@ import fi.haagahelia.quizzer.model.Quiz;
 
 public interface QuestionRepository extends JpaRepository <Question, Long> {
     List<Question> findByQuiz(Quiz quiz);
-    }
+    List<Question> findByQuizId(Long id);
+}
