@@ -8,28 +8,20 @@ import fi.haagahelia.quizzer.model.Question;
 import fi.haagahelia.quizzer.model.Status;
 import fi.haagahelia.quizzer.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.validation.BindingResult;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
 
-import ch.qos.logback.core.model.Model;
-import fi.haagahelia.quizzer.dto.CreateMessageDto;
-import fi.haagahelia.quizzer.model.Message;
 import fi.haagahelia.quizzer.model.Quizz;
-import jakarta.validation.Valid;
-import org.springframework.web.bind.annotation.RequestParam;
-
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/api")
 @CrossOrigin(origins = "*")
+@Tag(name = "Quizzer", description = "Operations for accessing and managing the quizzes")
 public class QuizzerRestController {
 
     @Autowired
@@ -40,7 +32,6 @@ public class QuizzerRestController {
     private CategoryRepository categoryRepository;
     @Autowired
     private QuestionRepository questionRepository;
-
 
     // show all quizzes
     @GetMapping("/quizzlist")
@@ -61,6 +52,7 @@ public class QuizzerRestController {
         // Return the sorted list
         return publishedQuizzes;
     }
+
     @GetMapping("/questionlist")
     public List<Question> getQuestionList() {
         // Return question list
