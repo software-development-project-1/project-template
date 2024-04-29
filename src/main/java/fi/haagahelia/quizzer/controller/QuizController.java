@@ -176,10 +176,14 @@ public class QuizController {
 	@GetMapping(value = "/categoryList")
 	public String listCategories(Model model) {
 		List<Category> categories = categoryrepository.findAll();
-		Collections.sort(categories, (c1, c2) -> c1.getName().compareTo(c2.getName()));
+		logger.info("Categories loaded: " + categories);
 
-		
-		;
+		if(categories!= null && !categories.isEmpty()){
+			Collections.sort(categories, (c1, c2) -> c1.getName().compareTo(c2.getName()));
+		}else{
+			categories = Collections.emptyList();
+		}
+		model.addAttribute("categoryList", categories);
 		return "categoryList";
 	}
 
@@ -220,6 +224,12 @@ public class QuizController {
 	// Delete category by id:
     @RequestMapping(value = "/deleteCategory/{id}", method = RequestMethod.GET)
     public String deleteCategory(@PathVariable("id") Long id, Model model) {
+		List<Quiz> quizzes = qrepository.findAllByCategoryId(id);
+		quizzes.forEach(quiz -> {
+			quiz.setCategory(null);
+			qrepository.save(quiz);
+		});
+		
         categoryrepository.deleteById(id);
         return "redirect:/categoryList";
     }
