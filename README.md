@@ -66,3 +66,12 @@ erDiagram
         Long userId FK
     }
     User ||--o{ Quiz : has
+    User {
+        Long userId PK
+        String role
+        String firstName
+        String lastName
+    }
+    Question {
+        Long id PK
+    }
