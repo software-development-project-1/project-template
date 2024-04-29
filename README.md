@@ -51,5 +51,9 @@ allowing the teachers and students to sign up, log in, and access secure pages b
 ```mermaid
 erDiagram
     Category ||--o{ Quiz : has
+    Category {
+        Long Id
+        String name
+    }
     Quiz ||--o{ Question : contains
-    User ||--o{ Quiz : creates
+    User ||--o{ Quiz : has
