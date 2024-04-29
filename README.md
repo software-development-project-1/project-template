@@ -44,3 +44,54 @@ allowing the teachers and students to sign up, log in, and access secure pages b
 - **Parallel Development** :Team members to work on different tasks simultaneously. This can significantly speed up the development process.
 - **Code Review** :Team members can review each other's changes in a dedicated branch before merging them into the main codebase. And to resolve conflicts that may arise when multiple team members make changes to the same files.
 - **Backup and Recovery** :If something goes wrong, team members can revert to a previous branch or commit to recover lost work.
+
+## Data Model:
+### Entity Relationship Diagram
+
+```mermaid
+erDiagram
+    Category ||--o{ Quiz : has
+    Category {
+        Long id PK
+        String name
+    }
+    Quiz ||--o{ Question : contains
+    Quiz {
+        Long id PK
+        Long categoryId FK
+        String quizName
+        String quizDescription
+        Boolean published
+        instant createAt
+        Long userId FK
+    }
+    User ||--o{ Quiz : has
+    User {
+        Long userId PK
+        String role
+        String firstName
+        String lastName
+    }
+    Question {
+        Long questionId PK
+        Long quizId FK
+        String questionText
+        String correctAnswer
+        String difficultyLevel
+    }
+```
+
+### Description:
+
+### Category
+The Category entity represents different categories that quizzes can belong to. Each category can have zero or many quizzes associated with it.
+
+### Quiz
+The Quiz entity represents individual quizzes within the application. Each quiz belongs to exactly one category, facilitated by the categoryID foreign key. Additionally, each quiz can have multiple questions associated with it. A quiz is also associated with a user who created it using the userID foreign key. Other attributes include quizName, quizDescription, published, createdAt, which provide details about the quiz.
+
+### Question
+The Question entity represents individual questions within quizzes. Each question belongs to exactly one quiz, facilitated by the quizId foreign key. The Question entity includes attributes such as Id, questionText, correctAnswer, and difficultyLevel, which provide details about the question.
+
+### User
+The User entity represents individuals who interact with the application. Users can have two roles: teacher and student. Users with the role of teacher can create quizzes, while users with the role of student can take quizzes. Each user can have zero or many quizzes. The User entity also includes attributes such as userId, userName, role, firstName, and lastName.
+
