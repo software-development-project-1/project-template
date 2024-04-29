@@ -52,8 +52,17 @@ allowing the teachers and students to sign up, log in, and access secure pages b
 erDiagram
     Category ||--o{ Quiz : has
     Category {
-        Long Id
+        Long id PK
         String name
     }
     Quiz ||--o{ Question : contains
+    Quiz {
+        Long id PK
+        Long categoryId FK
+        String quizName
+        String quizDescription
+        Boolean published
+        instant createAt
+        Long userId FK
+    }
     User ||--o{ Quiz : has
