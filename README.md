@@ -79,7 +79,5 @@ erDiagram
         String correctAnswer
         String difficultyLevel
     }
-
-
-### Description
+###Description
 
