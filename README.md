@@ -44,3 +44,12 @@ allowing the teachers and students to sign up, log in, and access secure pages b
 - **Parallel Development** :Team members to work on different tasks simultaneously. This can significantly speed up the development process.
 - **Code Review** :Team members can review each other's changes in a dedicated branch before merging them into the main codebase. And to resolve conflicts that may arise when multiple team members make changes to the same files.
 - **Backup and Recovery** :If something goes wrong, team members can revert to a previous branch or commit to recover lost work.
+
+## Data Model:
+### Entity Relationship Diagram
+
+```mermaid
+erDiagram
+    Category ||--o{ Quiz : has
+    Quiz ||--o{ Question : contains
+    User ||--o{ Quiz : creates
