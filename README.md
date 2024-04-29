@@ -80,5 +80,18 @@ erDiagram
         String difficultyLevel
     }
 ```
-###Description
+
+### Description:
+
+### Category
+The Category entity represents different categories that quizzes can belong to. Each category can have zero or many quizzes associated with it.
+
+### Quiz
+The Quiz entity represents individual quizzes within the application. Each quiz belongs to exactly one category, facilitated by the categoryID foreign key. Additionally, each quiz can have multiple questions associated with it. A quiz is also associated with a user who created it using the userID foreign key. Other attributes include quizName, quizDescription, published, createdAt, which provide details about the quiz.
+
+### Question
+The Question entity represents individual questions within quizzes. Each question belongs to exactly one quiz, facilitated by the quizId foreign key. The Question entity includes attributes such as Id, questionText, correctAnswer, and difficultyLevel, which provide details about the question.
+
+### User
+The User entity represents individuals who interact with the application. Users can have two roles: teacher and student. Users with the role of teacher can create quizzes, while users with the role of student can take quizzes. Each user can have zero or many quizzes. The User entity also includes attributes such as userId, userName, role, firstName, and lastName.
 
