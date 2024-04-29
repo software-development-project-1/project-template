@@ -48,7 +48,7 @@ allowing the teachers and students to sign up, log in, and access secure pages b
 ## Data Model:
 ### Entity Relationship Diagram
 
-```mermaid
+
 erDiagram
     Category ||--o{ Quiz : has
     Category {
@@ -78,7 +78,7 @@ erDiagram
         String questionText
         String correctAnswer
         String difficultyLevel
-    }```
+    }
 
 ###Description
 
