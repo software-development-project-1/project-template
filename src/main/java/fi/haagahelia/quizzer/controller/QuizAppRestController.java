@@ -185,19 +185,34 @@ public class QuizAppRestController {
 //    }
     // Get all questions in a quiz, displaying its questionText, answer, id, difficulty
     @GetMapping("/{quizId}/answers")
-    public ResponseEntity<List<QuestionAnswerDto>> getAnswersOfQuiz(@PathVariable("quizId") Long quizId) {
+    public ResponseEntity<List<QuestionAnswerDto>> getAnswersOfQuiz(
+            @PathVariable("quizId") Long quizId,
+            @RequestParam(name = "difficultyLevel", required = false) String difficultyLevel
+            ) {
         Optional<Quiz> quizOptional = quizRepository.findById(quizId);
         if (!quizOptional.isPresent()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Quiz with id " + quizId + " not found");
         }
         Quiz quiz = quizOptional.get();
-        List<Question> questions = questionRepository.findByQuiz(quiz);
+        List<Question> questions;
+        if (difficultyLevel != null) {
+            questions = questionRepository.findByQuiz(quiz).stream()
+                    .filter(question -> question.getDifficultyLevel().equalsIgnoreCase(difficultyLevel))
+                    .collect(Collectors.toList());
+        } else {
+            questions = questionRepository.findByQuiz(quiz);
+        }
         if (questions.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No questions found for quiz with id " + quizId);
         }
         List<QuestionAnswerDto> questionAnswerDtos = new ArrayList<>();
         for (Question question : questions) {
-            QuestionAnswerDto dto = new QuestionAnswerDto(question.getQuestionId(), question.getQuestionText(), question.getCorrectAnswer(), question.getDifficultyLevel());
+            QuestionAnswerDto dto = new QuestionAnswerDto(
+                    question.getQuestionId(),
+                    question.getQuestionText(),
+                    question.getCorrectAnswer(),
+                    question.getDifficultyLevel()
+            );
             questionAnswerDtos.add(dto);
         }
         return ResponseEntity.ok(questionAnswerDtos);
