@@ -42,6 +42,14 @@ function QuizList() {
             headerName: 'Published',
             field: 'publishedDisplay',
             width: 150
+        },
+        {
+            headerName: 'Results',
+            width: 150,
+            cellRenderer: (params) => {
+                const link = `/quiz/${params.data.id}/answers`;
+                return <Link to={link}>See results</Link>
+            }
         }
     ];
 

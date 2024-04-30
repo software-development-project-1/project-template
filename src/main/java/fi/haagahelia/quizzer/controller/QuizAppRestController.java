@@ -1,10 +1,12 @@
 package fi.haagahelia.quizzer.controller;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import fi.haagahelia.quizzer.dto.QuestionAnswerDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -152,36 +154,78 @@ public class QuizAppRestController {
     }
 
     //getting all answers of a published quiz
-    @GetMapping("/quiz/{id}/answers")
-    public @ResponseBody ResponseEntity<List <AnswerDto>> getAnswersOfQuiz(@PathVariable("id") Long quizId) {
-        Optional<Quiz> existingQuizOptional = quizRepository.findById(quizId);
-        
-        if (!existingQuizOptional.isPresent()) {
-            throw new ResponseStatusException(
-                HttpStatus.NOT_FOUND, "Quiz with id: " + quizId + " is not found"
-            );
-        }	
-        
-        Quiz existingQuiz = existingQuizOptional.get(); 
-        if (!existingQuiz.getPublished()) {
-            throw new ResponseStatusException(
-                HttpStatus.FORBIDDEN, "Quiz with id: " + quizId + " is not published"
-            );
-        } 
-
-        List <Question> questions = questionRepository.findByQuizId(quizId);
-        logger.info("Questions fetched: {}", questions);
-        List <Answer> answers = answerRepository.findByQuestionIn(questions);
-        logger.info("Answers fetched: {}", answers);
-        if (answers.isEmpty()) {
-            return ResponseEntity.ok(Collections.emptyList()); // If no answers, return empty list
+//    @GetMapping("/quiz/{id}/answers")
+//    public @ResponseBody ResponseEntity<List <AnswerDto>> getAnswersOfQuiz(@PathVariable("id") Long quizId) {
+//        Optional<Quiz> existingQuizOptional = quizRepository.findById(quizId);
+//        if (!existingQuizOptional.isPresent()) {
+//            throw new ResponseStatusException(
+//                    HttpStatus.NOT_FOUND, "Quiz with id: " + quizId + " is not found"
+//            );
+//        }
+//        Quiz existingQuiz = existingQuizOptional.get();
+//        if (!existingQuiz.getPublished()) {
+//            throw new ResponseStatusException(
+//                HttpStatus.FORBIDDEN, "Quiz with id: " + quizId + " is not published"
+//            );
+//        }
+//
+//        List <Question> questions = questionRepository.findByQuizId(quizId);
+//        logger.info("Questions fetched: {}", questions);
+//        List <Answer> answers = answerRepository.findByQuestionIn(questions);
+//        logger.info("Answers fetched: {}", answers);
+//        if (answers.isEmpty()) {
+//            return ResponseEntity.ok(Collections.emptyList()); // If no answers, return empty list
+//        }
+//
+//        List <AnswerDto> answerDtos = answers.stream()
+//            .map(answer -> new AnswerDto(answer.getQuestion().getCorrectAnswer(), answer.getQuestion().getQuestionId()))
+//            .collect(Collectors.toList());
+//
+//        return ResponseEntity.ok(answerDtos);
+//    }
+    // Get all questions in a quiz, displaying its questionText, answer, id, difficulty
+    @GetMapping("/{quizId}/answers")
+    public ResponseEntity<List<QuestionAnswerDto>> getAnswersOfQuiz(
+            @PathVariable("quizId") Long quizId,
+            @RequestParam(name = "difficultyLevel", required = false) String difficultyLevel
+            ) {
+        Optional<Quiz> quizOptional = quizRepository.findById(quizId);
+        if (!quizOptional.isPresent()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Quiz with id " + quizId + " not found");
         }
-
-        List <AnswerDto> answerDtos = answers.stream()
-            .map(answer -> new AnswerDto(answer.getQuestion().getCorrectAnswer(), answer.getQuestion().getQuestionId()))
-            .collect(Collectors.toList());
-
-        return ResponseEntity.ok(answerDtos);
+        Quiz quiz = quizOptional.get();
+        List<Question> questions;
+        if (difficultyLevel != null) {
+            questions = questionRepository.findByQuiz(quiz).stream()
+                    .filter(question -> question.getDifficultyLevel().equalsIgnoreCase(difficultyLevel))
+                    .collect(Collectors.toList());
+        } else {
+            questions = questionRepository.findByQuiz(quiz);
+        }
+        if (questions.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No questions found for quiz with id " + quizId);
+        }
+        List<QuestionAnswerDto> questionAnswerDtos = new ArrayList<>();
+        for (Question question : questions) {
+            QuestionAnswerDto dto = new QuestionAnswerDto(
+                    question.getQuestionId(),
+                    question.getQuestionText(),
+                    question.getCorrectAnswer(),
+                    question.getDifficultyLevel()
+            );
+            questionAnswerDtos.add(dto);
+        }
+        return ResponseEntity.ok(questionAnswerDtos);
     }
-
+    @GetMapping("/questions/{questionId}/answer")
+    public ResponseEntity<String> getAnswerForQuestion(@PathVariable Long questionId) {
+        Optional<Question> questionOptional = questionRepository.findById(questionId);
+        if (questionOptional.isPresent()) {
+            Question question = questionOptional.get();
+            String answerText = question.getCorrectAnswer();
+            return ResponseEntity.ok(answerText);
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Question with ID " + questionId + " not found");
+        }
+    }
 }
