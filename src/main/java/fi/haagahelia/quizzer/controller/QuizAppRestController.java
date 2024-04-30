@@ -183,6 +183,7 @@ public class QuizAppRestController {
 //
 //        return ResponseEntity.ok(answerDtos);
 //    }
+    // Get all questions in a quiz, displaying its questionText, answer, id, difficulty
     @GetMapping("/{quizId}/answers")
     public ResponseEntity<List<QuestionAnswerDto>> getAnswersOfQuiz(@PathVariable("quizId") Long quizId) {
         Optional<Quiz> quizOptional = quizRepository.findById(quizId);
@@ -192,16 +193,13 @@ public class QuizAppRestController {
         Quiz quiz = quizOptional.get();
         List<Question> questions = questionRepository.findByQuiz(quiz);
         if (questions.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No questions found for quiz with id" + quizId);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No questions found for quiz with id " + quizId);
         }
         List<QuestionAnswerDto> questionAnswerDtos = new ArrayList<>();
         for (Question question : questions) {
-            Optional<Answer> answerOptional = answerRepository.findByQuestion(question);
-            String answerText = answerOptional.isPresent() ? answerOptional.get().getAnswerText() : "No answer found";
-            QuestionAnswerDto dto = new QuestionAnswerDto(question.getQuestionId(), question.getQuestionText(), answerText);
+            QuestionAnswerDto dto = new QuestionAnswerDto(question.getQuestionId(), question.getQuestionText(), question.getCorrectAnswer(), question.getDifficultyLevel());
             questionAnswerDtos.add(dto);
         }
         return ResponseEntity.ok(questionAnswerDtos);
     }
-
 }

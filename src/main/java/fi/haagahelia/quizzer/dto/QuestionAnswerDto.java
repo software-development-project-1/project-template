@@ -13,4 +13,5 @@ public class QuestionAnswerDto {
     private Long questionId;
     private String questionText;
     private String answerText;
+    private String difficultyLevel;
 }
