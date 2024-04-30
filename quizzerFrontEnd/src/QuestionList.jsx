@@ -47,7 +47,7 @@ function QuestionList() {
 
     const fetchAnswers = async () => {
         try {
-            const response = await fetch(`http://localhost:8080/api/QuizApp/quiz/${id}/answers`);
+            const response = await fetch(`http://localhost:8080/api/QuizApp/${id}/answers`);
             if (!response.ok) {
                 throw new Error("Error in retrieving all quizzes answers" + response.statusText);
             }
@@ -57,6 +57,8 @@ function QuestionList() {
             console.error("Failed to load answers: ", error);
         }
     }
+
+    console.log(answers)
 
     const handleSubmitAnswer = (questionId) => {
         const correctAnswerObj = answers.find(answer => answer.questionId === questionId);

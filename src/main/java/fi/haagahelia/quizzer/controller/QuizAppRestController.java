@@ -217,4 +217,15 @@ public class QuizAppRestController {
         }
         return ResponseEntity.ok(questionAnswerDtos);
     }
+    @GetMapping("/questions/{questionId}/answer")
+    public ResponseEntity<String> getAnswerForQuestion(@PathVariable Long questionId) {
+        Optional<Question> questionOptional = questionRepository.findById(questionId);
+        if (questionOptional.isPresent()) {
+            Question question = questionOptional.get();
+            String answerText = question.getCorrectAnswer();
+            return ResponseEntity.ok(answerText);
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Question with ID " + questionId + " not found");
+        }
+    }
 }
