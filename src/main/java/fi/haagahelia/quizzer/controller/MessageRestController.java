@@ -17,11 +17,16 @@ import org.springframework.web.server.ResponseStatusException;
 import fi.haagahelia.quizzer.dto.CreateMessageDto;
 import fi.haagahelia.quizzer.model.Message;
 import fi.haagahelia.quizzer.repository.MessageRepository;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/messages")
 @CrossOrigin(origins = "*")
+@Tag(name = "Message", description = "Operations for accessing and managing messages")
 public class MessageRestController {
 	@Autowired
 	private MessageRepository messageRepository;
@@ -30,6 +35,16 @@ public class MessageRestController {
 	public List<Message> getAllMessages() {
 		return messageRepository.findAll();
 	}
+@Operation(
+        summary = "Get a message by id",
+        description = "Returns the message with the provided id")
+
+		@ApiResponses(value = {
+    // The responseCode property defines the HTTP status code of the response
+    @ApiResponse(responseCode = "200", description = "Successful operation"),
+    @ApiResponse(responseCode = "404", description = "Message with the provided id does not exist")
+})
+
 
 	@GetMapping("/{id}")
 	public Message getMessageById(@PathVariable Long id) {
