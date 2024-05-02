@@ -4,6 +4,8 @@ import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-material.css";
 import { format } from "date-fns";
 import { Link } from "react-router-dom";
+import './styles.css'
+
 
 function QuizList() {
   const [quizList, setQuizList] = useState([]);
@@ -15,7 +17,7 @@ function QuizList() {
     {
       headerName: "Name",
       field: "quizName",
-      width: 150,
+      width: 200,
       cellRenderer: (params) => {
         const link = `/quiz/${params.data.id}`;
         console.log("Link:", link); // Debugging
@@ -25,13 +27,17 @@ function QuizList() {
     {
       headerName: "Description",
       field: "quizDescription",
-      width: 150,
+      width: 300,
     },
     {
       headerName: "Category",
       valueGetter: (params) =>
         params.data.category ? params.data.category.name : "", // Value getter for nested property
-      width: 150,
+      width: 250,
+      field: 'categoryName',
+      cellRenderer: (params) => {
+        return <span style={{ backgroundColor: "rgb(191, 188, 188)", borderRadius: "4px", padding: "2px 4px" }}>{params.value}</span>;
+      }
     },
     {
       headerName: "Added on",
@@ -39,7 +45,7 @@ function QuizList() {
       valueFormatter: (params) => {
         return format(new Date(params.value), "dd.MM.yyyy");
       },
-      width: 150,
+      width: 250,
     },
     {
       headerName: "Published",
@@ -48,7 +54,7 @@ function QuizList() {
     },
     {
       headerName: "Results",
-      width: 150,
+      width: 250,
       cellRenderer: (params) => {
         const link = `/quiz/${params.data.id}/answers`;
         return <Link to={link}>See results</Link>;
@@ -101,7 +107,7 @@ function QuizList() {
   return (
     <>
       <div>
-        <select value={selectedCategory} onChange={handleCategoryChange}>
+        <select className="select-style" value={selectedCategory} onChange={handleCategoryChange}>
           <option value="">All Categories</option>
           {categories.map((category) => (
             <option key={category.id} value={category.id}>
@@ -110,10 +116,7 @@ function QuizList() {
           ))}
         </select>
       </div>
-      <div
-        className="ag-theme-material"
-        style={{ height: "400px", width: "900px" }}
-      >
+      <div className="ag-theme-material">
         <AgGridReact
           domLayout="autoHeight"
           ref={gridRef}
