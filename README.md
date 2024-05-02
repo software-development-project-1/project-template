@@ -67,7 +67,6 @@ erDiagram
         Long userId FK
     }
     User ||--o{ Quiz : has
-    User ||--o{ Answer : has
     User {
         Long userId PK
         String role
@@ -87,7 +86,6 @@ erDiagram
         Long questionId FK
         String answerText
         boolean correctness
-        Long userId FK
     }
 
 ```
@@ -101,11 +99,11 @@ The Category entity represents different categories that quizzes can belong to. 
 The Quiz entity represents individual quizzes within the application. Each quiz belongs to exactly one category, facilitated by the categoryID foreign key. Additionally, each quiz can have multiple questions associated with it. A quiz is also associated with a user who created it using the userID foreign key. Other attributes include quizName, quizDescription, published, createdAt, which provide details about the quiz.
 
 #### Question
-The Question entity represents individual questions within quizzes. Each question belongs to exactly one quiz, facilitated by the quizId foreign key. The Question entity includes attributes such as Id, questionText, correctAnswer, and difficultyLevel, which provide details about the question.
+The Question entity represents individual questions within quizzes. Each question belongs to exactly one quiz, facilitated by the quizId foreign key. Each question can have multiple answers associated with it. The Question entity includes attributes such as Id, questionText, correctAnswer, and difficultyLevel, which provide details about the question.
 
 #### User
 The User entity represents individuals who interact with the application. Users can have two roles: teacher and student. Users with the role of teacher can create quizzes, while users with the role of student can take quizzes. Each user can have zero or many quizzes. The User entity also includes attributes such as userId, userName, role, firstName, and lastName.
 
 #### Answer
-The Answer entity represents individual answers within questions. Each answer belongs to exactly one question and one user, facilitated by the questionId foreign key and by the userId foreign key. The Answer entity includes attributes such as Id, answerText and correctness, which provide details about the answer.
+The Answer entity represents individual answers within questions. Each answer belongs to exactly one question, facilitated by the questionId foreign key. The Answer entity includes attributes such as Id, answerText and correctness, which provide details about the answer.
 
