@@ -27,7 +27,7 @@ function QuestionList() {
 
     const fetchQuestionList = async () => {
         try {
-            const response = await fetch(`http://localhost:8080/api/QuizApp/quiz/${id}/questions`);
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/QuizApp/quiz/${id}/questions`);
             if (!response.ok) {
                 throw new Error("Error in retrieving questions" + response.statusText);
             }
@@ -38,13 +38,9 @@ function QuestionList() {
         }
     };
 
-    // useEffect(() => {
-    //     fetchAnswers();
-    // }, [id]);
-
     const fetchAnswer = async (questionId) => {
         try {
-            const response = await fetch(`http://localhost:8080/api/QuizApp/questions/${questionId}/answer`);
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/QuizApp/questions/${questionId}/answer`);
             if (!response.ok) {
                 throw new Error("Error in retrieving question answer" + response.statusText);
             }
@@ -74,7 +70,7 @@ function QuestionList() {
         };
     
         try {
-            const response = await fetch(`http://localhost:8080/api/QuizApp/questions/${questionId}/answers`, {
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/QuizApp/questions/${questionId}/answers`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -104,29 +100,7 @@ function QuestionList() {
         fetchAnswer(questionId);
         postAnswer(questionId, userAnswer);
         setCurrentQuestionId(questionId); // Set the current question ID before comparing answers
-
-        // const correctAnswerObj = answer;
-
-        // if (!correctAnswerObj) {
-        //     console.error("No answer found for question ID:", questionId);
-        //     return;
-        // }
-        // setCorrectAnswer(answer.answerText);
-        // setOpen(true);
     }
-
-    // useEffect(() => {
-    //     if (open && currentQuestionId !== null) { 
-    //         const userAnswer = inputAnswers[currentQuestionId]?.trim().toLowerCase();
-    //         const correctAnswerText = correctAnswer.trim().toLowerCase();
-
-    //         if (userAnswer === correctAnswerText) {
-    //             setCorrect(true);
-    //         } else {
-    //             setCorrect(false);
-    //         }
-    //     }
-    // }, [open, correctAnswer, inputAnswers, currentQuestionId]);
 
     const handleCheckAnswer = (event, reason) => {
         if (reason === 'clickaway') {

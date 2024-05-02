@@ -64,7 +64,7 @@ function QuizList() {
   const fetchQuizList = async (selectedCategory) => {
     try {
       const response = await fetch(
-        `http://localhost:8080/api/QuizApp/quizes?published=true&categoryId=${selectedCategory}`
+        `${import.meta.env.VITE_BACKEND_URL}/api/QuizApp/quizes?published=true&categoryId=${selectedCategory}`
       );
       if (!response.ok) {
         throw new Error("Error in retrieving quizes " + response.statusText);
@@ -80,7 +80,7 @@ function QuizList() {
   const fetchCategories = async () => {
     try {
       const response = await fetch(
-        "http://localhost:8080/api/QuizApp/categories"
+        `${import.meta.env.VITE_BACKEND_URL}/api/QuizApp/categories`
       );
       if (!response.ok) {
         throw new Error(
