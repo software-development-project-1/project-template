@@ -1,7 +1,4 @@
 import { useState, useEffect, useRef } from "react";
-import { AgGridReact } from "ag-grid-react";
-import "ag-grid-community/styles/ag-grid.css";
-import "ag-grid-community/styles/ag-theme-material.css";
 import { useParams } from 'react-router-dom';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
@@ -11,7 +8,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import TextField from '@mui/material/TextField';
 import Chip from '@mui/material/Chip';
 import Snackbar from '@mui/material/Snackbar';
-import { Container, Box, FormControl, InputLabel, Select, MenuItem, Button } from '@mui/material';
+import { Container, Box, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 
 function QuestionList() {
     const [questionList, setQuestionList] = useState([]);
@@ -21,8 +18,8 @@ function QuestionList() {
     const [open, setOpen] = useState(false);
     const [correct, setCorrect] = useState(false);
     const [selectedDifficulty, setSelectedDifficulty] = useState('');
-    const gridRef = useRef(null);
     const { id } = useParams();
+    const [currentQuestionId, setCurrentQuestionId] = useState(null); // New state to store the ID of the current question being answered
 
     useEffect(() => {
         fetchQuestionList();
@@ -58,9 +55,9 @@ function QuestionList() {
         }
     }
 
-    console.log(answers)
-
     const handleSubmitAnswer = (questionId) => {
+        setCurrentQuestionId(questionId); // Set the current question ID before comparing answers
+
         const correctAnswerObj = answers.find(answer => answer.questionId === questionId);
 
         if (!correctAnswerObj) {
@@ -68,15 +65,21 @@ function QuestionList() {
             return;
         }
         setCorrectAnswer(correctAnswerObj.answerText);
-        const userAnswer = inputAnswers[questionId]?.trim().toLowerCase();
-        if (userAnswer === correctAnswer.trim().toLowerCase()) {
-            setCorrect(true);
-        } else {
-            setCorrect(false);
-        }
-
         setOpen(true);
     }
+
+    useEffect(() => {
+        if (open && currentQuestionId !== null) { 
+            const userAnswer = inputAnswers[currentQuestionId]?.trim().toLowerCase();
+            const correctAnswerText = correctAnswer.trim().toLowerCase();
+
+            if (userAnswer === correctAnswerText) {
+                setCorrect(true);
+            } else {
+                setCorrect(false);
+            }
+        }
+    }, [open, correctAnswer, inputAnswers, currentQuestionId]);
 
     const handleCheckAnswer = (event, reason) => {
         if (reason === 'clickaway') {
