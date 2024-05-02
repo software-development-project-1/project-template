@@ -81,7 +81,7 @@ erDiagram
         String correctAnswer
         String difficultyLevel
     }
-    Question ||--o {Answer : contains
+    Question ||--o{ Answer : contains
     Answer{
         Long answerId PK
         Long questionId FK
