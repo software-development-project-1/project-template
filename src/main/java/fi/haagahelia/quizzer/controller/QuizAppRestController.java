@@ -214,7 +214,7 @@ public class QuizAppRestController {
     //Create an answer for a quiz’s question
     @PostMapping("/questions/{questionId}/answers")
     public ResponseEntity<?> createAnswer(@Valid @RequestBody AnswerDto answerDto, BindingResult bindingResult,
-                                        @PathVariable("id") Long questionId){
+                                        @PathVariable("questionId") Long questionId){
         if (bindingResult.hasErrors()) {
         List<String> errorMessages = bindingResult.getAllErrors().stream().map((error) -> error.getDefaultMessage())
                 .collect(Collectors.toList());
@@ -230,7 +230,7 @@ public class QuizAppRestController {
         answerRepository.save(newAnswer);
 
         Map<String, Object> response = new HashMap<>();
-        response.put("correct", isCorrect);
+        response.put("correctness", newAnswer.isCorrectness());
         response.put("answerId", newAnswer.getAnswerId());
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
@@ -261,7 +261,7 @@ public class QuizAppRestController {
         List<QuestionAnswerDto> statistics = questions.stream().map(question -> {
         List<Answer> answers = answerRepository.findByQuestion(question);
         int totalAnswers = answers.size();
-        int correctAnswers = (int) answers.stream().filter(answer -> answer.isCorrect()).count();
+        int correctAnswers = (int) answers.stream().filter(answer -> answer.isCorrectness()).count();
         int wrongAnswers = totalAnswers - correctAnswers;
         double correctPercentage = totalAnswers > 0 ? (100.0 * correctAnswers / totalAnswers) : 0.0;
 

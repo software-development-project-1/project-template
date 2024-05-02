@@ -9,7 +9,7 @@ public class mappingDTO {
     public Answer toEntity(AnswerDto dto) {
         Answer answer = new Answer();
         answer.setAnswerText(dto.getAnswerText());
-        answer.setCorrect(false);
+        answer.setCorrectness(false);
         Question question = new Question();
         question.setQuestionId(dto.getQuestionId());
         answer.setQuestion(question);

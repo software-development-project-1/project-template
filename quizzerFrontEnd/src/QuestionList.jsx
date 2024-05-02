@@ -67,9 +67,42 @@ function QuestionList() {
             console.error("Failed to load question answer: ", error);
         }
     }
+    const postAnswer = async (questionId, userAnswer) => {
+        const answerDto = {
+            answerText: userAnswer,
+            questionId: questionId
+        };
+    
+        try {
+            const response = await fetch(`http://localhost:8080/api/QuizApp/questions/${questionId}/answers`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(answerDto)
+            });
+    
+            if (!response.ok) {
+                throw new Error('Failed to post answer');
+            }
+            const result = await response.json();
+            console.log('Posted answer:', result);
+            
+        } catch (error) {
+            console.error('Error posting answer:', error);
+        }
+    }
+
 
     const handleSubmitAnswer = (questionId) => {
+        const userAnswer = inputAnswers[questionId]?.trim();
+        if (!userAnswer) {
+            console.error("No answer provided for question ID:", questionId);
+            return;
+    }
+
         fetchAnswer(questionId);
+        postAnswer(questionId, userAnswer);
         setCurrentQuestionId(questionId); // Set the current question ID before comparing answers
 
         // const correctAnswerObj = answer;

@@ -19,15 +19,15 @@ public class Answer {
     private String answerText;
 
     @Column(nullable = false)
-    private boolean correct;
+    private boolean correctness;
 
     @ManyToOne
     @JoinColumn(name = "questionId")
     private Question question;
 
-    public Answer(String answerText, boolean correct, Question question) {
+    public Answer(String answerText, boolean correctness, Question question) {
         this.answerText = answerText;
-        this.correct = correct;
+        this.correctness = correctness;
         this.question = question;
     }
 
