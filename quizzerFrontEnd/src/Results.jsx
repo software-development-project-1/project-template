@@ -10,7 +10,7 @@ function Results() {
     
     const fetchAnswers = async (quizId) => {
         try {
-            const response = await fetch(`http://localhost:8080/api/QuizApp/quizs/${id}/answers`)
+            const response = await fetch(`http://localhost:8080/api/QuizApp/quiz/${id}/answers`)
             if (!response.ok) {
                 throw new Error('Failed to fetch answers')
             }

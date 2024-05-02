@@ -236,9 +236,9 @@ public class QuizAppRestController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    @GetMapping("/quiz/{id}/{questionId}/answers")
+    @GetMapping("/quiz/{id}/answers")
     public ResponseEntity<List<QuestionAnswerDto>> getAnswersOfQuiz(
-            @PathVariable("quizId") Long quizId,
+            @PathVariable("id") Long quizId,
             @RequestParam(name = "difficultyLevel", required = false) String difficultyLevel
             ) {
         Optional<Quiz> quizOptional = quizRepository.findById(quizId);
