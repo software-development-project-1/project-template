@@ -14,4 +14,10 @@ public class QuestionAnswerDto {
     private String questionText;
     private String answerText;
     private String difficultyLevel;
+    private int totalAnswers;
+    private int correctAnswers;
+    private int wrongAnswers;
+    private double correctPercentage;
+
+    
 }

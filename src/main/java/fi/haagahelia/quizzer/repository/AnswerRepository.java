@@ -12,5 +12,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 @Repository
 public interface AnswerRepository extends JpaRepository<Answer, Long> {
      List<Answer> findByQuestionIn(List<Question> questions);
-     Optional<Answer> findByQuestion(Question question);
+     List<Answer> findByQuestion(Question question);
 }
