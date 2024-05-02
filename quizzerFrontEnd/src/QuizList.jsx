@@ -58,13 +58,13 @@ function QuizList() {
 
   useEffect(() => {
     fetchCategories();
-    fetchQuizList();
-  }, []);
+    fetchQuizList(selectedCategory);
+  }, [selectedCategory]);
 
-  const fetchQuizList = async () => {
+  const fetchQuizList = async (selectedCategory) => {
     try {
       const response = await fetch(
-        "http://localhost:8080/api/QuizApp/quizes?published=true"
+        `http://localhost:8080/api/QuizApp/quizes?published=true&categoryId=${selectedCategory}`
       );
       if (!response.ok) {
         throw new Error("Error in retrieving quizes " + response.statusText);

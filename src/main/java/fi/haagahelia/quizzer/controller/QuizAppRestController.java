@@ -92,7 +92,9 @@ public class QuizAppRestController {
     // Example of the link with not required published parameter to get non published quizzes
     // http://localhost:8080/api/QuizApp/quizes?published=false
     @GetMapping("/quizes")
-    public @ResponseBody List<Quiz> getQuizes(@RequestParam(required = false) Boolean published, @RequestParam(required = false) Long categoryId) {
+    public @ResponseBody List<Quiz> getQuizes(
+            @RequestParam(required = false) Boolean published, 
+            @RequestParam(required = false) Long categoryId) {
         List<Quiz> quizList;
         if (published == null) {
             quizList = quizRepository.findAllByOrderByQuizNameAsc();
@@ -102,24 +104,22 @@ public class QuizAppRestController {
 
         if (categoryId != null) {
             quizList = quizList.stream()
-            .filter(quiz -> quiz.getCategory() != null && quiz.getCategory().getId().equals(categoryId))
-            .collect(Collectors.toList());
+                .filter(quiz -> {
+                    if (quiz.getCategory() != null) {
+                        return quiz.getCategory().getId().equals(categoryId);
+                    }
+                    return false;
+                })
+                .collect(Collectors.toList());
 
+            // Check if there are quizzes for the selected category
             if (quizList.isEmpty()) {
-                throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "Quizzes for the " + categoryId + " category were not found"
-                );
+                return Collections.emptyList();
             }
         }
 
-        if (!quizList.isEmpty()) {
-            return quizList;
-        }
-
-        throw new ResponseStatusException(
-            HttpStatus.NOT_FOUND, "Quizes were not not found"
-        );
-    }
+        return quizList;
+}
 
     @Operation(
         summary = "Get a quiz by id",
