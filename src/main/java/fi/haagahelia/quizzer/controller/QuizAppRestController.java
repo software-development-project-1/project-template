@@ -186,12 +186,16 @@ public class QuizAppRestController {
     })
         
     @GetMapping("/questions/{questionId}/answer")
-    public ResponseEntity<String> getAnswerForQuestion(@PathVariable Long questionId) {
+    public ResponseEntity<Map<String, String>> getAnswerForQuestion(@PathVariable Long questionId) {
         Optional<Question> questionOptional = questionRepository.findById(questionId);
         if (questionOptional.isPresent()) {
             Question question = questionOptional.get();
             String answerText = question.getCorrectAnswer();
-            return ResponseEntity.ok(answerText);
+            logger.info(answerText);
+
+            Map<String, String> response = new HashMap<>();
+            response.put("answerText", question.getCorrectAnswer());
+            return ResponseEntity.ok(response);
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Question with ID " + questionId + " not found");
         }

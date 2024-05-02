@@ -12,7 +12,7 @@ import { Container, Box, FormControl, InputLabel, Select, MenuItem } from '@mui/
 
 function QuestionList() {
     const [questionList, setQuestionList] = useState([]);
-    const [answers, setAnswers] = useState([]);
+    const [answer, setAnswer] = useState({});
     const [inputAnswers, setInputAnswers] = useState({});
     const [correctAnswer, setCorrectAnswer] = useState('');
     const [open, setOpen] = useState(false);
@@ -38,48 +38,62 @@ function QuestionList() {
         }
     };
 
-    useEffect(() => {
-        fetchAnswers();
-    }, [id]);
+    // useEffect(() => {
+    //     fetchAnswers();
+    // }, [id]);
 
-    const fetchAnswers = async () => {
+    const fetchAnswer = async (questionId) => {
         try {
-            const response = await fetch(`http://localhost:8080/api/QuizApp/${id}/answers`);
+            const response = await fetch(`http://localhost:8080/api/QuizApp/questions/${questionId}/answer`);
             if (!response.ok) {
-                throw new Error("Error in retrieving all quizzes answers" + response.statusText);
+                throw new Error("Error in retrieving question answer" + response.statusText);
             }
+            console.log(response);
             const data = await response.json();
-            setAnswers(data);
-        } catch (error) {
-            console.error("Failed to load answers: ", error);
-        }
-    }
+            console.log('response data: ', data);
+            setCorrectAnswer(data.answerText); // Update the correct answer state
 
-    const handleSubmitAnswer = (questionId) => {
-        setCurrentQuestionId(questionId); // Set the current question ID before comparing answers
-
-        const correctAnswerObj = answers.find(answer => answer.questionId === questionId);
-
-        if (!correctAnswerObj) {
-            console.error("No answer found for question ID:", questionId);
-            return;
-        }
-        setCorrectAnswer(correctAnswerObj.answerText);
-        setOpen(true);
-    }
-
-    useEffect(() => {
-        if (open && currentQuestionId !== null) { 
-            const userAnswer = inputAnswers[currentQuestionId]?.trim().toLowerCase();
-            const correctAnswerText = correctAnswer.trim().toLowerCase();
-
+            // Check the user's answer against the correct answer
+            const userAnswer = inputAnswers[questionId]?.trim().toLowerCase();
+            const correctAnswerText = data.answerText.trim().toLowerCase();
             if (userAnswer === correctAnswerText) {
                 setCorrect(true);
             } else {
                 setCorrect(false);
             }
+
+            setOpen(true); // Open the snackbar after checking the answer
+        } catch (error) {
+            console.error("Failed to load question answer: ", error);
         }
-    }, [open, correctAnswer, inputAnswers, currentQuestionId]);
+    }
+
+    const handleSubmitAnswer = (questionId) => {
+        fetchAnswer(questionId);
+        setCurrentQuestionId(questionId); // Set the current question ID before comparing answers
+
+        // const correctAnswerObj = answer;
+
+        // if (!correctAnswerObj) {
+        //     console.error("No answer found for question ID:", questionId);
+        //     return;
+        // }
+        // setCorrectAnswer(answer.answerText);
+        // setOpen(true);
+    }
+
+    // useEffect(() => {
+    //     if (open && currentQuestionId !== null) { 
+    //         const userAnswer = inputAnswers[currentQuestionId]?.trim().toLowerCase();
+    //         const correctAnswerText = correctAnswer.trim().toLowerCase();
+
+    //         if (userAnswer === correctAnswerText) {
+    //             setCorrect(true);
+    //         } else {
+    //             setCorrect(false);
+    //         }
+    //     }
+    // }, [open, correctAnswer, inputAnswers, currentQuestionId]);
 
     const handleCheckAnswer = (event, reason) => {
         if (reason === 'clickaway') {
