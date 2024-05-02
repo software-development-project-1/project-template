@@ -12,8 +12,8 @@ allowing the teachers and students to sign up, log in, and access secure pages b
 - [Un Kuan Che](https://github.com/arielunkuanche "Github page")
 
 ## Documentation:
-<https://github.com/orgs/https-github-com-DenisHki/projects/1>
-<https://quizzer-app.onrender.com/swagger-ui/index.html>
+[Project Board](https://github.com/orgs/https-github-com-DenisHki/projects/1)
+[Swagger Documentation](https://quizzer-app.onrender.com/swagger-ui/index.html)
 
 ## Developer guide:
 **1. How to start the application**
