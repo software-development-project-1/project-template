@@ -10,7 +10,7 @@ function Results() {
     
     const fetchAnswers = async (quizId) => {
         try {
-            const response = await fetch(`http://localhost:8080/api/QuizApp/${id}/answers`)
+            const response = await fetch(`http://localhost:8080/api/QuizApp/quizs/${id}/answers`)
             if (!response.ok) {
                 throw new Error('Failed to fetch answers')
             }
@@ -27,11 +27,11 @@ function Results() {
 
     const columns = [
         { headerName: 'Question', field: 'questionText', width: 150 },
-        { headerName: 'Correct answer', field: 'answerText', width: 150 },
         { headerName: 'Difficulty level', field: 'difficultyLevel', width: 150 },
-        { headerName: 'Total answers', field: '', width: 150 },
-        { headerName: 'Correct answers percentage', field: '', width: 150 },
-        { headerName: 'Wrong answer', field: '', width: 150 }
+        { headerName: 'Total Answers', field: 'totalAnswers', width: 150 },
+        { headerName: 'Correct Answers', field: 'correctAnswers', width: 150 },
+        { headerName: 'Wrong Answers', field: 'wrongAnswers', width: 150 },
+        { headerName: 'Correct Answers Percentage', field: 'correctPercentage', valueFormatter: params => `${params.value.toFixed(2)}%`, width: 180 },
     ]
 
     return (

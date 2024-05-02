@@ -2,7 +2,9 @@ package fi.haagahelia.quizzer.controller;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -206,9 +208,9 @@ public class QuizAppRestController {
         @ApiResponse(responseCode = "404", description = "Question with the provided id does not exist")
     })
     //Create an answer for a quiz’s question
-    @PostMapping("/quiz/{id}/questions/answer")
+    @PostMapping("/questions/{questionId}/answers")
     public ResponseEntity<?> createAnswer(@Valid @RequestBody AnswerDto answerDto, BindingResult bindingResult,
-                                        @PathVariable("id") Long quizId){
+                                        @PathVariable("id") Long questionId){
         if (bindingResult.hasErrors()) {
         List<String> errorMessages = bindingResult.getAllErrors().stream().map((error) -> error.getDefaultMessage())
                 .collect(Collectors.toList());
@@ -216,24 +218,63 @@ public class QuizAppRestController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessages);
     }
 
-        Optional<Quiz> existingQuizOptional = quizRepository.findById(quizId);
-        if (existingQuizOptional.isPresent()) {
-            Optional<Question> existingQuestionOptional = questionRepository.findById(answerDto.getQuestionId());
-            Question existingQuestion = existingQuestionOptional.get();
+        Question question = questionRepository.findById(questionId)
+                                                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Question with ID: " + questionId + " not found"));
 
-            if (existingQuestion != null) {
-                Answer newAnswer = new Answer(answerDto.getAnswerText(), existingQuestion);
-                answerRepository.save(newAnswer);
-                return ResponseEntity.status(HttpStatus.CREATED).body(newAnswer);
-            } else {
-                throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "Answer for Question with id: " + answerDto.getQuestionId() + " was not found"
-                );
-            }
-        }	
-        throw new ResponseStatusException(
-            HttpStatus.NOT_FOUND, "Quiz with id: "+ quizId + " not found"
+        boolean isCorrect = question.getCorrectAnswer().equalsIgnoreCase(answerDto.getAnswerText().trim());
+        Answer newAnswer = new Answer(answerDto.getAnswerText(), isCorrect, question);
+        answerRepository.save(newAnswer);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("correct", isCorrect);
+        response.put("answerId", newAnswer.getAnswerId());
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+    @GetMapping("/quiz/{id}/{questionId}/answers")
+    public ResponseEntity<List<QuestionAnswerDto>> getAnswersOfQuiz(
+            @PathVariable("quizId") Long quizId,
+            @RequestParam(name = "difficultyLevel", required = false) String difficultyLevel
+            ) {
+        Optional<Quiz> quizOptional = quizRepository.findById(quizId);
+        if (!quizOptional.isPresent()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Quiz with id " + quizId + " not found");
+        }
+        Quiz quiz = quizOptional.get();
+        List<Question> questions;
+
+        if (difficultyLevel != null) {
+            questions = questionRepository.findByQuiz(quiz).stream()
+                    .filter(question -> question.getDifficultyLevel().equalsIgnoreCase(difficultyLevel))
+                    .collect(Collectors.toList());
+        } else {
+            questions = questionRepository.findByQuiz(quiz);
+        }
+        if (questions.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No questions found for quiz with id " + quizId);
+        }
+        List<QuestionAnswerDto> statistics = questions.stream().map(question -> {
+        List<Answer> answers = answerRepository.findByQuestion(question);
+        int totalAnswers = answers.size();
+        int correctAnswers = (int) answers.stream().filter(answer -> answer.isCorrect()).count();
+        int wrongAnswers = totalAnswers - correctAnswers;
+        double correctPercentage = totalAnswers > 0 ? (100.0 * correctAnswers / totalAnswers) : 0.0;
+
+        return new QuestionAnswerDto(
+                question.getQuestionId(),
+                question.getQuestionText(),
+                question.getCorrectAnswer(),
+                question.getDifficultyLevel(),
+                totalAnswers,
+                correctAnswers,
+                wrongAnswers,
+                correctPercentage
         );
+    }).collect(Collectors.toList());
+
+    return ResponseEntity.ok(statistics);
+}
     }
 
     //getting all answers of a published quiz
@@ -267,38 +308,5 @@ public class QuizAppRestController {
 //        return ResponseEntity.ok(answerDtos);
 //    }
     // Get all questions in a quiz, displaying its questionText, answer, id, difficulty
-    @GetMapping("/{quizId}/answers")
-    public ResponseEntity<List<QuestionAnswerDto>> getAnswersOfQuiz(
-            @PathVariable("quizId") Long quizId,
-            @RequestParam(name = "difficultyLevel", required = false) String difficultyLevel
-            ) {
-        Optional<Quiz> quizOptional = quizRepository.findById(quizId);
-        if (!quizOptional.isPresent()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Quiz with id " + quizId + " not found");
-        }
-        Quiz quiz = quizOptional.get();
-        List<Question> questions;
-        if (difficultyLevel != null) {
-            questions = questionRepository.findByQuiz(quiz).stream()
-                    .filter(question -> question.getDifficultyLevel().equalsIgnoreCase(difficultyLevel))
-                    .collect(Collectors.toList());
-        } else {
-            questions = questionRepository.findByQuiz(quiz);
-        }
-        if (questions.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No questions found for quiz with id " + quizId);
-        }
-        List<QuestionAnswerDto> questionAnswerDtos = new ArrayList<>();
-        for (Question question : questions) {
-            QuestionAnswerDto dto = new QuestionAnswerDto(
-                    question.getQuestionId(),
-                    question.getQuestionText(),
-                    question.getCorrectAnswer(),
-                    question.getDifficultyLevel()
-            );
-            questionAnswerDtos.add(dto);
-        }
-        return ResponseEntity.ok(questionAnswerDtos);
-    }
     
-}
+
