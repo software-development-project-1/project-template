@@ -67,6 +67,7 @@ erDiagram
         Long userId FK
     }
     User ||--o{ Quiz : has
+    User ||--o{ Answer : has
     User {
         Long userId PK
         String role
@@ -80,6 +81,15 @@ erDiagram
         String correctAnswer
         String difficultyLevel
     }
+    Question ||--o {Answer : contains
+    Answer{
+        Long answerId PK
+        Long questionId FK
+        String answerText
+        boolean correctness
+        Long userId FK
+    }
+
 ```
 
 ### Description:
@@ -95,4 +105,7 @@ The Question entity represents individual questions within quizzes. Each questio
 
 #### User
 The User entity represents individuals who interact with the application. Users can have two roles: teacher and student. Users with the role of teacher can create quizzes, while users with the role of student can take quizzes. Each user can have zero or many quizzes. The User entity also includes attributes such as userId, userName, role, firstName, and lastName.
+
+#### Answer
+The Answer entity represents individual answers within questions. Each answer belongs to exactly one question and one user, facilitated by the questionId foreign key and by the userId foreign key. The Answer entity includes attributes such as Id, answerText and correctness, which provide details about the answer.
 
