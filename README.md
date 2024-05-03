@@ -31,8 +31,8 @@ The Frontend component provides the user interface for interacting with the Quiz
 It communicates with the backend via API calls to display quizzes, questions, and user-related information.
 
    **Key features:**
-   - Quiz listing and details pages.
-   - Quiz creation forms.
+   - Quiz and question listing and details pages.
+   - Quiz and question creation forms.
    - Role-based access control (teacher vs. student).
    - Displaying quiz results.
    
