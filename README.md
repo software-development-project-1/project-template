@@ -63,13 +63,13 @@ graph TD;
     WebClients((Web Clients)) -->|Request| WebServer((Web Server));
     WebServer -->|Response| WebClients;
 
-    subgraph Web Clients
+    subgraph WebClients
         Browser[Browser]
         Mobile[Mobile]
         Postman[Postman]
     end
 
-    subgraph Web Server
+    subgraph WebServer
         Frontend[Frontend]
         Backend[Backend]
     end
