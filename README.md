@@ -14,7 +14,7 @@ allowing the teachers and students to sign up, log in, and access secure pages b
 ## Architecture:
 **1. Backend:**
 
-  The backend component is responsible for handling business logic, data processing, and communication with the database.
+  The Backend component is responsible for handling business logic, data processing, and communication with the database.
   It provides RESTful APIs for frontend interactions, allowing users to create, retrieve, update, and delete quizzes and questions.
 
    **Key responsibilities:**
@@ -27,7 +27,7 @@ allowing the teachers and students to sign up, log in, and access secure pages b
    
 **2. Frontend:**
 
-The frontend component provides the user interface for interacting with the Quizzer application.
+The Frontend component provides the user interface for interacting with the Quizzer application.
 It communicates with the backend via API calls to display quizzes, questions, and user-related information.
 
    **Key features:**
@@ -41,7 +41,7 @@ It communicates with the backend via API calls to display quizzes, questions, an
 
 **3. Database:**
 
-   The database component stores persistent data related to quizzes, questions, answers and users.
+   The Database component stores persistent data related to quizzes, questions, answers and users.
    It maintains tables for entities such as Category, Quiz, Question, User, and Answer.
    
    **Relationships:**
@@ -53,7 +53,7 @@ It communicates with the backend via API calls to display quizzes, questions, an
    **Technologies:**
    - PostgreSQL.
 
-**4. Flow chart:**
+**4. Communication flow between components:**
 
   ```mermaid
 graph TD;
