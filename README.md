@@ -41,8 +41,9 @@ It communicates with the backend via API calls to display quizzes, questions, an
 
 **3. Database:**
 
-   The Database component stores persistent data related to quizzes, questions, answers and users.
-   It maintains tables for entities such as Category, Quiz, Question, User, and Answer.
+   The Database component stores persistent data related to quizzes, questions, answers and users. It maintains tables for entities such as Category, Quiz, Question, User, and Answer. 
+   Initially, the Quizzer application utilized the H2 database during development for its lightweight nature and ease of setup. However, as the application progressed towards production, 
+   it transitioned to PostgreSQL for its robustness, scalability, and compatibility.
    
    **Relationships:**
    - Quizzes belong to specific categories.
@@ -50,8 +51,10 @@ It communicates with the backend via API calls to display quizzes, questions, an
    - Users create quizzes and take quizzes.
    - Answers are associated with questions
    
-   **Technologies:**
-   - PostgreSQL.
+  **Development Environment:** H2 was chosen to streamline development, providing rapid prototyping and testing capabilities without the need for a separate database server.
+
+  **Production Environment:** PostgreSQL was selected for its reliability, performance under heavy loads, and compatibility with industry standards. 
+  This transition ensured consistency in data management across environments.
 
 **4. Communication flow between components:**
 
