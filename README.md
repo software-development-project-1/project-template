@@ -1,8 +1,8 @@
 # Quizzer
-A dashboard application where the teacher can manage quizzes. 
-This application provides an opportunity for the teacher to list, create, delete, edit and mark 
-a status for the quizzes and questions.  Additionally, the app includes authentication functionality, 
-allowing the teachers and students to sign up, log in, and access secure pages based on their roles.
+Quizzer is a dashboard application designed for teachers to manage quizzes effectively. 
+It provides a user-friendly interface for creating, editing, deleting quizzes, and marking quiz status. 
+Additionally, the application includes authentication functionality, allowing both teachers and students to sign up, 
+log in, and access secure pages based on their roles.
 
 ## Team members:
 - [Denis Chuvakov](https://github.com/DenisHki "Github page")
@@ -12,13 +12,13 @@ allowing the teachers and students to sign up, log in, and access secure pages b
 - [Un Kuan Che](https://github.com/arielunkuanche "Github page")
 
 ## Architecture:
-**1. Backend:**
 
+**1. Backend:**
   The Backend component is responsible for handling business logic, data processing, and communication with the database.
   It provides RESTful APIs for frontend interactions, allowing users to create, retrieve, update, and delete quizzes and questions.
 
    **Key responsibilities:**
-   - Managing quizzes and questions creation, editing, and deletion.
+   - Managing the creation, editing, and deletion of quizzes and questions.
    - Serving data to the frontend.
    
    **Technologies:**
@@ -26,7 +26,6 @@ allowing the teachers and students to sign up, log in, and access secure pages b
    - Framework: Spring Boot
    
 **2. Frontend:**
-
 The Frontend component provides the user interface for interacting with the Quizzer application.
 It communicates with the backend via API calls to display quizzes, questions, and user-related information.
 
@@ -39,7 +38,6 @@ It communicates with the backend via API calls to display quizzes, questions, an
    - Framework: Vite.js
 
 **3. Database:**
-
    The Database component stores persistent data related to quizzes, questions, answers and users. It maintains tables for entities such as Category, Quiz, Question, User, and Answer. 
    Initially, the Quizzer application utilized the H2 database during development for its lightweight nature and ease of setup. However, as the application progressed towards production, 
    it transitioned to PostgreSQL for its robustness, scalability, and compatibility.
@@ -50,13 +48,14 @@ It communicates with the backend via API calls to display quizzes, questions, an
    - Users create quizzes and take quizzes.
    - Answers are associated with questions
    
-  **Development Environment:** H2 was chosen to streamline development, providing rapid prototyping and testing capabilities without the need for a separate database server.
+  **Development Environment:** 
+  H2 was chosen to streamline development, providing rapid prototyping and testing capabilities without the need for a separate database server.
 
-  **Production Environment:** PostgreSQL was selected for its reliability, performance under heavy loads, and compatibility with industry standards. 
+  **Production Environment:** 
+  PostgreSQL was selected for its reliability, performance under heavy loads, and compatibility with industry standards. 
   This transition ensured consistency in data management across environments.
 
 **4. Communication flow between components:**
-
 ```mermaid
 graph TD;
     WebClients((Web Clients)) -->|Request| WebServer((Web Server));
@@ -112,13 +111,10 @@ style id1 fill:#f9f,stroke:#333,stroke-width:4px,stroke-dasharray: 5, 5;
 2. In that folder open terminal and write there npm run dev.
 3. The front end will be open on the http://localhost:5175/.
 
-**4. URL of the backend application**
+**4. URLs**
 
-<https://quizzer-app.onrender.com/>
-
-**5. URL of the front end**
-
-<https://quizzer-app-1.onrender.com>
+- **Backend Application**: [https://quizzer-app.onrender.com/](https://quizzer-app.onrender.com/)
+- **Frontend Application**: [https://quizzer-app-1.onrender.com](https://quizzer-app-1.onrender.com)
 
 **6. The purpose of the project’s branches**
 
