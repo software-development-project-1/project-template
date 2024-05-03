@@ -76,16 +76,14 @@ graph TD;
 
     subgraph Frontend
         Vite[Vite]
-        Html[Html]
-        Bootstrap[Bootstrap]
     end
 
     subgraph Backend
         Java[Java]
         Spring[Spring]
-        H2[H2]
-        PostgreSQL[PostgreSQL]
+        id1[(PostgreSQL)]
     end
+style id1 fill:#f9f,stroke:#333,stroke-width:4px,stroke-dasharray: 5, 5;
  ```
 ## Documentation:
 - [Project Board](https://github.com/orgs/https-github-com-DenisHki/projects/1)
