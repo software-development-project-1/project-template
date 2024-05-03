@@ -58,14 +58,35 @@ It communicates with the backend via API calls to display quizzes, questions, an
 
 **4. Communication flow between components:**
 
-  ```mermaid
-graph LR;
-    Frontend -->|Request| Backend;
-    Backend -->|Request| id1[(Database)];
-    id1 -->|Response| Backend;
-    Backend -->|Response| Frontend;
-```
+```mermaid
+graph TD;
+    WebClients((Web Clients)) -->|Request| WebServer((Web Server));
+    WebServer -->|Response| WebClients;
 
+    subgraph WebClients
+        Browser[Browser]
+        Mobile[Mobile]
+        Postman[Postman]
+    end
+
+    subgraph WebServer
+        Frontend[Frontend]
+        Backend[Backend]
+    end
+
+    subgraph Frontend
+        Vite[Vite]
+        Html[Html]
+        Bootstrap[Bootstrap]
+    end
+
+    subgraph Backend
+        Java[Java]
+        Spring[Spring]
+        H2[H2]
+        PostgreSQL[PostgreSQL]
+    end
+ ```
 ## Documentation:
 - [Project Board](https://github.com/orgs/https-github-com-DenisHki/projects/1)
 - [Swagger Documentation](https://quizzer-app.onrender.com/swagger-ui/index.html)
