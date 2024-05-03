@@ -18,7 +18,7 @@ allowing the teachers and students to sign up, log in, and access secure pages b
   It provides RESTful APIs for frontend interactions, allowing users to create, retrieve, update, and delete quizzes and questions.
 
    **Key responsibilities:**
-   - Managing quiz creation, editing, and deletion.
+   - Managing quizzes and questions creation, editing, and deletion.
    - Serving data to the frontend.
    
    **Technologies:**
@@ -32,7 +32,6 @@ It communicates with the backend via API calls to display quizzes, questions, an
 
    **Key features:**
    - Quiz and question listing and details pages.
-   - Quiz and question creation forms.
    - Role-based access control (teacher vs. student).
    - Displaying quiz results.
    
