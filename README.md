@@ -57,8 +57,12 @@ It communicates with the backend via API calls to display quizzes, questions, an
 
   ```mermaid
 graph TD;
+    User --> Frontend;
     Frontend --> Backend;
     Backend --> Database;
+    Database --> Backend;
+    Backend --> Frontend;
+    Frontend --> User;
 ```
 
 ## Documentation:
