@@ -12,47 +12,47 @@ allowing the teachers and students to sign up, log in, and access secure pages b
 - [Un Kuan Che](https://github.com/arielunkuanche "Github page")
 
 ## Architecture:
-**1. Backend:
-    The backend component is responsible for handling business logic, data processing, and communication with the database.
-    It provides RESTful APIs for frontend interactions, allowing users to create, retrieve, update, and delete quizzes and questions.
-    
-    **Key responsibilities:
-    - Managing quiz creation, editing, and deletion.
-    - Serving data to the frontend.
+**1. Backend:**
+**   The backend component is responsible for handling business logic, data processing, and communication with the database.**
+**   It provides RESTful APIs for frontend interactions, allowing users to create, retrieve, update, and delete quizzes and questions.**
 
-    **Programming Language and Framework:
-    - Programming Language: Java
-    - Framework: Spring Boot
+**   Key responsibilities:**
+**   - Managing quiz creation, editing, and deletion.**
+**   - Serving data to the frontend.**
 
-    **Technologies:
-    - Programming Language: Java
-    - Framework: Spring Boot
-    
-**2. Frontend:
-    The frontend component provides the user interface for interacting with the Quizzer application.
-    It communicates with the backend via API calls to display quizzes, questions, and user-related information.
+**   Programming Language and Framework:**
+**   - Programming Language: Java**
+**   - Framework: Spring Boot**
 
-    **Key features:
-    - Quiz listing and details pages.
-    - Quiz creation forms.
-    - Role-based access control (teacher vs. student).
-    - Displaying quiz results.
+**   Technologies:**
+**   - Programming Language: Java**
+**   - Framework: Spring Boot**
+   
+**2. Frontend:**
+**   The frontend component provides the user interface for interacting with the Quizzer application.**
+**   It communicates with the backend via API calls to display quizzes, questions, and user-related information.**
 
-    **Technologies:
-    - Framework: Vite.js
+**   Key features:**
+**   - Quiz listing and details pages.**
+**   - Quiz creation forms.**
+**   - Role-based access control (teacher vs. student).**
+**   - Displaying quiz results.**
 
-**3. Database:
-    The database component stores persistent data related to quizzes, questions, answers and users.
-    It maintains tables for entities such as Category, Quiz, Question, User, and Answer.
+**   Technologies:**
+**   - Framework: Vite.js**
 
-    **Relationships:
-    - Quizzes belong to specific categories.
-    - Questions belong to quizzes.
-    - Users create quizzes and take quizzes.
-    - Answers are associated with questions
+**3. Database:**
+**   The database component stores persistent data related to quizzes, questions, answers and users.**
+**   It maintains tables for entities such as Category, Quiz, Question, User, and Answer.**
 
-    **Technologies:
-    - PostgreSQL.    
+**   Relationships:**
+**   - Quizzes belong to specific categories.**
+**   - Questions belong to quizzes.**
+**   - Users create quizzes and take quizzes.**
+**   - Answers are associated with questions**
+
+**   Technologies:**
+**   - PostgreSQL.**
 
 ## Documentation:
 - [Project Board](https://github.com/orgs/https-github-com-DenisHki/projects/1)
