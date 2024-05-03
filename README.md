@@ -13,8 +13,9 @@ allowing the teachers and students to sign up, log in, and access secure pages b
 
 ## Architecture:
 **1. Backend:**
-- The backend component is responsible for handling business logic, data processing, and communication with the database.
-- It provides RESTful APIs for frontend interactions, allowing users to create, retrieve, update, and delete quizzes and questions.
+
+  The backend component is responsible for handling business logic, data processing, and communication with the database.
+  It provides RESTful APIs for frontend interactions, allowing users to create, retrieve, update, and delete quizzes and questions.
 
    **Key responsibilities:**
    - Managing quiz creation, editing, and deletion.
@@ -29,6 +30,7 @@ allowing the teachers and students to sign up, log in, and access secure pages b
    - Framework: Spring Boot
    
 **2. Frontend:**
+
 The frontend component provides the user interface for interacting with the Quizzer application.
 It communicates with the backend via API calls to display quizzes, questions, and user-related information.
 
@@ -42,6 +44,7 @@ It communicates with the backend via API calls to display quizzes, questions, an
    - Framework: Vite.js
 
 **3. Database:**
+
    The database component stores persistent data related to quizzes, questions, answers and users.
    It maintains tables for entities such as Category, Quiz, Question, User, and Answer.
    
