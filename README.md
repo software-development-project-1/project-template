@@ -60,38 +60,10 @@ It communicates with the backend via API calls to display quizzes, questions, an
 
   ```mermaid
 graph LR;
-    WebClients((Web Clients)) -->|Request| WebServer((Web Server));
-    WebServer -->|Response| WebClients;
-
-    subgraph WebClients
-        Browser((Browser))
-        Mobile((Mobile))
-        Postman((Postman))
-    end
-
-    subgraph WebServer
-        Frontend((Frontend))
-        Backend((Backend))
-    end
-
-    WebClients --> Browser;
-    WebClients --> Mobile;
-    WebClients --> Postman;
-
-    WebServer --> Frontend;
-    WebServer --> Backend;
-
-    Frontend((Frontend)) -->|Request| Backend;
+    Frontend -->|Request| Backend;
+    Backend -->|Request| id1[(Database)];
+    id1 -->|Response| Backend;
     Backend -->|Response| Frontend;
-
-    Frontend --> Vite;
-    Frontend --> Html;
-    Frontend --> Bootstrap;
-
-    Backend --> Java;
-    Backend --> Spring;
-    Backend --> H2;
-    Backend --> PostgreSQL;
 ```
 
 ## Documentation:
