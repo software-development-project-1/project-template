@@ -23,6 +23,10 @@ allowing the teachers and students to sign up, log in, and access secure pages b
     **Programming Language and Framework:
     - Programming Language: Java
     - Framework: Spring Boot
+
+    **Technologies:
+    - Programming Language: Java
+    - Framework: Spring Boot
     
 **2. Frontend:
     The frontend component provides the user interface for interacting with the Quizzer application.
@@ -33,6 +37,9 @@ allowing the teachers and students to sign up, log in, and access secure pages b
     - Quiz creation forms.
     - Role-based access control (teacher vs. student).
     - Displaying quiz results.
+
+    **Technologies:
+    - Framework: Vite.js
 
 **3. Database:
     The database component stores persistent data related to quizzes, questions, users, and their associations.
