@@ -28,15 +28,25 @@ allowing the teachers and students to sign up, log in, and access secure pages b
     The frontend component provides the user interface for interacting with the Quizzer application.
     It communicates with the backend via API calls to display quizzes, questions, and user-related information.
 
+    **Key features:
+    - Quiz listing and details pages.
+    - Quiz creation forms.
+    - Role-based access control (teacher vs. student).
+    - Displaying quiz results.
+
 **3. Database:
     The database component stores persistent data related to quizzes, questions, users, and their associations.
     It maintains tables for entities such as Category, Quiz, Question, User, and Answer.
 
-    ** Relationships:
+    **Relationships:
     - Quizzes belong to specific categories.
     - Questions belong to quizzes.
     - Users create quizzes and take quizzes.
     - Answers are associated with questions
+
+    **Purpose:
+    - Store and retrieve data efficiently.
+    - Ensure data consistency and integrity.
     
 
 ## Documentation:
