@@ -11,6 +11,8 @@ allowing the teachers and students to sign up, log in, and access secure pages b
 - [Tatiana Lyubavskaya](https://github.com/lTanjal "Github page")
 - [Un Kuan Che](https://github.com/arielunkuanche "Github page")
 
+## Architecture:
+
 ## Documentation:
 - [Project Board](https://github.com/orgs/https-github-com-DenisHki/projects/1)
 - [Swagger Documentation](https://quizzer-app.onrender.com/swagger-ui/index.html)
