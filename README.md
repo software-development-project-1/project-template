@@ -63,6 +63,17 @@ graph LR;
     WebClients((Web Clients)) -->|Request| WebServer((Web Server));
     WebServer -->|Response| WebClients;
 
+    subgraph WebClients
+        Browser((Browser))
+        Mobile((Mobile))
+        Postman((Postman))
+    end
+
+    subgraph WebServer
+        Frontend((Frontend))
+        Backend((Backend))
+    end
+
     WebClients --> Browser;
     WebClients --> Mobile;
     WebClients --> Postman;
