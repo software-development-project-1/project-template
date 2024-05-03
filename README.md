@@ -56,13 +56,12 @@ It communicates with the backend via API calls to display quizzes, questions, an
 **4. Communication flow between components:**
 
   ```mermaid
-graph TD;
-    User --> Frontend;
-    Frontend --> Backend;
-    Backend --> Database;
-    Database --> Backend;
+graph LR;
+    id1[(Database)] --> Backend;
     Backend --> Frontend;
     Frontend --> User;
+    Backend --> Database;
+    Frontend --> Backend;
 ```
 
 ## Documentation:
