@@ -12,6 +12,28 @@ allowing the teachers and students to sign up, log in, and access secure pages b
 - [Un Kuan Che](https://github.com/arielunkuanche "Github page")
 
 ## Architecture:
+**1. Backend:
+    The backend component is responsible for handling business logic, data processing, and communication with the database.
+    It provides RESTful APIs for frontend interactions, allowing users to create, retrieve, update, and delete quizzes and questions.
+    
+    **Key responsibilities:
+    - Managing quiz creation, editing, and deletion.
+    - Serving data to the frontend.
+
+    **Programming Language and Framework:
+    - Programming Language: Java
+    - Framework: Spring Boot
+    
+**2. Frontend:
+    The frontend component provides the user interface for interacting with the Quizzer application.
+    It communicates with the backend via API calls to display quizzes, questions, and user-related information.
+
+**3. Database:
+    The database component stores persistent data related to quizzes, questions, users, and their associations.
+    It maintains tables for entities such as Category, Quiz, Question, User, and Answer.
+
+    ** Relationships:
+    
 
 ## Documentation:
 - [Project Board](https://github.com/orgs/https-github-com-DenisHki/projects/1)
