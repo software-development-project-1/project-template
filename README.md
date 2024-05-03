@@ -52,22 +52,7 @@ allowing the teachers and students to sign up, log in, and access secure pages b
     - Answers are associated with questions
 
     **Technologies:
-    - PostgreSQL.
-
-**3. Database:
-    The database component stores persistent data related to quizzes, questions, users, and their associations.
-    It maintains tables for entities such as Category, Quiz, Question, User, and Answer.
-
-    **Relationships:
-    - Quizzes belong to specific categories.
-    - Questions belong to quizzes.
-    - Users create quizzes and take quizzes.
-    - Answers are associated with questions
-
-    **Purpose:
-    - Store and retrieve data efficiently.
-    - Ensure data consistency and integrity.
-    
+    - PostgreSQL.    
 
 ## Documentation:
 - [Project Board](https://github.com/orgs/https-github-com-DenisHki/projects/1)
