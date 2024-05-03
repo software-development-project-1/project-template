@@ -12,6 +12,50 @@ allowing the teachers and students to sign up, log in, and access secure pages b
 - [Un Kuan Che](https://github.com/arielunkuanche "Github page")
 
 ## Architecture:
+**1. Backend:**
+
+  The backend component is responsible for handling business logic, data processing, and communication with the database.
+  It provides RESTful APIs for frontend interactions, allowing users to create, retrieve, update, and delete quizzes and questions.
+
+   **Key responsibilities:**
+   - Managing quiz creation, editing, and deletion.
+   - Serving data to the frontend.
+   
+   **Programming Language and Framework:**
+   - Programming Language: Java
+   - Framework: Spring Boot
+   
+   **Technologies:**
+   - Programming Language: Java
+   - Framework: Spring Boot
+   
+**2. Frontend:**
+
+The frontend component provides the user interface for interacting with the Quizzer application.
+It communicates with the backend via API calls to display quizzes, questions, and user-related information.
+
+   **Key features:**
+   - Quiz listing and details pages.
+   - Quiz creation forms.
+   - Role-based access control (teacher vs. student).
+   - Displaying quiz results.
+   
+   **Technologies:**
+   - Framework: Vite.js
+
+**3. Database:**
+
+   The database component stores persistent data related to quizzes, questions, answers and users.
+   It maintains tables for entities such as Category, Quiz, Question, User, and Answer.
+   
+   **Relationships:**
+   - Quizzes belong to specific categories.
+   - Questions belong to quizzes.
+   - Users create quizzes and take quizzes.
+   - Answers are associated with questions
+   
+   **Technologies:**
+   - PostgreSQL.
 
 ## Documentation:
 - [Project Board](https://github.com/orgs/https-github-com-DenisHki/projects/1)
@@ -35,13 +79,20 @@ allowing the teachers and students to sign up, log in, and access secure pages b
 4. Then run command: **java -jar target/quizzer-0.0.1-SNAPSHOT.jar** to run the application with the JAR file.
 5. Open the application in [http://localhost:8080](http://localhost:8080).
 
+**3. How to run the front end locally**
 
-**3. URL of the backend application**
+1. After clonning our repository navigate to the quizzerFrontEnd folder.
+2. In that folder open terminal and write there npm run dev.
+3. The front end will be open on the http://localhost:5175/.
+
+**4. URL of the backend application**
 
 <https://quizzer-app.onrender.com/>
 
+**5. URL of the front end**
+<https://quizzer-app-1.onrender.com>
 
-**4. The purpose of the project’s branches**
+**6. The purpose of the project’s branches**
 
 - **Isolation of Work** :Team members to work on different features or bug fixes without interfering with each other's work.
 - **Parallel Development** :Team members to work on different tasks simultaneously. This can significantly speed up the development process.
