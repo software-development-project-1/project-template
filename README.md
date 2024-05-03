@@ -78,14 +78,20 @@ allowing the teachers and students to sign up, log in, and access secure pages b
 4. Then run command: **java -jar target/quizzer-0.0.1-SNAPSHOT.jar** to run the application with the JAR file.
 5. Open the application in [http://localhost:8080](http://localhost:8080).
 
+**3. How to run the front end locally**
 
-**3. URL of the backend application**
+1. After clonning our repository navigate to the quizzerFrontEnd folder.
+2. In that folder open terminal and write there npm run dev.
+3. The front end will be open on the http://localhost:5175/.
+
+**4. URL of the backend application**
 
 <https://quizzer-app.onrender.com/>
 
-**4. URL of the front end**
+**5. URL of the front end**
 <https://quizzer-app-1.onrender.com>
-**5. The purpose of the project’s branches**
+
+**6. The purpose of the project’s branches**
 
 - **Isolation of Work** :Team members to work on different features or bug fixes without interfering with each other's work.
 - **Parallel Development** :Team members to work on different tasks simultaneously. This can significantly speed up the development process.
