@@ -57,11 +57,12 @@ It communicates with the backend via API calls to display quizzes, questions, an
 
   ```mermaid
 graph LR;
-    id1[(Database)] --> Backend;
+    User --> Frontend;
+    Frontend --> Backend;
+    Backend --> id1[(Database)];
+    id1 --> Backend;
     Backend --> Frontend;
     Frontend --> User;
-    Backend --> Database;
-    Frontend --> Backend;
 ```
 
 ## Documentation:
