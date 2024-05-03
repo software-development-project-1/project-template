@@ -66,8 +66,9 @@ allowing the teachers and students to sign up, log in, and access secure pages b
 
 <https://quizzer-app.onrender.com/>
 
-
-**4. The purpose of the project’s branches**
+**4. URL of the front end**
+<https://quizzer-app-1.onrender.com>
+**5. The purpose of the project’s branches**
 
 - **Isolation of Work** :Team members to work on different features or bug fixes without interfering with each other's work.
 - **Parallel Development** :Team members to work on different tasks simultaneously. This can significantly speed up the development process.
