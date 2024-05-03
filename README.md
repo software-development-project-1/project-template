@@ -21,10 +21,6 @@ allowing the teachers and students to sign up, log in, and access secure pages b
    - Managing quiz creation, editing, and deletion.
    - Serving data to the frontend.
    
-   **Programming Language and Framework:**
-   - Programming Language: Java
-   - Framework: Spring Boot
-   
    **Technologies:**
    - Programming Language: Java
    - Framework: Spring Boot
