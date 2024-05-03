@@ -53,6 +53,14 @@ It communicates with the backend via API calls to display quizzes, questions, an
    **Technologies:**
    - PostgreSQL.
 
+**4. Flow chart:**
+
+  ```mermaid
+graph TD;
+    Frontend --> Backend;
+    Backend --> Database;
+```
+
 ## Documentation:
 - [Project Board](https://github.com/orgs/https-github-com-DenisHki/projects/1)
 - [Swagger Documentation](https://quizzer-app.onrender.com/swagger-ui/index.html)
