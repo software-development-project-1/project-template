@@ -33,6 +33,10 @@ allowing the teachers and students to sign up, log in, and access secure pages b
     It maintains tables for entities such as Category, Quiz, Question, User, and Answer.
 
     ** Relationships:
+    - Quizzes belong to specific categories.
+    - Questions belong to quizzes.
+    - Users create quizzes and take quizzes.
+    - Answers are associated with questions
     
 
 ## Documentation:
