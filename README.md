@@ -1,8 +1,8 @@
 # Quizzer
-A dashboard application where the teacher can manage quizzes. 
-This application provides an opportunity for the teacher to list, create, delete, edit and mark 
-a status for the quizzes and questions.  Additionally, the app includes authentication functionality, 
-allowing the teachers and students to sign up, log in, and access secure pages based on their roles.
+Quizzer is a dashboard application designed for teachers to manage quizzes effectively. 
+It provides a user-friendly interface for creating, editing, deleting quizzes, and marking quiz status. 
+Additionally, the application includes authentication functionality, allowing both teachers and students to sign up, 
+log in, and access secure pages based on their roles.
 
 ## Team members:
 - [Denis Chuvakov](https://github.com/DenisHki "Github page")
@@ -11,8 +11,81 @@ allowing the teachers and students to sign up, log in, and access secure pages b
 - [Tatiana Lyubavskaya](https://github.com/lTanjal "Github page")
 - [Un Kuan Che](https://github.com/arielunkuanche "Github page")
 
+## Architecture:
+
+**1. Backend:**
+  The Backend component is responsible for handling business logic, data processing, and communication with the database.
+  It provides RESTful APIs for frontend interactions, allowing users to create, retrieve, update, and delete quizzes and questions.
+
+   **Key responsibilities:**
+   - Managing the creation, editing, and deletion of quizzes and questions.
+   - Serving data to the frontend.
+   
+   **Technologies:**
+   - Programming Language: Java
+   - Framework: Spring Boot
+   
+**2. Frontend:**
+The Frontend component provides the user interface for interacting with the Quizzer application.
+It communicates with the backend via API calls to display quizzes, questions, and user-related information.
+
+   **Key features:**
+   - Quiz and question listing and details pages.
+   - Role-based access control (teacher vs. student).
+   - Displaying quiz results.
+   
+   **Technologies:**
+   - Framework: Vite.js
+
+**3. Database:**
+   The Database component stores persistent data related to quizzes, questions, answers and users. It maintains tables for entities such as Category, Quiz, Question, User, and Answer. 
+   Initially, the Quizzer application utilized the H2 database during development for its lightweight nature and ease of setup. However, as the application progressed towards production, 
+   it transitioned to PostgreSQL for its robustness, scalability, and compatibility.
+   
+   **Relationships:**
+   - Quizzes belong to specific categories.
+   - Questions belong to quizzes.
+   - Users create quizzes and take quizzes.
+   - Answers are associated with questions
+   
+  **Development Environment:** 
+  H2 was chosen to streamline development, providing rapid prototyping and testing capabilities without the need for a separate database server.
+
+  **Production Environment:** 
+  PostgreSQL was selected for its reliability, performance under heavy loads, and compatibility with industry standards. 
+  This transition ensured consistency in data management across environments.
+
+**4. Communication flow between components:**
+```mermaid
+graph TD;
+    WebClients((Web Clients)) -->|Request| WebServer((Web Server));
+    WebServer -->|Response| WebClients;
+
+    subgraph WebClients
+        Browser[Browser]
+        Mobile[Mobile]
+        Postman[Postman]
+    end
+
+    subgraph WebServer
+        Frontend[Frontend]
+        Backend[Backend]
+    end
+
+    subgraph Frontend
+        Vite[Vite]
+    end
+
+    subgraph Backend
+        Java[Java]
+        Spring[Spring]
+        id1[(PostgreSQL)]
+    end
+style id1 fill:#f9f,stroke:#333,stroke-width:4px,stroke-dasharray: 5, 5;
+ ```
 ## Documentation:
-<https://github.com/orgs/https-github-com-DenisHki/projects/1>
+- [Project Board](https://github.com/orgs/https-github-com-DenisHki/projects/1)
+- [Swagger Documentation](https://quizzer-app.onrender.com/swagger-ui/index.html)
 
 ## Developer guide:
 **1. How to start the application**
@@ -32,15 +105,82 @@ allowing the teachers and students to sign up, log in, and access secure pages b
 4. Then run command: **java -jar target/quizzer-0.0.1-SNAPSHOT.jar** to run the application with the JAR file.
 5. Open the application in [http://localhost:8080](http://localhost:8080).
 
+**3. How to run the front end locally**
 
-**3. URL of the backend application**
+1. After clonning our repository navigate to the quizzerFrontEnd folder.
+2. In that folder open terminal and write there npm run dev.
+3. The front end will be open on the http://localhost:5175/.
 
-<https://quizzer-app.onrender.com/>
+**4. URLs**
 
+- **Backend Application**: [https://quizzer-app.onrender.com/](https://quizzer-app.onrender.com/)
+- **Frontend Application**: [https://quizzer-app-1.onrender.com](https://quizzer-app-1.onrender.com)
 
-**4. The purpose of the project’s branches**
+**6. The purpose of the project’s branches**
 
 - **Isolation of Work** :Team members to work on different features or bug fixes without interfering with each other's work.
 - **Parallel Development** :Team members to work on different tasks simultaneously. This can significantly speed up the development process.
 - **Code Review** :Team members can review each other's changes in a dedicated branch before merging them into the main codebase. And to resolve conflicts that may arise when multiple team members make changes to the same files.
 - **Backup and Recovery** :If something goes wrong, team members can revert to a previous branch or commit to recover lost work.
+
+## Data Model:
+### Entity Relationship Diagram
+
+```mermaid
+erDiagram
+    Category ||--o{ Quiz : has
+    Category {
+        Long id PK
+        String name
+    }
+    Quiz ||--o{ Question : contains
+    Quiz {
+        Long id PK
+        Long categoryId FK
+        String quizName
+        String quizDescription
+        Boolean published
+        instant createAt
+        Long userId FK
+    }
+    User ||--o{ Quiz : has
+    User {
+        Long userId PK
+        String role
+        String firstName
+        String lastName
+    }
+    Question {
+        Long questionId PK
+        Long quizId FK
+        String questionText
+        String correctAnswer
+        String difficultyLevel
+    }
+    Question ||--o{ Answer : contains
+    Answer{
+        Long answerId PK
+        Long questionId FK
+        String answerText
+        boolean correctness
+    }
+
+```
+
+### Description:
+
+#### Quiz
+The Quiz entity represents individual quizzes within the application. Each quiz belongs to exactly one category, facilitated by the categoryID foreign key. Additionally, each quiz can have multiple questions associated with it. A quiz is also associated with a user who created it using the userID foreign key. Other attributes include quizName, quizDescription, published, createdAt, which provide details about the quiz.
+
+#### Question
+The Question entity represents individual questions within quizzes. Each question belongs to exactly one quiz, facilitated by the quizId foreign key. Each question can have multiple answers associated with it. The Question entity includes attributes such as Id, questionText, correctAnswer, and difficultyLevel, which provide details about the question.
+
+#### Category
+The Category entity represents different categories that quizzes can belong to. Each category can have zero or many quizzes associated with it.
+
+#### User
+The User entity represents individuals who interact with the application. Users can have two roles: teacher and student. Users with the role of teacher can create quizzes, while users with the role of student can take quizzes. Each user can have zero or many quizzes. The User entity also includes attributes such as userId, userName, role, firstName, and lastName.
+
+#### Answer
+The Answer entity represents individual answers within questions. Each answer belongs to exactly one question, facilitated by the questionId foreign key. The Answer entity includes attributes such as Id, answerText and correctness, which provide details about the answer.
+

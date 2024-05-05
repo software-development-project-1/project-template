@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import QuizList from './QuizList';
-import QuestionList from './QuestionList';
+import QuizList from './components/QuizList';
+import QuestionList from './components/QuestionList';
+import Results from './components/Results';
 
 function App() {
   return (
@@ -8,6 +9,7 @@ function App() {
       <Routes>
         <Route path="/quiz/:id" element={<QuestionList />} />
         <Route path="/" element={<QuizList />} />
+        <Route path="/quiz/:id/answers" element={<Results />} />
       </Routes>
     </Router>
   );

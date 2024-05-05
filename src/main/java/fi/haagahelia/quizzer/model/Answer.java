@@ -31,9 +31,4 @@ public class Answer {
         this.question = question;
     }
 
-    public Answer(String answerText, Question question) {
-        this.answerText = answerText;
-        this.question = question;
-    }
-
 }
