@@ -1,8 +1,8 @@
 # Quizzer
-A dashboard application where the teacher can manage quizzes. 
-This application provides an opportunity for the teacher to list, create, delete, edit and mark 
-a status for the quizzes and questions.  Additionally, the app includes authentication functionality, 
-allowing the teachers and students to sign up, log in, and access secure pages based on their roles.
+Quizzer is a dashboard application designed for teachers to manage quizzes effectively. 
+It provides a user-friendly interface for creating, editing, deleting quizzes, and marking quiz status. 
+Additionally, the application includes authentication functionality, allowing both teachers and students to sign up, 
+log in, and access secure pages based on their roles.
 
 ## Team members:
 - [Denis Chuvakov](https://github.com/DenisHki "Github page")
@@ -12,31 +12,25 @@ allowing the teachers and students to sign up, log in, and access secure pages b
 - [Un Kuan Che](https://github.com/arielunkuanche "Github page")
 
 ## Architecture:
-**1. Backend:**
 
-  The backend component is responsible for handling business logic, data processing, and communication with the database.
+**1. Backend:**
+  The Backend component is responsible for handling business logic, data processing, and communication with the database.
   It provides RESTful APIs for frontend interactions, allowing users to create, retrieve, update, and delete quizzes and questions.
 
    **Key responsibilities:**
-   - Managing quiz creation, editing, and deletion.
+   - Managing the creation, editing, and deletion of quizzes and questions.
    - Serving data to the frontend.
-   
-   **Programming Language and Framework:**
-   - Programming Language: Java
-   - Framework: Spring Boot
    
    **Technologies:**
    - Programming Language: Java
    - Framework: Spring Boot
    
 **2. Frontend:**
-
-The frontend component provides the user interface for interacting with the Quizzer application.
+The Frontend component provides the user interface for interacting with the Quizzer application.
 It communicates with the backend via API calls to display quizzes, questions, and user-related information.
 
    **Key features:**
-   - Quiz listing and details pages.
-   - Quiz creation forms.
+   - Quiz and question listing and details pages.
    - Role-based access control (teacher vs. student).
    - Displaying quiz results.
    
@@ -44,9 +38,9 @@ It communicates with the backend via API calls to display quizzes, questions, an
    - Framework: Vite.js
 
 **3. Database:**
-
-   The database component stores persistent data related to quizzes, questions, answers and users.
-   It maintains tables for entities such as Category, Quiz, Question, User, and Answer.
+   The Database component stores persistent data related to quizzes, questions, answers and users. It maintains tables for entities such as Category, Quiz, Question, User, and Answer. 
+   Initially, the Quizzer application utilized the H2 database during development for its lightweight nature and ease of setup. However, as the application progressed towards production, 
+   it transitioned to PostgreSQL for its robustness, scalability, and compatibility.
    
    **Relationships:**
    - Quizzes belong to specific categories.
@@ -54,9 +48,41 @@ It communicates with the backend via API calls to display quizzes, questions, an
    - Users create quizzes and take quizzes.
    - Answers are associated with questions
    
-   **Technologies:**
-   - PostgreSQL.
+  **Development Environment:** 
+  H2 was chosen to streamline development, providing rapid prototyping and testing capabilities without the need for a separate database server.
 
+  **Production Environment:** 
+  PostgreSQL was selected for its reliability, performance under heavy loads, and compatibility with industry standards. 
+  This transition ensured consistency in data management across environments.
+
+**4. Communication flow between components:**
+```mermaid
+graph TD;
+    WebClients((Web Clients)) -->|Request| WebServer((Web Server));
+    WebServer -->|Response| WebClients;
+
+    subgraph WebClients
+        Browser[Browser]
+        Mobile[Mobile]
+        Postman[Postman]
+    end
+
+    subgraph WebServer
+        Frontend[Frontend]
+        Backend[Backend]
+    end
+
+    subgraph Frontend
+        Vite[Vite]
+    end
+
+    subgraph Backend
+        Java[Java]
+        Spring[Spring]
+        id1[(PostgreSQL)]
+    end
+style id1 fill:#f9f,stroke:#333,stroke-width:4px,stroke-dasharray: 5, 5;
+ ```
 ## Documentation:
 - [Project Board](https://github.com/orgs/https-github-com-DenisHki/projects/1)
 - [Swagger Documentation](https://quizzer-app.onrender.com/swagger-ui/index.html)
@@ -85,12 +111,10 @@ It communicates with the backend via API calls to display quizzes, questions, an
 2. In that folder open terminal and write there npm run dev.
 3. The front end will be open on the http://localhost:5175/.
 
-**4. URL of the backend application**
+**4. URLs**
 
-<https://quizzer-app.onrender.com/>
-
-**5. URL of the front end**
-<https://quizzer-app-1.onrender.com>
+- **Backend Application**: [https://quizzer-app.onrender.com/](https://quizzer-app.onrender.com/)
+- **Frontend Application**: [https://quizzer-app-1.onrender.com](https://quizzer-app-1.onrender.com)
 
 **6. The purpose of the project’s branches**
 
@@ -145,14 +169,14 @@ erDiagram
 
 ### Description:
 
-#### Category
-The Category entity represents different categories that quizzes can belong to. Each category can have zero or many quizzes associated with it.
-
 #### Quiz
 The Quiz entity represents individual quizzes within the application. Each quiz belongs to exactly one category, facilitated by the categoryID foreign key. Additionally, each quiz can have multiple questions associated with it. A quiz is also associated with a user who created it using the userID foreign key. Other attributes include quizName, quizDescription, published, createdAt, which provide details about the quiz.
 
 #### Question
 The Question entity represents individual questions within quizzes. Each question belongs to exactly one quiz, facilitated by the quizId foreign key. Each question can have multiple answers associated with it. The Question entity includes attributes such as Id, questionText, correctAnswer, and difficultyLevel, which provide details about the question.
+
+#### Category
+The Category entity represents different categories that quizzes can belong to. Each category can have zero or many quizzes associated with it.
 
 #### User
 The User entity represents individuals who interact with the application. Users can have two roles: teacher and student. Users with the role of teacher can create quizzes, while users with the role of student can take quizzes. Each user can have zero or many quizzes. The User entity also includes attributes such as userId, userName, role, firstName, and lastName.

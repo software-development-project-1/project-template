@@ -2,8 +2,6 @@
 
 ## Issues
 
-- The Spring Boot application won't start on my computer.
-- I always have conflicts when I try to pull code from the GitHub.
 - Not familiar with error handling and validation.
 - Difficult to avoid merge conflicts.
 - Lack of time due to a high workload.
@@ -14,11 +12,10 @@
 
 ## Actions
 
-- Fix the broken Spring Boot setups together.
-- Pull code from GitHub more often.
-- Create smaller commits and push code to GitHub more often.
-- Learn about it before next sprint.
-- Improve time management.
+- Make sure to learn about validation and error handling before next sprint.
+- Every team member shall commit more often and remember to fetch and pull first every time before commencing new coding.
+- Improve time management, and discuss  with team when necessary to better allocate workloads.
+- Assign deadline for each task and assignee should strictly follow, enable all team members have better planning to conduct the work.
 - Use descriptive names and add clear comments to make code easier to understand and navigate.
 
 
