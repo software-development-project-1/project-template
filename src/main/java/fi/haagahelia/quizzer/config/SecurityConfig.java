@@ -22,44 +22,28 @@ import org.springframework.beans.factory.annotation.Autowired;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests((requests) -> requests
-            .requestMatchers(
-                antMatcher("/"),
-                antMatcher("/api/**"),
-                antMatcher("/registration/**"),
-                antMatcher("/h2-console/**"),
-                // Swagger documentation paths
-                antMatcher("/v3/api-docs/**"),
-                antMatcher("/configuration/ui"),
-                antMatcher("/swagger-resources/**"),
-                antMatcher("/configuration/security"),
-                antMatcher("/swagger-ui/**"))
-            .permitAll()
-            .anyRequest()
-            .authenticated());
-
-        http.formLogin((form) -> form
-            .loginPage("/login")
-            .defaultSuccessUrl("/", true)
-            .permitAll());
-        http.logout((logout) -> logout
-            .invalidateHttpSession(true)
-            .clearAuthentication(true)
-            .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-            .logoutSuccessUrl("/login?logout")
-            .permitAll());
-        http.cors(Customizer.withDefaults());
-        http.csrf((csrf) -> csrf
-        .ignoringRequestMatchers(antMatcher("/api/**")));
-
-        http.headers(headers -> headers.disable());
+    @Autowired
+	private UserDetailsServiceImpl userDetailService;
+    
+	@Bean
+	public SecurityFilterChain configure(HttpSecurity http) throws Exception {
+        http.authorizeHttpRequests(authorize -> authorize
+                .requestMatchers(antMatcher("/css/**")).permitAll()
+                .requestMatchers(antMatcher("/registration/**")).permitAll()
+                .requestMatchers(antMatcher("/saveuser/**")).permitAll()
+                .anyRequest().authenticated()
+        ).formLogin(formlogin -> formlogin
+                .loginPage("/login")
+                .defaultSuccessUrl("/", true).permitAll()
+        ).logout(logout -> logout
+                .permitAll()
+        );
         return http.build();
     }
+    
+	
+	@Autowired
+	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+		auth.userDetailsService(userDetailService).passwordEncoder(new BCryptPasswordEncoder());
+	}
 }

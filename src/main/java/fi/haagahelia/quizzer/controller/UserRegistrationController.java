@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 
 import fi.haagahelia.quizzer.dto.UserRegistrationDto;
 import fi.haagahelia.quizzer.model.Quiz;
+import fi.haagahelia.quizzer.model.SignupForm;
 import fi.haagahelia.quizzer.model.AppUser;
 import fi.haagahelia.quizzer.repository.AppUserRepository;
 import jakarta.validation.Valid;
@@ -19,60 +20,54 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.ui.Model;
 
 
 
 @Controller
 public class UserRegistrationController {
-    private static final Logger logger = LoggerFactory.getLogger(QuizController.class);
+ @Autowired
+	private AppUserRepository repository;
 
-    @Autowired
-    private AppUserRepository userRepository;
+	// Signup
+	@RequestMapping(value = "/registration")
+	public String addUser(Model model) {
+		model.addAttribute("signupform", new SignupForm());
+		return "registration";
+	}
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+	// Create new user
+	@RequestMapping(value = "/saveuser", method = RequestMethod.POST)
+	public String save(@Valid @ModelAttribute("signupform") SignupForm signupForm, BindingResult bindingResult) {
+		if (!bindingResult.hasErrors()) {
+			if (signupForm.getPassword().equals(signupForm.getPasswordCheck())) {
+				String pswd = signupForm.getPassword();
+				BCryptPasswordEncoder bc = new BCryptPasswordEncoder();
+				String hashPswd = bc.encode(pswd);
 
+				AppUser newUser = new AppUser();
+				newUser.setPassword(hashPswd);
+				newUser.setUserName(signupForm.getUsername());
+				newUser.setRole("TEACHER");
+				newUser.setFirstName("Maksim");
+				newUser.setLastName("Minenko");
+				// Check if user already exists
+				if (repository.findByUserName(signupForm.getUsername()) == null) {
+					repository.save(newUser);
+				} else {
+					bindingResult.rejectValue("username", "err.username", "Username already exists");
+					return "registration";
+				}
+			} else {
+				bindingResult.rejectValue("passwordCheck", "err.passCheck", "Passwords do not match");
+				return "registration";
+			}
+		} else {
+			return "registration";
+		}
+		return "redirect:/login";
+	}
 
-    //show login page
-    @GetMapping("/login")
-    public String showLogin() {
-        return "login";
-    }
-
-    //show registration form
-    @GetMapping("/registration")
-    public String showRegisForm(Model model) {
-        model.addAttribute("user", new UserRegistrationDto());
-        return "registration";
-    }
-
-    //save new registered user
-    @PostMapping("/saveUser")
-    public String addNewUser(@Valid @ModelAttribute("user") UserRegistrationDto userRegistrationDto, BindingResult bindingResult, Model model) {
-        logger.info("user registered: ", userRegistrationDto);
-
-        if(bindingResult.hasErrors()){
-            logger.info("error in registered data ", userRegistrationDto);
-            return "registration"; 
-        }
-        if(userRegistrationDto.getPassword().equals(userRegistrationDto.getPasswordCheck()) ==false){
-            model.addAttribute("errorMessage", "Password does not match!");
-            return "registration";
-        }
-
-        AppUser existingUser = userRepository.findByUserName(userRegistrationDto.getUsername());
-        if(existingUser != null){
-            model.addAttribute("errorMessage", "Username has already existed!");
-            return "registration";
-        }
-
-        AppUser newUser = new AppUser();
-        newUser.setUserName(userRegistrationDto.getUsername());
-        newUser.setPassword(passwordEncoder.encode(userRegistrationDto.getPassword()));
-        userRepository.save(newUser);
-
-        logger.info("New user registered successfully ", newUser);
-        return "redirect:/registration.success";
-    }
 }

@@ -251,4 +251,9 @@ public class QuizController {
 		categoryrepository.deleteById(id);
 		return "redirect:/categoryList";
 	}
+
+	@RequestMapping(value="/login")
+	public String login() {
+		return "login";
+	}
 }

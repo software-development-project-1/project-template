@@ -1,28 +1,27 @@
 package fi.haagahelia.quizzer.service;
 
-import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.stereotype.Service;
 import fi.haagahelia.quizzer.repository.AppUserRepository;
 import fi.haagahelia.quizzer.model.AppUser;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
+    private final AppUserRepository repository;
+
     @Autowired
-    private AppUserRepository appUserRepository;
+    public UserDetailsServiceImpl(AppUserRepository appUserRepository) {
+        this.repository = appUserRepository;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        AppUser newUser = appUserRepository.findByUserName(username);
-
-        if(newUser == null){
-            throw new UsernameNotFoundException("User not found with username: " + username);
-        }
-
-        return new User(newUser.getUserName(), newUser.getPassword(), new ArrayList<>());
+        AppUser currUser = repository.findByUserName(username);
+        UserDetails user = new org.springframework.security.core.userdetails.User(username, currUser.getPassword(), AuthorityUtils.createAuthorityList(currUser.getRole()));
+        return user;
     }
 }       
