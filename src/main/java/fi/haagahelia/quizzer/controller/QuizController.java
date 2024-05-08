@@ -39,22 +39,22 @@ public class QuizController {
 	@GetMapping("/")
 	public String listQuizzes(Model model) {
 		List<Quiz> quizzes = qrepository.findAll();
-		List<Quiz> quizzesList = new ArrayList<>();
-		UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String username = user.getUsername();
-		AppUser userNow = urepository.findByUserName(username);
-		if (userNow != null) {
-			for (Quiz quiz : quizzes) {
-				if (quiz.getUser().getUserName().equals(userNow.getUserName())) {
-					quizzesList.add(quiz);
-				}
-			}
+		// List<Quiz> quizzesList = new ArrayList<>();
+		// UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		// String username = user.getUsername();
+		// AppUser userNow = urepository.findByUserName(username);
+		// if (userNow != null) {
+		// 	for (Quiz quiz : quizzes) {
+		// 		if (quiz.getUser().getUserName().equals(userNow.getUserName())) {
+		// 			quizzesList.add(quiz);
+		// 		}
+		// 	}
 
-		} else {
-			quizzesList.addAll(quizzes);
-		}
+		// } else {
+		// 	quizzesList.addAll(quizzes);
+		// }
 
-		model.addAttribute("quizzes", quizzesList);
+		model.addAttribute("quizzes", quizzes);
 		return "quizzesList";
 	}
 
