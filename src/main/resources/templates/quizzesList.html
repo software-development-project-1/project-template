@@ -16,6 +16,16 @@
   <body>
     <div layout:fragment="content" class="container">
       <h2>Quizzes</h2>
+      <div class="d-flex justify-content-end align-items-center">
+          <span th:unless="${#authorization.expression('isAnonymous()')}" sec:authentication="name">Name</span>
+          <form th:unless="${#authorization.expression('isAnonymous()')}" th:action="@{/logout}" method="post">
+            <input type="submit" value="Sign Out" class="btn btn-sm btn-danger ml-2"  />
+          </form>
+          <span th:if="${#authorization.expression('isAnonymous()')}"> <a th:href="@{/registration}">Register</a> or <a th:href="@{/login}">Login here</a> to add a quiz</span>
+      </div>
+      <div style="clear: both; display: block; height: 10px;"></div>
+    
+      <div style="clear: both; display: block; height: 10px;"></div>
       <div class="dropdown mb-1">
         <button
           class="btn btn-secondary dropdown-toggle"
@@ -38,13 +48,14 @@
         </ul>
       </div>
       <div class="mb-3 mt-3">
-        <a href="/categoryList" class="btn btn-info">Categories</a>
+        <a th:unless="${#authorization.expression('isAnonymous()')}" href="/categoryList" class="btn btn-info">Categories</a>
       </div>
       <table class="table table-striped" border="1">
         <thead>
           <tr>
             <th>Name</th>
             <th>Description</th>
+            <th>Category</th>
             <th>Published</th>
             <th>Actions</th>
           </tr>
@@ -53,6 +64,7 @@
           <tr th:each="quiz : ${quizzes}">
             <td th:text="${quiz.quizName}"></td>
             <td th:text="${quiz.quizDescription}"></td>
+            <td th:text="${quiz.category?.name}"></td>
             <td>
               <span
                 th:class="${quiz.published} ? 'badge bg-primary' : 'badge bg-secondary'"
@@ -62,12 +74,12 @@
             </td>
             <td>
               <div class="btn-group" role="group">
-                <a
+                <a th:unless="${#authorization.expression('isAnonymous()')}"
                   th:href="@{'/editQuiz/' + ${quiz.id}}"
                   class="btn btn-secondary"
                   >Edit</a
                 >
-                <a
+                <a th:unless="${#authorization.expression('isAnonymous()')}"
                   href="#"
                   th:href="@{/delete/{id}(id=${quiz.id})}"
                   th:attr="data-id=${quiz.id}"
@@ -86,9 +98,9 @@
         </tbody>
       </table>
 
-      <a href="/addQuiz" class="btn btn-primary">Add a quiz</a>
+      <a th:unless="${#authorization.expression('isAnonymous()')}" href="/addQuiz" class="btn btn-primary">Add a quiz</a>
 
-      <span> <a th:href="@{/registration}">Register</a> or <a th:href="@{/login}">Login here</a> to add a quiz</span>
+     
       
       <script
         src="https://code.jquery.com/jquery-3.2.1.slim.min.js"

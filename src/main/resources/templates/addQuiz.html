@@ -22,7 +22,8 @@
         th:object="${quiz}"
         method="post"
         action="#"
-      >
+      > 
+        <input type="hidden" name= "user" th:value="${currentUserId.userId}" />
         <div class="mb-3">
           <label for="quizname" class="form-label">Name</label>
           <input

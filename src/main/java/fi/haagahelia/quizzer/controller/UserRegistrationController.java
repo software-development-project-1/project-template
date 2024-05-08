@@ -67,7 +67,7 @@ public class UserRegistrationController {
 		} else {
 			return "registration";
 		}
-		return "redirect:/login";
+		return "redirect:/";
 	}
 
 }

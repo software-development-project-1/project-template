@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import fi.haagahelia.quizzer.service.UserDetailsServiceImpl;
 
@@ -27,6 +28,7 @@ public class SecurityConfig {
 	public SecurityFilterChain configure(HttpSecurity http) throws Exception {
         http
         .authorizeHttpRequests(authorize -> authorize
+                .requestMatchers(antMatcher("/**")).permitAll()
                 .requestMatchers(antMatcher("/css/**")).permitAll()
                 .requestMatchers(antMatcher("/h2-console/**")).permitAll()
                 .requestMatchers(antMatcher("/registration/**")).permitAll()
@@ -36,6 +38,10 @@ public class SecurityConfig {
                 .loginPage("/login")
                 .defaultSuccessUrl("/", true).permitAll()
         ).logout(logout -> logout
+                .invalidateHttpSession(true)
+                .clearAuthentication(true)
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/")
                 .permitAll()
         ).csrf((csrf) -> csrf.ignoringRequestMatchers(antMatcher("/h2-console/**")));
 

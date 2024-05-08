@@ -40,9 +40,9 @@
         <thead>
           <tr>
             <th>Question text</th>
-            <th>Correct answer</th>
+            <th th:unless="${#authorization.expression('isAnonymous()')}">Correct answer</th>
             <th>Difficulty level</th>
-            <th>Actions</th>
+            <th th:unless="${#authorization.expression('isAnonymous()')}">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -56,19 +56,19 @@
             th:unless="${questionList.isEmpty()}"
           >
             <td th:text="${question.questionText}"></td>
-            <td th:text="${question.correctAnswer}"></td>
+            <td th:unless="${#authorization.expression('isAnonymous()')}" th:text="${question.correctAnswer}"></td>
             <td>
               <span class="badge bg-secondary">
                 <span th:text="${question.difficultyLevel}"></span>
               </span>
             </td>
             <td>
-              <a
+              <a th:unless="${#authorization.expression('isAnonymous()')}"
                 th:href="@{'/editQuestion/' + ${question.questionId}}"
                 class="btn btn-secondary"
                 >Edit</a
               >
-              <a
+              <a th:unless="${#authorization.expression('isAnonymous()')}"
                 href="#"
                 th:href="@{/deleteQuestion/{id}(id=${question.questionId})}"
                 class="btn btn-danger"
@@ -80,7 +80,7 @@
         </tbody>
       </table>
       <div>
-        <a th:href="'/addquestiontolist/' + ${quiz.id}" class="btn btn-primary"
+        <a th:unless="${#authorization.expression('isAnonymous()')}" th:href="'/addquestiontolist/' + ${quiz.id}" class="btn btn-primary"
           >Add a question</a
         >
         <a href="/" class="btn btn-secondary">Back to quizzes</a>

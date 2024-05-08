@@ -34,28 +34,37 @@ public class QuizController {
 	private CategoryRepository categoryrepository;
 
 	@Autowired
-	private AppUserRepository urepository;
+	private AppUserRepository appuserrepository;
 
 	@GetMapping("/")
 	public String listQuizzes(Model model) {
 		List<Quiz> quizzes = qrepository.findAll();
-		// List<Quiz> quizzesList = new ArrayList<>();
-		// UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		// String username = user.getUsername();
-		// AppUser userNow = urepository.findByUserName(username);
-		// if (userNow != null) {
-		// 	for (Quiz quiz : quizzes) {
-		// 		if (quiz.getUser().getUserName().equals(userNow.getUserName())) {
-		// 			quizzesList.add(quiz);
-		// 		}
-		// 	}
-
-		// } else {
-		// 	quizzesList.addAll(quizzes);
-		// }
-
-		model.addAttribute("quizzes", quizzes);
+		List<Quiz> quizzesList = new ArrayList<>();
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if (authentication != null && authentication.isAuthenticated()
+				&& authentication.getName().equals("anonymousUser")) {
+			quizzesList.addAll(quizzes);
+			
+		} else {
+			UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			String username = user.getUsername();
+			AppUser userNow = appuserrepository.findByUserName(username);
+			if (userNow != null) {
+				for (Quiz quiz : quizzes) {
+					if (quiz.getUser().getUserName().equals(userNow.getUserName())) {
+						quizzesList.add(quiz);
+					}
+				}
+				
+			} else {
+				quizzesList.addAll(quizzes);
+			}
+		}
+			model.addAttribute("quizzes", quizzesList);
+			
+		
 		return "quizzesList";
+
 	}
 
 	// Add new quiz:
@@ -65,6 +74,10 @@ public class QuizController {
 		List<Category> categories = categoryrepository.findAll();
 		Collections.sort(categories, (c1, c2) -> c1.getName().compareTo(c2.getName()));
 		model.addAttribute("categories", categories);
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String currentUserName = authentication.getName();
+		AppUser currentUserId = appuserrepository.findByUserName(currentUserName);
+		model.addAttribute("currentUserId", currentUserId);
 
 		return "addQuiz";
 	}
@@ -252,7 +265,7 @@ public class QuizController {
 		return "redirect:/categoryList";
 	}
 
-	@RequestMapping(value="/login")
+	@RequestMapping(value = "/login")
 	public String login() {
 		return "login";
 	}
