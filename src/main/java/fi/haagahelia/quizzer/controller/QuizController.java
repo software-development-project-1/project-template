@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,8 +18,10 @@ import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import fi.haagahelia.quizzer.model.AppUser;
 import fi.haagahelia.quizzer.model.Category;
 import fi.haagahelia.quizzer.model.Quiz;
+import fi.haagahelia.quizzer.repository.AppUserRepository;
 import fi.haagahelia.quizzer.repository.CategoryRepository;
 import fi.haagahelia.quizzer.repository.QuizRepository;
 
@@ -28,10 +33,28 @@ public class QuizController {
 	@Autowired
 	private CategoryRepository categoryrepository;
 
+	@Autowired
+	private AppUserRepository urepository;
+
 	@GetMapping("/")
 	public String listQuizzes(Model model) {
 		List<Quiz> quizzes = qrepository.findAll();
-		model.addAttribute("quizzes", quizzes);
+		List<Quiz> quizzesList = new ArrayList<>();
+		UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String username = user.getUsername();
+		AppUser userNow = urepository.findByUserName(username);
+		if (userNow != null) {
+			for (Quiz quiz : quizzes) {
+				if (quiz.getUser().getUserName().equals(userNow.getUserName())) {
+					quizzesList.add(quiz);
+				}
+			}
+
+		} else {
+			quizzesList.addAll(quizzes);
+		}
+
+		model.addAttribute("quizzes", quizzesList);
 		return "quizzesList";
 	}
 
@@ -107,6 +130,7 @@ public class QuizController {
 		qrepository.deleteById(id);
 		return "redirect:/";
 	}
+
 	@GetMapping("/quiz/newest")
 	public String listNewestQuizzes(Model model) {
 		List<Quiz> quizzes = qrepository.findAllByOrderByCreatedAtDesc();
@@ -151,17 +175,17 @@ public class QuizController {
 			model.addAttribute("category", category);
 			return "addCategory";
 		}
-		
+
 		List<Category> categories = categoryrepository.findAll();
-		String newCategoryName = category.getName();		
-		for(Category existingCategory : categories ){
-			if(existingCategory.getName().equalsIgnoreCase(newCategoryName)){
+		String newCategoryName = category.getName();
+		for (Category existingCategory : categories) {
+			if (existingCategory.getName().equalsIgnoreCase(newCategoryName)) {
 				model.addAttribute("errorMessage", "Category name has already existed!");
 				model.addAttribute("category", category);
 				return "addCategory";
 			}
 		}
-		
+
 		categoryrepository.save(category);
 		return "redirect:/categoryList";
 	}
@@ -172,9 +196,9 @@ public class QuizController {
 		List<Category> categories = categoryrepository.findAll();
 		logger.info("Categories loaded: " + categories);
 
-		if(categories!= null && !categories.isEmpty()){
+		if (categories != null && !categories.isEmpty()) {
 			Collections.sort(categories, (c1, c2) -> c1.getName().compareTo(c2.getName()));
-		}else{
+		} else {
 			categories = Collections.emptyList();
 		}
 		model.addAttribute("categoryList", categories);
@@ -183,13 +207,13 @@ public class QuizController {
 
 	// Edit category by id:
 	@RequestMapping(value = "/editCategory/{id}", method = RequestMethod.GET)
-    public String editCategory(@PathVariable("id") Long id, Model model) {
-        Optional<Category> categoryOptional = categoryrepository.findById(id);
-        Category category = categoryOptional.get();
-        model.addAttribute("category", category);
+	public String editCategory(@PathVariable("id") Long id, Model model) {
+		Optional<Category> categoryOptional = categoryrepository.findById(id);
+		Category category = categoryOptional.get();
+		model.addAttribute("category", category);
 
-        return "editCategory";
-    }
+		return "editCategory";
+	}
 
 	// Save updated category
 	@PostMapping("/saveUpdatedCategory")
@@ -216,15 +240,15 @@ public class QuizController {
 	}
 
 	// Delete category by id:
-    @RequestMapping(value = "/deleteCategory/{id}", method = RequestMethod.GET)
-    public String deleteCategory(@PathVariable("id") Long id, Model model) {
+	@RequestMapping(value = "/deleteCategory/{id}", method = RequestMethod.GET)
+	public String deleteCategory(@PathVariable("id") Long id, Model model) {
 		List<Quiz> quizzes = qrepository.findAllByCategoryId(id);
 		quizzes.forEach(quiz -> {
 			quiz.setCategory(null);
 			qrepository.save(quiz);
 		});
-		
-        categoryrepository.deleteById(id);
-        return "redirect:/categoryList";
-    }
+
+		categoryrepository.deleteById(id);
+		return "redirect:/categoryList";
+	}
 }
