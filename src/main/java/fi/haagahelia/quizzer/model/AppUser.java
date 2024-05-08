@@ -12,6 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,7 +22,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Table(name = "users")
-public class User {
+public class AppUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,6 +32,9 @@ public class User {
     // Username with unique constraint
     @Column(name = "userName", nullable = false, unique = true)
     private String userName;
+
+    @Column(name = "Password", nullable = false)
+    private String password;
 
     @Column(name = "role", nullable = false)
     private String role;
@@ -46,14 +50,17 @@ public class User {
     private List<Quiz> quizzes;
 
 
-    public User(String userName, String role, String firstName, String lastName) {
+    public AppUser(String userName, String role, String firstName, String lastName) {
         super();
         this.userName = userName;
         this.role = role;
         this.firstName = firstName;
         this.lastName = lastName;
     }
-
+    public AppUser(String userName, String password) {
+        this.userName = userName;
+        this.password = password;
+    }
     @Override
     public String toString() {
         return "User [userId=" + userId + ", userName=" + userName + ", role=" + role + ", firstName=" + firstName

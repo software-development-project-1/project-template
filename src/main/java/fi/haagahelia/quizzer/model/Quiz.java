@@ -53,9 +53,9 @@ public class Quiz {
 
     @ManyToOne
     @JoinColumn(name = "userId")
-    private User user;
+    private AppUser user;
 
-    public Quiz(Category category, Instant createdAt, String quizName, String quizDescription, Boolean published, User user) {
+    public Quiz(Category category, Instant createdAt, String quizName, String quizDescription, Boolean published, AppUser user) {
         super();
         this.category = category;
         this.createdAt = createdAt;
