@@ -53,21 +53,26 @@ public class UserRegistrationController {
         logger.info("user registered: ", userRegistrationDto);
 
         if(bindingResult.hasErrors()){
+            logger.info("error in registered data ", userRegistrationDto);
             return "registration"; 
         }
         if(userRegistrationDto.getPassword().equals(userRegistrationDto.getPasswordCheck()) ==false){
             model.addAttribute("errorMessage", "Password does not match!");
             return "registration";
         }
-        AppUser newUser = new AppUser();
-        newUser.setUserName(userRegistrationDto.getUsername());
-        newUser.setPassword(userRegistrationDto.getPassword());
-        if(userRepository.findByUserName(userRegistrationDto.getUsername()) == null){
-            userRepository.save(newUser);
-            return "redirect:/registration.success";
-        }else{
+
+        AppUser existingUser = userRepository.findByUserName(userRegistrationDto.getUsername());
+        if(existingUser != null){
             model.addAttribute("errorMessage", "Username has already existed!");
             return "registration";
         }
+
+        AppUser newUser = new AppUser();
+        newUser.setUserName(userRegistrationDto.getUsername());
+        newUser.setPassword(passwordEncoder.encode(userRegistrationDto.getPassword()));
+        userRepository.save(newUser);
+
+        logger.info("New user registered successfully ", newUser);
+        return "redirect:/registration.success";
     }
 }
