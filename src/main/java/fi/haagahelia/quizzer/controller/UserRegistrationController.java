@@ -28,8 +28,11 @@ import org.springframework.ui.Model;
 
 @Controller
 public class UserRegistrationController {
- @Autowired
+    @Autowired
 	private AppUserRepository repository;
+
+    @Autowired
+	private PasswordEncoder passwordEncoder;
 
 	// Signup
 	@RequestMapping(value = "/registration")
@@ -43,12 +46,12 @@ public class UserRegistrationController {
 	public String save(@Valid @ModelAttribute("signupform") SignupForm signupForm, BindingResult bindingResult) {
 		if (!bindingResult.hasErrors()) {
 			if (signupForm.getPassword().equals(signupForm.getPasswordCheck())) {
-				String pswd = signupForm.getPassword();
-				BCryptPasswordEncoder bc = new BCryptPasswordEncoder();
-				String hashPswd = bc.encode(pswd);
+				// String pswd = signupForm.getPassword();
+				// BCryptPasswordEncoder bc = new BCryptPasswordEncoder();
+				// String hashPswd = bc.encode(pswd);
 
 				AppUser newUser = new AppUser();
-				newUser.setPassword(hashPswd);
+				newUser.setPassword(passwordEncoder.encode(signupForm.getPassword()));
 				newUser.setUserName(signupForm.getUsername());
 				newUser.setRole("TEACHER");
 				newUser.setFirstName("Maksim");
