@@ -33,7 +33,7 @@ public class SecurityConfig {
         http
         .authorizeHttpRequests(authorize -> authorize
                 .requestMatchers(antMatcher("/css/**")).permitAll()
-                .requestMatchers(antMatcher("/css/**")).permitAll()
+                .requestMatchers(antMatcher("/**")).permitAll()
                 .requestMatchers(antMatcher("/api/**")).permitAll()
                 .requestMatchers(antMatcher("/h2-console/**")).permitAll()
                 .requestMatchers(antMatcher("/registration/**")).permitAll()

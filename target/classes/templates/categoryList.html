@@ -48,7 +48,9 @@
                 </tbody>
             </table>
             <div>
-                <a href="/addCategory" class="btn btn-primary">Add a category</a>
+                <div sec:authorize="hasAuthority('TEACHER')">
+                    <a href="/addCategory" class="btn btn-primary">Add a category</a>
+                </div>
                 <a href="/" class="btn btn-secondary">Back to quizzes</a>
             </div>
             <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
