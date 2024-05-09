@@ -1,59 +1,71 @@
-import { useState, useEffect, useRef } from "react";
-import { Container, Box, Button, Typography } from "@mui/material";
-import Rating from "@mui/material/Rating";
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { Button, Typography, Box } from "@mui/material";
 import { Link } from "react-router-dom";
 
-function ReviewList({ quizId }) {
+function ReviewList() {
+  const { id } = useParams();
+  const [quizName, setQuizName] = useState('');
   const [reviews, setReviews] = useState([]);
-  const gridRef = useRef(null);
-
-  const fetchReviews = async (id) => {
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/QuizApp/quiz/${id}/reviews`
-      );
-      if (!response.ok) {
-        throw new Error("Failed to fetch reviews");
-      }
-      const data = await response.json();
-      setReviews(data);
-    } catch (error) {
-      console.error("Error fetching reviews: ", error);
-    }
-  };
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchReviews(quizId);
-  }, [quizId]);
+    const fetchQuizDetails = async () => {
+      try {
+        const response = await fetch(`http://localhost:8080/api/QuizApp/quiz/${id}`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch quiz details');
+        }
+        const data = await response.json();
+        setQuizName(data.quizName);
+      } catch (error) {
+        console.error('Error fetching quiz details: ', error);
+      }
+    };
+
+    const fetchReviews = async () => {
+      try {
+        const response = await fetch(`http://localhost:8080/api/QuizApp/quiz/${id}/reviews`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch reviews');
+        }
+        const data = await response.json();
+        setReviews(data);
+        setLoading(false); 
+      } catch (error) {
+        console.error('Error fetching reviews: ', error);
+      }
+    };
+    fetchQuizDetails();
+    fetchReviews();
+  }, [id]);
 
   return (
-    <Container>
-      <Typography variant="h4">Reviews of the Quiz</Typography>
-      <Link to="/create-review">
-        <Button variant="text">Write Your Review</Button>
-      </Link>
-      {reviews.map((review, index) => (
-        <Box
-          key={index}
-          sx={{
-            marginBottom: "20px",
-            boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
-            borderRadius: "10px",
-            padding: "20px",
-          }}
-        >
-          <Typography variant="h6">{review.username}</Typography>
-          <Typography variant="body2">
-            Written on {new Date(review.createdAt).toLocaleDateString()}
-          </Typography>
-          <Typography variant="body2" component="legend">
-            Rating {review.rating}/5
-          </Typography>
-          <Rating name={`read-only-${index}`} value={review.rating} readOnly />
-          <Typography variant="body1">{review.review}</Typography>
-        </Box>
-      ))}
-    </Container>
+    <div>
+      <h2>Reviews of Quiz &quot;{quizName}&quot;</h2>
+      <Button variant="text" component={Link} to={`/quiz/${id}/reviews/:id`}>Write Your Review</Button>
+      {loading ? (
+        <p>Loading reviews...</p>
+      ) : reviews.length === 0 ? (
+        <p>No reviews for this quiz.</p>
+      ) : (
+        reviews.map((review, index) => (
+          <Box
+            key={index}
+            sx={{
+              marginBottom: "20px",
+              boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)", // Add shadow
+              borderRadius: "10px", // Add rounded corners
+              padding: "20px", // Add padding for spacing
+            }}
+          >
+            <Typography variant="h6">Username: {review.username}</Typography>
+            <Typography variant="body1">Rating: {review.rating}</Typography>
+            <Typography variant="body1">Comment: {review.review}</Typography>
+          </Box>
+        ))
+      )}
+    </div>
   );
 }
 
