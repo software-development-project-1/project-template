@@ -38,6 +38,7 @@ import fi.haagahelia.quizzer.dto.AnswerDto;
 import fi.haagahelia.quizzer.model.Answer;
 import fi.haagahelia.quizzer.model.Category;
 import fi.haagahelia.quizzer.model.Quiz;
+import fi.haagahelia.quizzer.model.Review;
 import fi.haagahelia.quizzer.model.Question;
 
 
@@ -300,5 +301,31 @@ public class QuizAppRestController {
         }
         return ResponseEntity.ok(questionAnswerDtos);
     }
+
+    // Retrieve all reviews associated with a particular quiz
+    @Operation(
+    summary = "Get all reviews of the quiz by quiz id",
+    description = "Returns all reviews related to a specific quiz by the provided quiz id")
+@ApiResponses(value = {
+    // The responseCode property defines the HTTP status code of the response
+    @ApiResponse(responseCode = "200", description = "Successful operation"),
+    @ApiResponse(responseCode = "404", description = "Quiz with the provided id does not exist or there are no reviews related to this quiz")
+})
+
+@GetMapping("/quiz/{quizId}/reviews")
+public ResponseEntity<List<Review>> getQuizReviews(@PathVariable("quizId") Long quizId) {
+    Optional<Quiz> quizOptional = quizRepository.findById(quizId);
+    if (!quizOptional.isPresent()) {
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Quiz with id " + quizId + " not found");
+    }
+    Quiz quiz = quizOptional.get();
+    List<Review> reviews = quiz.getReviews();
+    if (reviews.isEmpty()) {
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No reviews found for quiz with id " + quizId);
+    }
+    return ResponseEntity.ok(reviews);
+}
+
+
     
 }

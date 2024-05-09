@@ -51,6 +51,10 @@ public class Quiz {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "quiz")
     private List<Question> questions;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL)
+    private List<Review> reviews;
+
     @ManyToOne
     @JoinColumn(name = "userId")
     private User user;
