@@ -28,14 +28,14 @@ const CreateQuizReview = () => {
         review: reviewText
       };
 
-      const response = await axios.post(`http://localhost:8080/api/QuizApp/quiz/${id}/review`, newReview);
+      const response = await axios.post(`http://localhost:8080/api/QuizApp/quiz/199/review`, newReview);
 
       if (response.status === 201) {
         setNickname('');
         setRating('');
         setReviewText(''); 
         // Redirect to the reviews page for the current quiz
-        window.location.href = `/quiz/${id}/reviews`;
+        window.location.href = `/quiz/199/reviews`;
       } else {
         console.error('Failed to create review:', response.data);
       }

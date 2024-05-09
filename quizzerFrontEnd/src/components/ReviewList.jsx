@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Button, Typography, Box } from "@mui/material";
+import Rating from "@mui/material/Rating";
 import { Link } from "react-router-dom";
 
 function ReviewList() {
@@ -54,13 +55,19 @@ function ReviewList() {
             key={index}
             sx={{
               marginBottom: "20px",
-              boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)", // Add shadow
-              borderRadius: "10px", // Add rounded corners
-              padding: "20px", // Add padding for spacing
+              boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
+              borderRadius: "10px", 
+              padding: "20px", 
             }}
           >
             <Typography variant="h6">Username: {review.username}</Typography>
-            <Typography variant="body1">Rating: {review.rating}</Typography>
+            <Typography variant="body1">Written on {review.date}</Typography>
+            <Typography variant="body1">Rating: {review.rating}/5</Typography>
+            <Rating
+              name={`read-only-${index}`}
+              value={review.rating}
+              readOnly
+            />
             <Typography variant="body1">Comment: {review.review}</Typography>
           </Box>
         ))
