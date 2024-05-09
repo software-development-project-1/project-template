@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Button, Typography, Box } from "@mui/material";
 import Rating from "@mui/material/Rating";
 import { Link, useParams } from "react-router-dom";
-import Divider from '@mui/material/Divider';
+
 
 function ReviewList() {
   const { id } = useParams();

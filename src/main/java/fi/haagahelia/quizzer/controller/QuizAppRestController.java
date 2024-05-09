@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,6 +28,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import fi.haagahelia.quizzer.repository.AnswerRepository;
 import fi.haagahelia.quizzer.repository.CategoryRepository;
 import fi.haagahelia.quizzer.repository.QuizRepository;
+import fi.haagahelia.quizzer.repository.ReviewRepository;
 import groovyjarjarantlr4.v4.parse.ANTLRParser.labeledAlt_return;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -59,6 +61,9 @@ public class QuizAppRestController {
 
 	@Autowired
 	private AnswerRepository answerRepository;
+
+    @Autowired
+    private ReviewRepository reviewRepository;
     
     @Operation(
         summary = "Get all categories",
@@ -302,30 +307,83 @@ public class QuizAppRestController {
         return ResponseEntity.ok(questionAnswerDtos);
     }
 
-    // Retrieve all reviews associated with a particular quiz
-    @Operation(
-    summary = "Get all reviews of the quiz by quiz id",
-    description = "Returns all reviews related to a specific quiz by the provided quiz id")
-@ApiResponses(value = {
-    // The responseCode property defines the HTTP status code of the response
-    @ApiResponse(responseCode = "200", description = "Successful operation"),
-    @ApiResponse(responseCode = "404", description = "Quiz with the provided id does not exist or there are no reviews related to this quiz")
-})
-
+// Retrieve all reviews associated with a particular quiz
 @GetMapping("/quiz/{quizId}/reviews")
-public ResponseEntity<List<Review>> getQuizReviews(@PathVariable("quizId") Long quizId) {
+public ResponseEntity<List<Review>> getQuizReviews(@PathVariable Long quizId) {
+    // Ensure the quiz exists
     Optional<Quiz> quizOptional = quizRepository.findById(quizId);
     if (!quizOptional.isPresent()) {
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Quiz with id " + quizId + " not found");
     }
     Quiz quiz = quizOptional.get();
-    List<Review> reviews = quiz.getReviews();
-    if (reviews.isEmpty()) {
-        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No reviews found for quiz with id " + quizId);
+
+    // Retrieve reviews for the quiz
+    List<Review> reviews = reviewRepository.findByQuiz(quiz);
+        return ResponseEntity.ok(reviews);
     }
-    return ResponseEntity.ok(reviews);
+
+ // Add endpoint to create a review
+@PostMapping("/quiz/{quizId}/review")
+public ResponseEntity<Review> createReview(@PathVariable Long quizId, @RequestBody Review review) {
+    // Ensure the quiz exists
+    Optional<Quiz> quizOptional = quizRepository.findById(quizId);
+    if (!quizOptional.isPresent()) {
+         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Quiz with id " + quizId + " not found");
+    }
+    Quiz quiz = quizOptional.get();
+    // Set the quiz for the review
+    review.setQuiz(quiz);
+    // Save the review
+    Review savedReview = reviewRepository.save(review);
+    return ResponseEntity.status(HttpStatus.CREATED).body(savedReview);
+ }
+
+// Delete Review by id 
+@DeleteMapping("/quiz/{quizId}/reviews/{reviewId}")
+public ResponseEntity<String> deleteReview(@PathVariable Long quizId, @PathVariable Long reviewId) {
+    try {
+        // Ensure the quiz exists
+        Optional<Quiz> quizOptional = quizRepository.findById(quizId);
+        if (!quizOptional.isPresent()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Quiz with id " + quizId + " not found");
+        }     
+        // Get the review by ID
+        Optional<Review> reviewOptional = reviewRepository.findById(reviewId);
+        if (!reviewOptional.isPresent()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Review with id " + reviewId + " not found");
+        }
+        // Ensure the review is associated with the specified quiz
+        Review review = reviewOptional.get();
+        if (!review.getQuiz().getId().equals(quizId)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Review with id " + reviewId + " does not belong to quiz with id " + quizId);
+        }
+
+        // Delete the review
+        reviewRepository.deleteById(reviewId);
+
+        return ResponseEntity.ok("Review with id " + reviewId + " deleted successfully");
+    } catch (Exception e) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error deleting review: " + e.getMessage());
+    }
 }
 
+// Delete all reviews associated with a particular quiz
+@DeleteMapping("/quiz/{quizId}/reviews")
+public ResponseEntity<String> deleteQuizReviews(@PathVariable Long quizId) {
+    
+    Optional<Quiz> quizOptional = quizRepository.findById(quizId);
+    if (!quizOptional.isPresent()) {
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Quiz with id " + quizId + " not found");
+    }
+    Quiz quiz = quizOptional.get();
+    // Retrieve reviews for the quiz
+    List<Review> reviews = reviewRepository.findByQuiz(quiz);
+    if (reviews.isEmpty()) {
+        return ResponseEntity.ok("No reviews found for quiz with id " + quizId);
+    }
+    reviewRepository.deleteAll(reviews);
+    return ResponseEntity.ok("All reviews for quiz with id " + quizId + " have been deleted");
+}
 
     
 }
