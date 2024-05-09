@@ -15,7 +15,7 @@ function QuizList() {
     {
       headerName: "Name",
       field: "quizName",
-      width: 150,
+      width: 160,
       cellRenderer: (params) => {
         const link = `/quiz/${params.data.id}`;
         console.log("Link:", link); // Debugging
@@ -25,13 +25,13 @@ function QuizList() {
     {
       headerName: "Description",
       field: "quizDescription",
-      width: 150,
+      width: 160,
     },
     {
       headerName: "Category",
       valueGetter: (params) =>
         params.data.category ? params.data.category.name : "", // Value getter for nested property
-      width: 150,
+      width: 100,
     },
     {
       headerName: "Added on",
@@ -39,19 +39,27 @@ function QuizList() {
       valueFormatter: (params) => {
         return format(new Date(params.value), "dd.MM.yyyy");
       },
-      width: 150,
+      width: 120,
     },
     {
       headerName: "Published",
       field: "publishedDisplay",
-      width: 150,
+      width: 120,
     },
     {
       headerName: "Results",
-      width: 150,
+      width: 120,
       cellRenderer: (params) => {
         const link = `/quiz/${params.data.id}/answers`;
         return <Link to={link}>See results</Link>;
+      },
+    },
+    {
+      headerName: "Reviews",
+      width: 120,
+      cellRenderer: (params) => {
+        const link = `/quiz/${params.data.id}/reviews`;
+        return <Link to={link}>See reviews</Link>;
       },
     },
   ];
