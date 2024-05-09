@@ -10,10 +10,10 @@ import {
   Button,
 } from "@mui/material";
 import axios from 'axios'; 
-import { useParams } from 'react-router-dom';
+
 
 const CreateQuizReview = () => {
-  const { id } = useParams(); 
+  
   const [nickname, setNickname] = useState('');
   const [rating, setRating] = useState('');
   const [reviewText, setReviewText] = useState('');

@@ -44,7 +44,7 @@ function ReviewList() {
   return (
     <div>
       <h2>Reviews of Quiz &quot;{quizName}&quot;</h2>
-      <Button variant="text" component={Link} to={`/quiz/${id}/reviews/:id`}>Write Your Review</Button>
+      <Button variant="text" component={Link} to={`/quiz/${id}/reviews/${id}`}>Write Your Review</Button>
       {loading ? (
         <p>Loading reviews...</p>
       ) : reviews.length === 0 ? (
