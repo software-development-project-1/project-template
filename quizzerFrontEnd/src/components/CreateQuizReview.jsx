@@ -10,9 +10,12 @@ import {
   Button,
 } from "@mui/material";
 import axios from 'axios'; 
+import { Link, useParams  } from 'react-router-dom';
 
 
 const CreateQuizReview = () => {
+
+  const { id } = useParams();
   
   const [nickname, setNickname] = useState('');
   const [rating, setRating] = useState('');
@@ -92,7 +95,8 @@ const CreateQuizReview = () => {
           onChange={(e) => setReviewText(e.target.value)}
         />
       </div>
-      <Button type="submit" variant="outlined">Submit Your Review</Button>
+      <Button type="submit" variant="outlined">Submit Review</Button>
+      <Button variant="outlined" component={Link} to={`/quiz/${id}/reviews`} color="error">Go Back</Button> 
     </Box>
   );
 };

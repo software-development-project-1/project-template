@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import { Button, Typography, Box } from "@mui/material";
 import Rating from "@mui/material/Rating";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import Divider from '@mui/material/Divider';
 
 function ReviewList() {
   const { id } = useParams();
@@ -44,7 +44,11 @@ function ReviewList() {
   return (
     <div>
       <h2>Reviews of Quiz &quot;{quizName}&quot;</h2>
-      <Button variant="text" component={Link} to={`/quiz/${id}/reviews/${id}`}>Write Your Review</Button>
+      <div>
+        <Button variant="text" component={Link} to={`/quiz/${id}/reviews/${id}`} size="large">Write Your Review</Button>
+        <Button variant="text" component={Link} to={`/`} color="error" size="large">Go Back</Button>    
+      </div>
+      
       {loading ? (
         <p>Loading reviews...</p>
       ) : reviews.length === 0 ? (
