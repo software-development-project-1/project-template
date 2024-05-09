@@ -16,6 +16,7 @@ public interface QuizRepository extends JpaRepository<Quiz, Long>{
     List<Quiz> findByPublished(boolean published);
     List<Quiz> findByUserOrderByQuizNameAsc(AppUser user);
     List<Quiz> findByPublishedOrderByCreatedAtDesc(boolean published);
+    List<Quiz> findByPublishedOrderByCreatedAtAsc(boolean published);
     List<Quiz> findAllByCategoryId(Long categoryId);
     List<Quiz> findAll();
     List<Quiz> findAllByOrderByCreatedAtDesc();

@@ -42,9 +42,9 @@
           <li><a class="dropdown-item" href="/">Default</a></li>
           <li><a class="dropdown-item" href="/quiz/newest">Newest First</a></li>
           <li><a class="dropdown-item" href="/quiz/oldest">Oldest First</a></li>
-          <li><a class="dropdown-item" href="/quiz/published">Published</a></li>
+          <li><a th:unless="${#authorization.expression('isAnonymous()')}" class="dropdown-item" href="/quiz/published">Published</a></li>
           <li>
-            <a class="dropdown-item" href="/quiz/unpublished">Unpublished</a>
+            <a th:unless="${#authorization.expression('isAnonymous()')}" class="dropdown-item" href="/quiz/unpublished">Unpublished</a>
           </li>
         </ul>
       </div>

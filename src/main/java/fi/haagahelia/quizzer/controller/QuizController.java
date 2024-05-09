@@ -148,7 +148,7 @@ public class QuizController {
 			}
 
 		} else {
-			quizzes = qrepository.findAllByOrderByCreatedAtDesc();
+			quizzes = qrepository.findByPublishedOrderByCreatedAtDesc(true);
 		}
 		model.addAttribute("quizzes", quizzes);
 
@@ -168,7 +168,7 @@ public class QuizController {
 			}
 
 		} else {
-			quizzes = qrepository.findAllByOrderByCreatedAtAsc();
+			quizzes = qrepository.findByPublishedOrderByCreatedAtAsc(true);
 		}
 		model.addAttribute("quizzes", quizzes);
 
