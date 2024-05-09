@@ -37,32 +37,23 @@ public class QuizController {
 	private AppUserRepository appuserrepository;
 
 	@GetMapping("/")
-	public String listQuizzes(Model model) {
-		List<Quiz> quizzes = qrepository.findAll();
+	public String listQuizzes(Model model, Authentication authentication) {
 		List<Quiz> quizzesList = new ArrayList<>();
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if (authentication != null && authentication.isAuthenticated()
-				&& authentication.getName().equals("anonymousUser")) {
-			quizzesList.addAll(quizzes);
-			
-		} else {
-			UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			String username = user.getUsername();
-			AppUser userNow = appuserrepository.findByUserName(username);
-			if (userNow != null) {
-				for (Quiz quiz : quizzes) {
-					if (quiz.getUser().getUserName().equals(userNow.getUserName())) {
-						quizzesList.add(quiz);
-					}
-				}
-				
-			} else {
-				quizzesList.addAll(quizzes);
+				&& !authentication.getName().equals("anonymousUser")) {
+			UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+			String username = userDetails.getUsername();
+			AppUser user = appuserrepository.findByUserName(username);
+			if (user != null) {
+				quizzesList = qrepository.findByUser(user);
 			}
+
+		} else {
+			quizzesList = qrepository.findByPublished(true);
 		}
-			model.addAttribute("quizzes", quizzesList);
-			
-		
+
+		model.addAttribute("quizzes", quizzesList);
+
 		return "quizzesList";
 
 	}
@@ -145,30 +136,85 @@ public class QuizController {
 	}
 
 	@GetMapping("/quiz/newest")
-	public String listNewestQuizzes(Model model) {
-		List<Quiz> quizzes = qrepository.findAllByOrderByCreatedAtDesc();
+	public String listNewestQuizzes(Model model, Authentication authentication) {
+		List<Quiz> quizzes = new ArrayList<>();
+		if (authentication != null && authentication.isAuthenticated()
+				&& !authentication.getName().equals("anonymousUser")) {
+			UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+			String username = userDetails.getUsername();
+			AppUser user = appuserrepository.findByUserName(username);
+			if (user != null) {
+				quizzes = qrepository.findByUserOrderByCreatedAtDesc(user);
+			}
+
+		} else {
+			quizzes = qrepository.findAllByOrderByCreatedAtDesc();
+		}
 		model.addAttribute("quizzes", quizzes);
+
 		return "quizzesList";
 	}
 
 	@GetMapping("/quiz/oldest")
-	public String listOldestQuizzes(Model model) {
-		List<Quiz> quizzes = qrepository.findAllByOrderByCreatedAtAsc();
+	public String listOldestQuizzes(Model model, Authentication authentication) {
+		List<Quiz> quizzes = new ArrayList<>();
+		if (authentication != null && authentication.isAuthenticated()
+				&& !authentication.getName().equals("anonymousUser")) {
+			UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+			String username = userDetails.getUsername();
+			AppUser user = appuserrepository.findByUserName(username);
+			if (user != null) {
+				quizzes = qrepository.findByUserOrderByCreatedAtAsc(user);
+			}
+
+		} else {
+			quizzes = qrepository.findAllByOrderByCreatedAtAsc();
+		}
 		model.addAttribute("quizzes", quizzes);
+
 		return "quizzesList";
 	}
 
 	@GetMapping("/quiz/published")
-	public String getPublishedQuizzes(Model model) {
-		List<Quiz> quizzes = qrepository.findByPublished(true);
+	public String getPublishedQuizzes(Model model, Authentication authentication) {
+
+		List<Quiz> quizzes = new ArrayList<>();
+		if (authentication != null && authentication.isAuthenticated()
+				&& !authentication.getName().equals("anonymousUser")) {
+			UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+			String username = userDetails.getUsername();
+			AppUser user = appuserrepository.findByUserName(username);
+			if (user != null) {
+				quizzes = qrepository.findByUserAndPublished(user, true);
+			}
+
+		} else {
+			quizzes = qrepository.findByPublished(true);
+			;
+		}
 		model.addAttribute("quizzes", quizzes);
+
 		return "quizzesList";
 	}
 
 	@GetMapping("/quiz/unpublished")
-	public String getUnpublishedQuizzes(Model model) {
-		List<Quiz> quizzes = qrepository.findByPublished(false);
+	public String getUnpublishedQuizzes(Model model, Authentication authentication) {
+		List<Quiz> quizzes = new ArrayList<>();
+		if (authentication != null && authentication.isAuthenticated()
+				&& !authentication.getName().equals("anonymousUser")) {
+			UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+			String username = userDetails.getUsername();
+			AppUser user = appuserrepository.findByUserName(username);
+			if (user != null) {
+				quizzes = qrepository.findByUserAndPublished(user, false);
+			}
+
+		} else {
+			quizzes = qrepository.findByPublished(true);
+			;
+		}
 		model.addAttribute("quizzes", quizzes);
+
 		return "quizzesList";
 	}
 
