@@ -52,12 +52,12 @@ const CreateQuizReview = () => {
       component="form"
       onSubmit={handleSubmit} 
       sx={{
-        "& > :not(style)": { m: 2, width: "25ch" },
+        "& > :not(style)": { m: 2, width: "25ch"},
       }}
       noValidate
       autoComplete="off"
     >
-      <h1>Add a review for ...{CreateQuizReview.quizName}</h1>
+      <h1>Add your review here</h1>
       <div>
         <TextField 
           id="nickname" 
@@ -69,14 +69,14 @@ const CreateQuizReview = () => {
       </div>
       <div>
         <FormControl>
-          <FormLabel id="demo-radio-buttons-group-label">Rating</FormLabel>
+          <FormLabel id="demo-radio-buttons-group-label" style={{ fontSize: '1.5rem' }}>Rating</FormLabel>
           <RadioGroup
             aria-labelledby="demo-radio-buttons-group-label"
             name="rating"
             value={rating}
             onChange={(e) => setRating(e.target.value)} 
           >
-            <FormControlLabel value="1" control={<Radio />} label="1 - Useless" />
+            <FormControlLabel value="1"  control={<Radio />} label="1 - Useless" />
             <FormControlLabel value="2" control={<Radio />} label="2 - Poor" />
             <FormControlLabel value="3" control={<Radio />} label="3 - Ok" />
             <FormControlLabel value="4" control={<Radio />} label="4 - Good" />
