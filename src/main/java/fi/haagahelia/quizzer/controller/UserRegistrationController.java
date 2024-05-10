@@ -46,19 +46,22 @@ public class UserRegistrationController {
 	public String save(@Valid @ModelAttribute("signupform") SignupForm signupForm, BindingResult bindingResult) {
 		if (!bindingResult.hasErrors()) {
 			if (signupForm.getPassword().equals(signupForm.getPasswordCheck())) {
-				// String pswd = signupForm.getPassword();
-				// BCryptPasswordEncoder bc = new BCryptPasswordEncoder();
-				// String hashPswd = bc.encode(pswd);
 
 				AppUser newUser = new AppUser();
 				newUser.setPassword(passwordEncoder.encode(signupForm.getPassword()));
 				newUser.setUserName(signupForm.getUsername());
 				newUser.setRole("TEACHER");
-				newUser.setFirstName("Maksim");
-				newUser.setLastName("Minenko");
+				newUser.setFirstName(signupForm.getFirstname());
+				newUser.setLastName(signupForm.getLastname());
 				// Check if user already exists
 				if (repository.findByUserName(signupForm.getUsername()) == null) {
-					repository.save(newUser);
+					
+					if(signupForm.getFirstname() != null && signupForm.getLastname() != null ){
+						repository.save(newUser);
+					} else{
+						bindingResult.rejectValue("firstname", "err.firstname", "You should input your firstname and lastname");
+						return "registration";
+					}
 				} else {
 					bindingResult.rejectValue("username", "err.username", "Username already exists");
 					return "registration";

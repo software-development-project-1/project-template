@@ -42,6 +42,27 @@
             <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username Error</p>	
             </div>
             <div class="mb-3">
+                <label for="firstname" class="form-label">Your First Name</label>
+                <input
+                    type="text"
+                    th:field="*{firstname}"
+                    class="form-control"
+                    required autofocus="autofocus"
+                />
+                <p th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}">Firstname Error</p>	
+                </div>
+            <div class="mb-3">
+                <div class="mb-3">
+                    <label for="lastname" class="form-label">Your Last Name</label>
+                    <input
+                        type="text"
+                        th:field="*{lastname}"
+                        class="form-control"
+                        required autofocus="autofocus"
+                    />
+                    <p th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}">Lastname Error</p>	
+                    </div>
+                <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
                 <input
                     type="password"
