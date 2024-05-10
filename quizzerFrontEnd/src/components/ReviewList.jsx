@@ -81,7 +81,7 @@ function ReviewList() {
             justifyContent: "center",
           }}
         >
-          No reviews for this quiz.
+          No reviews for this quiz...
         </h4>
       ) : (
         reviews.map((review, index) => (
