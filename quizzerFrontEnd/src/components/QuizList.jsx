@@ -4,8 +4,6 @@ import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-material.css";
 import { format } from "date-fns";
 import { Link } from "react-router-dom";
-import './styles.css'
-
 
 function QuizList() {
   const [quizList, setQuizList] = useState([]);
@@ -17,7 +15,7 @@ function QuizList() {
     {
       headerName: "Name",
       field: "quizName",
-      width: 200,
+      width: 160,
       cellRenderer: (params) => {
         const link = `/quiz/${params.data.id}`;
         console.log("Link:", link); // Debugging
@@ -27,17 +25,13 @@ function QuizList() {
     {
       headerName: "Description",
       field: "quizDescription",
-      width: 300,
+      width: 160,
     },
     {
       headerName: "Category",
       valueGetter: (params) =>
         params.data.category ? params.data.category.name : "", // Value getter for nested property
-      width: 250,
-      field: 'categoryName',
-      cellRenderer: (params) => {
-        return <span style={{ backgroundColor: "rgb(191, 188, 188)", borderRadius: "4px", padding: "2px 4px" }}>{params.value}</span>;
-      }
+      width: 100,
     },
     {
       headerName: "Added on",
@@ -45,19 +39,27 @@ function QuizList() {
       valueFormatter: (params) => {
         return format(new Date(params.value), "dd.MM.yyyy");
       },
-      width: 250,
+      width: 120,
     },
     {
       headerName: "Published",
       field: "publishedDisplay",
-      width: 150,
+      width: 120,
     },
     {
       headerName: "Results",
-      width: 250,
+      width: 120,
       cellRenderer: (params) => {
         const link = `/quiz/${params.data.id}/answers`;
         return <Link to={link}>See results</Link>;
+      },
+    },
+    {
+      headerName: "Reviews",
+      width: 120,
+      cellRenderer: (params) => {
+        const link = `/quiz/${params.data.id}/reviews`;
+        return <Link to={link}>See reviews</Link>;
       },
     },
   ];
@@ -70,7 +72,7 @@ function QuizList() {
   const fetchQuizList = async (selectedCategory) => {
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/QuizApp/quizes?published=true&categoryId=${selectedCategory}`
+        `http://localhost:8080/api/QuizApp/quizes?published=true&categoryId=${selectedCategory}`
       );
       if (!response.ok) {
         throw new Error("Error in retrieving quizes " + response.statusText);
@@ -86,7 +88,7 @@ function QuizList() {
   const fetchCategories = async () => {
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/QuizApp/categories`
+        "http://localhost:8080/api/QuizApp/categories"
       );
       if (!response.ok) {
         throw new Error(
@@ -107,7 +109,7 @@ function QuizList() {
   return (
     <>
       <div>
-        <select className="select-style" value={selectedCategory} onChange={handleCategoryChange}>
+        <select value={selectedCategory} onChange={handleCategoryChange}>
           <option value="">All Categories</option>
           {categories.map((category) => (
             <option key={category.id} value={category.id}>
@@ -116,7 +118,10 @@ function QuizList() {
           ))}
         </select>
       </div>
-      <div className="ag-theme-material">
+      <div
+        className="ag-theme-material"
+        style={{ height: "400px", width: "900px" }}
+      >
         <AgGridReact
           domLayout="autoHeight"
           ref={gridRef}
