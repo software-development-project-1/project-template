@@ -31,7 +31,7 @@ const CreateQuizReview = () => {
         review: reviewText
       };
 
-      const response = await axios.post(`http://localhost:8080/api/QuizApp/quiz/${id}/review`, newReview);
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/QuizApp/quiz/${id}/review`, newReview);
 
       if (response.status === 201) {
         setNickname('');

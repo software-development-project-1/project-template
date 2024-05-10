@@ -13,7 +13,7 @@ function ReviewList() {
     const fetchQuizDetails = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8080/api/QuizApp/quiz/${id}`
+          `${import.meta.env.VITE_BACKEND_URL}/api/QuizApp/quiz/${id}`
         );
         if (!response.ok) {
           throw new Error("Failed to fetch quiz details");
@@ -28,7 +28,7 @@ function ReviewList() {
     const fetchReviews = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8080/api/QuizApp/quiz/${id}/reviews`
+          `${import.meta.env.VITE_BACKEND_URL}/api/QuizApp/quiz/${id}/reviews`
         );
         if (!response.ok) {
           throw new Error("Failed to fetch reviews");
