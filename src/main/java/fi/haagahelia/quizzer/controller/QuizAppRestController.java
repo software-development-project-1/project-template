@@ -29,7 +29,6 @@ import fi.haagahelia.quizzer.repository.AnswerRepository;
 import fi.haagahelia.quizzer.repository.CategoryRepository;
 import fi.haagahelia.quizzer.repository.QuizRepository;
 import fi.haagahelia.quizzer.repository.ReviewRepository;
-import groovyjarjarantlr4.v4.parse.ANTLRParser.labeledAlt_return;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;

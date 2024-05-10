@@ -10,6 +10,5 @@ import fi.haagahelia.quizzer.model.Review;
 public interface ReviewRepository extends JpaRepository<Review, Long>{
     List<Review> findByQuizId(Long quizId);
     List<Review> findByQuiz(Quiz quiz);
-    
 
 }
