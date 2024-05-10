@@ -45,6 +45,7 @@ public class SecurityConfig {
                 .requestMatchers(antMatcher("/swagger-resources/**")).permitAll()
                 .requestMatchers(antMatcher("/configuration/security")).permitAll()
                 .requestMatchers(antMatcher("/swagger-ui/**")).permitAll()
+                .requestMatchers(antMatcher("/categories/**")).permitAll()
                 .anyRequest().authenticated()
         ).formLogin(formlogin -> formlogin
                 .loginPage("/login")
