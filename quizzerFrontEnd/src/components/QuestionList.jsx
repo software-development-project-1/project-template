@@ -44,7 +44,7 @@ function QuestionList() {
 
     const fetchAnswers = async () => {
         try {
-            const response = await fetch(`http://localhost:8080/api/QuizApp/${id}/answers`);
+            const response = await fetch(`http://localhost:8080/api/QuizApp/quiz/${id}/answers`);
             if (!response.ok) {
                 throw new Error("Error in retrieving all quizzes answers" + response.statusText);
             }
