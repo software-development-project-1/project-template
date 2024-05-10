@@ -31,7 +31,7 @@ function QuizList() {
       headerName: "Category",
       valueGetter: (params) =>
         params.data.category ? params.data.category.name : "", // Value getter for nested property
-      width: 100,
+      width: 150,
     },
     {
       headerName: "Added on",
@@ -39,16 +39,16 @@ function QuizList() {
       valueFormatter: (params) => {
         return format(new Date(params.value), "dd.MM.yyyy");
       },
-      width: 120,
+      width: 150,
     },
     {
       headerName: "Published",
       field: "publishedDisplay",
-      width: 120,
+      width: 150,
     },
     {
       headerName: "Results",
-      width: 120,
+      width: 150,
       cellRenderer: (params) => {
         const link = `/quiz/${params.data.id}/answers`;
         return <Link to={link}>See results</Link>;
@@ -56,7 +56,7 @@ function QuizList() {
     },
     {
       headerName: "Reviews",
-      width: 120,
+      width: 150,
       cellRenderer: (params) => {
         const link = `/quiz/${params.data.id}/reviews`;
         return <Link to={link}>See reviews</Link>;
@@ -120,7 +120,7 @@ function QuizList() {
       </div>
       <div
         className="ag-theme-material"
-        style={{ height: "400px", width: "900px" }}
+        style={{ height: "400px", width: "1100px" }}
       >
         <AgGridReact
           domLayout="autoHeight"

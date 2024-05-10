@@ -26,24 +26,21 @@ function Results() {
     }, [id])
 
     const columns = [
-        { headerName: 'Question', field: 'questionText', width: 200 },
-        { headerName: 'Difficulty level', field: 'difficultyLevel', width: 250 },
-        { headerName: 'Total Answers', field: 'totalAnswers', width: 200 },
-        { headerName: 'Correct Answers', field: 'correctAnswers', minWidth: 210 },
-        { headerName: 'Wrong Answers', field: 'wrongAnswers', width: 210 },
-        { headerName: 'Correct Answers Percentage', field: 'correctPercentage', valueFormatter: params => `${params.value.toFixed(2)}%`, width: 300 },
+        { headerName: 'Question', field: 'questionText', width: 150 },
+        { headerName: 'Difficulty level', field: 'difficultyLevel', width: 200 },
+        { headerName: 'Total Answers', field: 'totalAnswers', width: 150 },
+        { headerName: 'Correct Answers', field: 'correctAnswers', minWidth: 150 },
+        { headerName: 'Wrong Answers', field: 'wrongAnswers', width: 200 },
+        { headerName: 'Correct Answers %', field: 'correctPercentage', valueFormatter: params => `${params.value.toFixed(2)}%`, width: 200 },
     ]
 
     return (
-        <div style={{ height: '100%', width: '100%', paddingTop: '50px'}}>
-            <div className="ag-theme-material custom-ag-theme" style={{ height: '100%', width: '100%' }}>
+            <div className="ag-theme-material custom-ag-theme" style={{ height: "400px", width: "1200px" }}>
                 <AgGridReact domLayout="autoHeight" ref={gridRef} rowData={answers}
                             columnDefs={columns} rowSelection="single"
                             onGridReady={params => {gridRef.current = params.api}} />
-            </div>            
-        </div>
-
-    )
+            </div>
+    );
 
 }
 

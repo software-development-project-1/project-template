@@ -40,6 +40,11 @@ public class SecurityConfig {
                 .requestMatchers(antMatcher("/h2-console/**")).permitAll()
                 .requestMatchers(antMatcher("/registration/**")).permitAll()
                 .requestMatchers(antMatcher("/saveuser/**")).permitAll()
+                .requestMatchers(antMatcher("/v3/api-docs/**")).permitAll()
+                .requestMatchers(antMatcher("/configuration/ui")).permitAll()
+                .requestMatchers(antMatcher("/swagger-resources/**")).permitAll()
+                .requestMatchers(antMatcher("/configuration/security")).permitAll()
+                .requestMatchers(antMatcher("/swagger-ui/**")).permitAll()
                 .anyRequest().authenticated()
         ).formLogin(formlogin -> formlogin
                 .loginPage("/login")
@@ -51,6 +56,8 @@ public class SecurityConfig {
                 .logoutSuccessUrl("/")
                 .permitAll()
         ).csrf((csrf) -> csrf.ignoringRequestMatchers(antMatcher("/h2-console/**")));
+
+        http.csrf((csrf) -> csrf.ignoringRequestMatchers(antMatcher("/api/**")));
 
         http.headers(headers -> headers.disable());
         return http.build();
