@@ -1,8 +1,7 @@
 # Quizzer
-Quizzer is a dashboard application designed for teachers to manage quizzes effectively. 
-It provides a user-friendly interface for creating, editing, deleting quizzes, and marking quiz status. 
-Additionally, the application includes authentication functionality, allowing both teachers and students to sign up, 
-log in, and access secure pages based on their roles.
+Quizzer is a dashboard application designed for both teachers and students to effectively manage quizzes. It provides a user-friendly interface for creating, editing, and deleting quizzes, as well as marking quiz status. 
+Additionally, the application includes authentication functionality, allowing teachers to sign up and sign in securely, while students can access quizzes, view their results, and leave reviews.In our app, only teachers have the ability to sign up and sign in. 
+Once logged in, teachers can create quizzes, manage quiz details, and monitor student performance. Students, however, can only access quizzes, view their results, and leave reviews to provide valuable feedback on their learning experience.
 
 ## Team members:
 - [Denis Chuvakov](https://github.com/DenisHki "Github page")
