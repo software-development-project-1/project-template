@@ -164,7 +164,15 @@ erDiagram
         String answerText
         boolean correctness
     }
-
+    Quiz ||--o{ Review : has
+    Review{
+        Long reviewId PK
+        Long quizId FK
+        String username
+        Integer rating
+        String review
+        Instant createdAt
+    }
 ```
 
 ### Description:
@@ -183,4 +191,7 @@ The User entity represents individuals who interact with the application. Users 
 
 #### Answer
 The Answer entity represents individual answers within questions. Each answer belongs to exactly one question, facilitated by the questionId foreign key. The Answer entity includes attributes such as Id, answerText and correctness, which provide details about the answer.
+
+### Review
+The Review entity represents feedback provided by users on quizzes within the application. Each review is associated with exactly one quiz, facilitated by the quizId foreign key. Reviews include attributes such as reviewId, username, rating, review, and createdAt, providing details about the feedback given.
 
