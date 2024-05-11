@@ -46,6 +46,7 @@ It communicates with the backend via API calls to display quizzes, questions, an
    - Questions belong to quizzes.
    - Users create quizzes and take quizzes.
    - Answers are associated with questions
+   - Reviews can be posted to specific Quiz.
    
   **Development Environment:** 
   H2 was chosen to streamline development, providing rapid prototyping and testing capabilities without the need for a separate database server.
