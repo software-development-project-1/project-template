@@ -25,7 +25,7 @@
           <span th:if="${#authorization.expression('isAnonymous()')}"> <a th:href="@{/registration}">Register</a> or <a th:href="@{/login}">Login here</a> to add a quiz</span>
       </div>
       <div style="clear: both; display: block; height: 10px;"></div>
-    
+
       <div style="clear: both; display: block; height: 10px;"></div>
       <div class="dropdown mb-1">
         <button
@@ -51,8 +51,8 @@
       <div class="mb-3 mt-3">
         <a th:unless="${#authorization.expression('isAnonymous()')}" href="/categoryList" class="btn btn-info">Categories</a>
       </div>
-      
-   
+
+
       <table class="table table-striped" border="1">
         <thead>
           <tr>
@@ -64,6 +64,9 @@
           </tr>
         </thead>
         <tbody>
+          <tr th:if="${#lists.isEmpty(quizzes)}">
+            <td colspan="5">No data in the database</td>
+          </tr>
           <tr th:each="quiz : ${quizzes}">
             <td th:text="${quiz.quizName}"></td>
             <td th:text="${quiz.quizDescription}"></td>
@@ -103,8 +106,8 @@
 
       <a th:unless="${#authorization.expression('isAnonymous()')}" href="/addQuiz" class="btn btn-primary">Add a quiz</a>
 
-     
-      
+
+
       <script
         src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
