@@ -1,8 +1,10 @@
 package fi.haagahelia.quizzer.model;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.CreationTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -25,6 +27,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Quiz {
     @Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,7 +39,7 @@ public class Quiz {
 
     @CreationTimestamp
 	private Instant createdAt;
-    
+
     @NotEmpty(message = "Please provide a quiz name")
     @Column(nullable = false)
     private String quizName;
@@ -49,7 +52,7 @@ public class Quiz {
 
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "quiz")
-    private List<Question> questions;
+    private List<Question> questions = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "userId")

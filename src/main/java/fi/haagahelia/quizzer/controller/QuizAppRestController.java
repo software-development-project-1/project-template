@@ -141,18 +141,22 @@ public class QuizAppRestController {
 })
 
     @GetMapping("/quiz/{id}")
-    public @ResponseBody Quiz getQuizById(@PathVariable("id") Long id) {
+    public ResponseEntity<?> getQuizById(@PathVariable("id") Long id) {
         Optional<Quiz> existingQuizOptional = quizRepository.findById(id);
 
         if (existingQuizOptional.isPresent()) {
             Quiz existingQuiz = existingQuizOptional.get();
-            return existingQuiz;
-        }	
+            if (!existingQuiz.getPublished()) {
+                return ResponseEntity.notFound().build();
+            }
+            return ResponseEntity.ok(existingQuiz);
+        }
 
         throw new ResponseStatusException(
-            HttpStatus.NOT_FOUND, "Quiz with id: "+ id + " not found"
+                HttpStatus.NOT_FOUND, "Quiz with id: " + id + " not found"
         );
     }
+
 
     @Operation(
         summary = "Get all questions of the quiz by quiz id",
