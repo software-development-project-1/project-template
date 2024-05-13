@@ -101,7 +101,7 @@ public class QuizAppRestController {
     // Example of the link with not required published parameter to get non published quizzes
     // http://localhost:8080/api/QuizApp/quizes?published=false
     @GetMapping("/quizes")
-    public @ResponseBody List<Quiz> getQuizes(
+    public @ResponseBody ResponseEntity<List<Quiz>> getQuizes(
             @RequestParam(required = false) Boolean published, 
             @RequestParam(required = false) Long categoryId) {
         List<Quiz> quizList;
@@ -123,11 +123,11 @@ public class QuizAppRestController {
 
             // Check if there are quizzes for the selected category
             if (quizList.isEmpty()) {
-                return Collections.emptyList();
+                return ResponseEntity.notFound().build();
             }
         }
 
-        return quizList;
+        return ResponseEntity.ok(quizList);
 }
 
     @Operation(
