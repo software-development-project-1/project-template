@@ -1,9 +1,9 @@
 package fi.haagahelia.quizzer;
 
 import java.time.Instant;
-import java.util.Collections;
+
 import java.util.List;
-import java.util.Optional;
+
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,12 +13,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.when;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import org.springframework.test.web.servlet.MvcResult;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.test.web.servlet.MvcResult;
+
+import static org.hamcrest.Matchers.hasSize;
 
 import fi.haagahelia.quizzer.model.Question;
 import fi.haagahelia.quizzer.model.Quiz;
@@ -87,6 +87,20 @@ public class QuestionControllerTest {
             .andExpect(status().isBadRequest());
     }
 
-  
+    @Test
+    public void getQuestionsByQuizIdReturnsQuestionsDifficultyLevel () throws Exception{
+            Quiz quiz1= new Quiz (null, Instant.now(), "Quiz for test1", "Test1 description", true, null);
+            quizRepository.save(quiz1);
+            Question question1 = new Question("Question 1", "Correct_1", "Easy", quiz1);
+           
+            questionRepository.saveAll(List.of(question1));
+            mockMvc.perform(get("/api/QuizApp/quiz/" + quiz1.getId() + "/questions"))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$", hasSize(1))) // Expecting only 1 question with difficulty level "Easy"
+            .andExpect(jsonPath("$[0].difficultyLevel").value("Easy"));
+            
+    }
+
+
 }
 

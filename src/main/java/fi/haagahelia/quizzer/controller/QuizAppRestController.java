@@ -152,7 +152,8 @@ public class QuizAppRestController {
     @ApiResponses(value = {
             // The responseCode property defines the HTTP status code of the response
             @ApiResponse(responseCode = "200", description = "Successful operation"),
-            @ApiResponse(responseCode = "404", description = "Quiz with the provided id does not exist or there are no questions related to this quiz")
+            @ApiResponse(responseCode = "404", description = "There are no questions related to this quiz"),
+            @ApiResponse(responseCode = "400", description = "Quiz with the provided id does not exist or is not published")
     })
 
     @GetMapping("/quiz/{id}/questions")
