@@ -1,25 +1,25 @@
-C:\Program Files\projects\quizzer_app\src\main\java\fi\haagahelia\quizzer\controller\UserRegistrationController.java
-C:\Program Files\projects\quizzer_app\src\main\java\fi\haagahelia\quizzer\model\Review.java
-C:\Program Files\projects\quizzer_app\src\main\java\fi\haagahelia\quizzer\config\SecurityConfig.java
-C:\Program Files\projects\quizzer_app\src\main\java\fi\haagahelia\quizzer\model\Category.java
-C:\Program Files\projects\quizzer_app\src\main\java\fi\haagahelia\quizzer\model\Quiz.java
-C:\Program Files\projects\quizzer_app\src\main\java\fi\haagahelia\quizzer\dto\AnswerDto.java
-C:\Program Files\projects\quizzer_app\src\main\java\fi\haagahelia\quizzer\dto\UserRegistrationDto.java
-C:\Program Files\projects\quizzer_app\src\main\java\fi\haagahelia\quizzer\QuizzerApplication.java
-C:\Program Files\projects\quizzer_app\src\main\java\fi\haagahelia\quizzer\model\Answer.java
-C:\Program Files\projects\quizzer_app\src\main\java\fi\haagahelia\quizzer\dto\QuestionAnswerDto.java
-C:\Program Files\projects\quizzer_app\src\main\java\fi\haagahelia\quizzer\service\mappingDTO.java
-C:\Program Files\projects\quizzer_app\src\main\java\fi\haagahelia\quizzer\repository\QuestionRepository.java
-C:\Program Files\projects\quizzer_app\src\main\java\fi\haagahelia\quizzer\repository\AnswerRepository.java
-C:\Program Files\projects\quizzer_app\src\main\java\fi\haagahelia\quizzer\service\UserDetailsServiceImpl.java
-C:\Program Files\projects\quizzer_app\src\main\java\fi\haagahelia\quizzer\controller\QuizAppRestController.java
-C:\Program Files\projects\quizzer_app\src\main\java\fi\haagahelia\quizzer\controller\QuizController.java
-C:\Program Files\projects\quizzer_app\src\main\java\fi\haagahelia\quizzer\repository\AppUserRepository.java
-C:\Program Files\projects\quizzer_app\src\main\java\fi\haagahelia\quizzer\config\ThymeleafConfig.java
-C:\Program Files\projects\quizzer_app\src\main\java\fi\haagahelia\quizzer\repository\QuizRepository.java
-C:\Program Files\projects\quizzer_app\src\main\java\fi\haagahelia\quizzer\repository\ReviewRepository.java
-C:\Program Files\projects\quizzer_app\src\main\java\fi\haagahelia\quizzer\controller\QuestionController.java
-C:\Program Files\projects\quizzer_app\src\main\java\fi\haagahelia\quizzer\repository\CategoryRepository.java
-C:\Program Files\projects\quizzer_app\src\main\java\fi\haagahelia\quizzer\model\SignupForm.java
-C:\Program Files\projects\quizzer_app\src\main\java\fi\haagahelia\quizzer\model\AppUser.java
-C:\Program Files\projects\quizzer_app\src\main\java\fi\haagahelia\quizzer\model\Question.java
+E:\HAAGA-HEILA\Projects\quizzer_app\src\main\java\fi\haagahelia\quizzer\model\AppUser.java
+E:\HAAGA-HEILA\Projects\quizzer_app\src\main\java\fi\haagahelia\quizzer\service\UserDetailsServiceImpl.java
+E:\HAAGA-HEILA\Projects\quizzer_app\src\main\java\fi\haagahelia\quizzer\repository\CategoryRepository.java
+E:\HAAGA-HEILA\Projects\quizzer_app\src\main\java\fi\haagahelia\quizzer\config\ThymeleafConfig.java
+E:\HAAGA-HEILA\Projects\quizzer_app\src\main\java\fi\haagahelia\quizzer\model\Quiz.java
+E:\HAAGA-HEILA\Projects\quizzer_app\src\main\java\fi\haagahelia\quizzer\controller\UserRegistrationController.java
+E:\HAAGA-HEILA\Projects\quizzer_app\src\main\java\fi\haagahelia\quizzer\dto\QuestionAnswerDto.java
+E:\HAAGA-HEILA\Projects\quizzer_app\src\main\java\fi\haagahelia\quizzer\model\Question.java
+E:\HAAGA-HEILA\Projects\quizzer_app\src\main\java\fi\haagahelia\quizzer\controller\QuizAppRestController.java
+E:\HAAGA-HEILA\Projects\quizzer_app\src\main\java\fi\haagahelia\quizzer\dto\UserRegistrationDto.java
+E:\HAAGA-HEILA\Projects\quizzer_app\src\main\java\fi\haagahelia\quizzer\model\Category.java
+E:\HAAGA-HEILA\Projects\quizzer_app\src\main\java\fi\haagahelia\quizzer\model\SignupForm.java
+E:\HAAGA-HEILA\Projects\quizzer_app\src\main\java\fi\haagahelia\quizzer\controller\QuizController.java
+E:\HAAGA-HEILA\Projects\quizzer_app\src\main\java\fi\haagahelia\quizzer\model\Review.java
+E:\HAAGA-HEILA\Projects\quizzer_app\src\main\java\fi\haagahelia\quizzer\repository\AnswerRepository.java
+E:\HAAGA-HEILA\Projects\quizzer_app\src\main\java\fi\haagahelia\quizzer\repository\AppUserRepository.java
+E:\HAAGA-HEILA\Projects\quizzer_app\src\main\java\fi\haagahelia\quizzer\repository\QuestionRepository.java
+E:\HAAGA-HEILA\Projects\quizzer_app\src\main\java\fi\haagahelia\quizzer\controller\QuestionController.java
+E:\HAAGA-HEILA\Projects\quizzer_app\src\main\java\fi\haagahelia\quizzer\repository\QuizRepository.java
+E:\HAAGA-HEILA\Projects\quizzer_app\src\main\java\fi\haagahelia\quizzer\repository\ReviewRepository.java
+E:\HAAGA-HEILA\Projects\quizzer_app\src\main\java\fi\haagahelia\quizzer\dto\AnswerDto.java
+E:\HAAGA-HEILA\Projects\quizzer_app\src\main\java\fi\haagahelia\quizzer\model\Answer.java
+E:\HAAGA-HEILA\Projects\quizzer_app\src\main\java\fi\haagahelia\quizzer\QuizzerApplication.java
+E:\HAAGA-HEILA\Projects\quizzer_app\src\main\java\fi\haagahelia\quizzer\config\SecurityConfig.java
+E:\HAAGA-HEILA\Projects\quizzer_app\src\main\java\fi\haagahelia\quizzer\service\mappingDTO.java

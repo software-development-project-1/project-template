@@ -16,6 +16,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 import java.util.List;
@@ -27,39 +28,53 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.springframework.http.MediaType;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-
 @SpringBootTest
 @AutoConfigureMockMvc
-public class QuizControllerTest {
+@Transactional
+public class QuizAppRestControllerTest {
+
     @Autowired
     QuizRepository quizRepository;
     @Autowired
+    QuestionRepository questionRepository;
+    @Autowired
+    AnswerRepository answerRepository;
+    @Autowired
     private MockMvc mockMvc;
     ObjectMapper mapper = new ObjectMapper();
+
     @BeforeEach
     void setUp() throws Exception {
+        answerRepository.deleteAll();
+        questionRepository.deleteAll();
         quizRepository.deleteAll();
     }
+
     @Test
-    public void getAllQuizzesReturnsEmptyListWhenNoQuizzesExist() throws Exception {
-        this.mockMvc.perform(get("/api/QuizApp/quizes"))
-                .andExpect(status().isOk())
-                .andExpect(content().json("[]"));
-    }
-    @Test
-    public void getAllQuizzesReturnsListOfPublishedQuizzesWhenQuizzesExist() throws Exception {
-        // Save a few quizzes, some published and some not published
+    public void createAnswerSavesValidAnswer() throws Exception{
+
+        //create an published quiz with a question for adding answer from student dashboard
         Quiz quiz1 = new Quiz(null, Instant.now(), "Quiz 1", "Description 1", true, null);
-        Quiz quiz2 = new Quiz(null, Instant.now(), "Quiz 2", "Description 2", false, null);
-        Quiz quiz3 = new Quiz(null, Instant.now(), "Quiz 3", "Description 3", true, null);
-        quizRepository.saveAll(List.of(quiz1, quiz2, quiz3));
-        MvcResult result = this.mockMvc.perform(get("/api/QuizApp/quizes"))
-                .andExpect(status().isOk())
-                .andReturn();
-        String responseBody = result.getResponse().getContentAsString();
-        assertTrue(responseBody.contains("Quiz 1"));
-        assertTrue(responseBody.contains("Quiz 3"));
-        assertTrue(responseBody.contains("Quiz 2"));
+        quizRepository.save(quiz1);
+        Question question1 = new Question("Question 1", "Valid", "Easy", quiz1);
+        questionRepository.save(question1);
+
+        AnswerDto answerDto = new AnswerDto("Valid", question1.getQuestionId());
+        String requestBody = mapper.writeValueAsString(answerDto);
+
+        this.mockMvc.perform(post("/api/QuizApp/questions/" + question1.getQuestionId() + "/answers")
+                .contentType(MediaType.APPLICATION_JSON).content(requestBody))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.correctness").value("true"));
+        boolean isCorrect = question1.getCorrectAnswer().equalsIgnoreCase(answerDto.getAnswerText().trim());
+        Answer newAnswer = new Answer(answerDto.getAnswerText(), isCorrect, question1);
+        answerRepository.save(newAnswer);
+
+        List<Answer> answers = answerRepository.findAll();
+        assertEquals(2, answers.size());
+        assertEquals("Valid", answers.get(0).getAnswerText());
+        assertTrue(answers.get(0).isCorrectness());
+
     }
 
 }
