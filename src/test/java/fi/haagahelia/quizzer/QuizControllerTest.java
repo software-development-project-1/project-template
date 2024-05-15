@@ -1,14 +1,10 @@
 package fi.haagahelia.quizzer;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import fi.haagahelia.quizzer.dto.AnswerDto;
-import fi.haagahelia.quizzer.model.Answer;
-import fi.haagahelia.quizzer.model.Question;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import fi.haagahelia.quizzer.model.Quiz;
+import fi.haagahelia.quizzer.repository.CategoryRepository;
 import fi.haagahelia.quizzer.repository.QuizRepository;
-import fi.haagahelia.quizzer.repository.AnswerRepository;
-import fi.haagahelia.quizzer.repository.QuestionRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +18,9 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import org.springframework.http.MediaType;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
 @SpringBootTest
@@ -34,8 +29,10 @@ public class QuizControllerTest {
     @Autowired
     QuizRepository quizRepository;
     @Autowired
+    CategoryRepository categoryRepository;
+    @Autowired
     private MockMvc mockMvc;
-    ObjectMapper mapper = new ObjectMapper();
+    ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
     @BeforeEach
     void setUp() throws Exception {
         quizRepository.deleteAll();
@@ -61,5 +58,32 @@ public class QuizControllerTest {
         assertTrue(responseBody.contains("Quiz 3"));
         assertTrue(responseBody.contains("Quiz 2"));
     }
+    @Test
+    public void getQuizByIdReturnsPublishedQuizWhenQuizExists() throws Exception {
+        Quiz quiz = new Quiz(null, Instant.now(), "Published Quiz", "Description", true, null);
+        quizRepository.save(quiz);
+        MvcResult result = this.mockMvc.perform(get("/api/QuizApp/quiz/" + quiz.getId()))
+                .andExpect(status().isOk())
+                .andExpect(content().json("{\"id\":" + quiz.getId() + ",\"category\":null,\"createdAt\":\"" + quiz.getCreatedAt() + "\",\"quizName\":\"Published Quiz\",\"quizDescription\":\"Description\",\"published\":true,\"user\":null}"))
+                .andReturn();
+        String responseBody = result.getResponse().getContentAsString();
+        Quiz returnedQuiz = mapper.readValue(responseBody, Quiz.class);
+        assertTrue(returnedQuiz.getQuizName().equals("Published Quiz"));
+        assertTrue(returnedQuiz.getQuizDescription().equals("Description"));
+        assertTrue(returnedQuiz.getPublished());
+        assertTrue(returnedQuiz.getQuestions().isEmpty());
+    }
 
+    @Test
+    public void getQuizByIdReturnsErrorWhenQuizDoesNotExist() throws Exception {
+        mockMvc.perform(get("/api/QuizApp/quiz/999"))
+                .andExpect(status().isNotFound());
+    }
+    @Test
+    public void getQuizByIdReturnsErrorWhenQuizIsNotPublished() throws Exception {
+        Quiz quiz = new Quiz(null, Instant.now(), "Non-Published Quiz", "Description", false, null);
+        quizRepository.save(quiz);
+        mockMvc.perform(get("/api/QuizApp/quiz/" + quiz.getId()))
+                .andExpect(status().isNotFound());
+    }
 }

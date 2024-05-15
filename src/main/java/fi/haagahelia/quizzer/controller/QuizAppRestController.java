@@ -101,7 +101,7 @@ public class QuizAppRestController {
     // Example of the link with not required published parameter to get non published quizzes
     // http://localhost:8080/api/QuizApp/quizes?published=false
     @GetMapping("/quizes")
-    public @ResponseBody List<Quiz> getQuizes(
+    public @ResponseBody ResponseEntity<List<Quiz>> getQuizes(
             @RequestParam(required = false) Boolean published, 
             @RequestParam(required = false) Long categoryId) {
         List<Quiz> quizList;
@@ -123,11 +123,11 @@ public class QuizAppRestController {
 
             // Check if there are quizzes for the selected category
             if (quizList.isEmpty()) {
-                return Collections.emptyList();
+                return ResponseEntity.notFound().build();
             }
         }
 
-        return quizList;
+        return ResponseEntity.ok(quizList);
 }
 
     @Operation(
@@ -141,18 +141,22 @@ public class QuizAppRestController {
 })
 
     @GetMapping("/quiz/{id}")
-    public @ResponseBody Quiz getQuizById(@PathVariable("id") Long id) {
+    public ResponseEntity<?> getQuizById(@PathVariable("id") Long id) {
         Optional<Quiz> existingQuizOptional = quizRepository.findById(id);
 
         if (existingQuizOptional.isPresent()) {
             Quiz existingQuiz = existingQuizOptional.get();
-            return existingQuiz;
-        }	
+            if (!existingQuiz.getPublished()) {
+                return ResponseEntity.notFound().build();
+            }
+            return ResponseEntity.ok(existingQuiz);
+        }
 
         throw new ResponseStatusException(
-            HttpStatus.NOT_FOUND, "Quiz with id: "+ id + " not found"
+                HttpStatus.NOT_FOUND, "Quiz with id: " + id + " not found"
         );
     }
+
 
     @Operation(
         summary = "Get all questions of the quiz by quiz id",
