@@ -61,5 +61,4 @@ public class QuizControllerTest {
         assertTrue(responseBody.contains("Quiz 3"));
         assertTrue(responseBody.contains("Quiz 2"));
     }
-
 }
