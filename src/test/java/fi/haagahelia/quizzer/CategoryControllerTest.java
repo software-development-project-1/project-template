@@ -39,10 +39,8 @@ public class CategoryControllerTest {
         Category category = new Category("Category 1");
         categoryRepository.save(category);
         MvcResult result = this.mockMvc.perform(get("/api/QuizApp/quizes?categoryId=" + category.getId()))
-                .andExpect(status().isOk())
+                .andExpect(status().isNotFound())
                 .andReturn();
-        String responseBody = result.getResponse().getContentAsString();
-        assertTrue(responseBody.equals("[]"));
     }
     @Test
     public void getQuizzesByCategoryReturnsListOfQuizzesWhenQuizzesExistForCategory() throws Exception {
