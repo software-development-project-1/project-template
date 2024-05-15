@@ -76,5 +76,24 @@ public class QuizAppRestControllerTest {
         assertTrue(answers.get(0).isCorrectness());
 
     }
+    @Test
+    public void createAnswerDoesNotSaveInvalidAnswer() throws Exception{
+        //create an published quiz with a question 
+        Quiz quiz1 = new Quiz(null, Instant.now(), "Quiz 1", "Description 1", true, null);
+        quizRepository.save(quiz1);
+        Question question1 = new Question("Question 1", "Valid", "Easy", quiz1);
+        questionRepository.save(question1);
+
+        //the input answer from student dashboard is not valid
+        AnswerDto answerDto = new AnswerDto("", question1.getQuestionId());
+        String requestBody = mapper.writeValueAsString(answerDto);
+
+        this.mockMvc.perform(post("/api/QuizApp/questions/" + question1.getQuestionId() + "/answers")
+                .contentType(MediaType.APPLICATION_JSON).content(requestBody))
+                .andExpect(status().isBadRequest());
+
+        List<Answer> answers = answerRepository.findAll();
+        assertEquals(0, answers.size());
+    }
 
 }
