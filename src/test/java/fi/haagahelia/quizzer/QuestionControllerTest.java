@@ -54,8 +54,27 @@ public class QuestionControllerTest {
     }
 
 
-    
+    @Test
+    public void getQuestionsByQuizIdReturnsListOfQuestionsWhenQuizHasQuestions () throws Exception{
+            Quiz quiz1= new Quiz (null, Instant.now(), "Quiz for test1", "Test1 description", true, null);
+            quizRepository.save(quiz1);
+            Question question1 = new Question("Question 1", "Valid", "Easy", quiz1);
+            Question question2 = new Question("Question 2", "Correct", "Hard", quiz1);
+            questionRepository.saveAll(List.of(question1, question2));
+                
+            MvcResult result = this.mockMvc.perform(get("/api/QuizApp/quiz/" + quiz1.getId()+"/questions"))
+            .andExpect(status().isOk())
+            .andReturn();
+            String responseBody = result.getResponse().getContentAsString();
+            assertTrue(responseBody.contains("Question 1"));
+            assertTrue(responseBody.contains("Question 2"));
+}
 
-
+    @Test
+            public void getQuestionsByQuizIdReturnsErrorWhenQuestionDoesNotExist () throws Exception{
+            Quiz quiz1= new Quiz (null, Instant.now(), "Quiz for test1", "Test1 description", true, null);
+            this.mockMvc.perform(get("/api/QuizApp/quiz/" + quiz1.getId()+"/questions"))
+            .andExpect(status().isBadRequest());
+    }
 }
 

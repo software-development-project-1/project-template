@@ -183,7 +183,7 @@ public class QuizAppRestController {
         }	
 
         throw new ResponseStatusException(
-            HttpStatus.NOT_FOUND, "Quiz with id: "+ id + " not found"
+            HttpStatus.BAD_REQUEST, "Quiz with id: "+ id + " not found"
         );
     }
     @Operation(
