@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -96,4 +97,39 @@ public class QuizAppRestControllerTest {
         assertEquals(0, answers.size());
     }
 
+    @Test
+    public void createAnswerDoesNotSaveAnswerForNonExistingQuestion() throws Exception{
+         //create a not existing question ID
+        
+            Long questionId = 999L;
+            AnswerDto answerDto = new AnswerDto("Valid", questionId);
+            String requestBody = mapper.writeValueAsString(answerDto);
+
+            this.mockMvc.perform(post("/api/QuizApp/questions/" + questionId + "/answers")
+            .contentType(MediaType.APPLICATION_JSON).content(requestBody))
+            .andExpect(status().isNotFound());
+
+            List<Answer> answers = answerRepository.findAll();
+            assertEquals(0, answers.size());
+        }
+
+    @Test
+    public void createAnswerDoesNotSaveAnswerForNonPublishedQuiz() throws Exception{
+        //create an un-published quiz with a question 
+        Quiz quiz1 = new Quiz(null, Instant.now(), "Unpublished", "Unpublished 1", false, null);
+        quizRepository.save(quiz1);
+        Question question1 = new Question("Question 1", "Valid", "Easy", quiz1);
+        questionRepository.save(question1);
+
+        AnswerDto answerDto = new AnswerDto("Valid", question1.getQuestionId());
+        String requestBody = mapper.writeValueAsString(answerDto);
+
+        this.mockMvc.perform(post("/api/QuizApp/questions/" + question1.getQuestionId() + "/answers")
+                .contentType(MediaType.APPLICATION_JSON).content(requestBody))
+                .andExpect(status().isForbidden());
+
+        List<Answer> answers = answerRepository.findAll();
+        assertEquals(0, answers.size());
+    }
+    
 }

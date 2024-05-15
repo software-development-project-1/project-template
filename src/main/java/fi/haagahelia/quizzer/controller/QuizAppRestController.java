@@ -235,6 +235,11 @@ public class QuizAppRestController {
 
         Question question = questionRepository.findById(questionId)
                                                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Question with ID: " + questionId + " not found"));
+        
+        //the question belongs to  un-published quiz throws http status
+        if (!question.getQuiz().getPublished()) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Quiz is not published");
+        }
 
         boolean isCorrect = question.getCorrectAnswer().equalsIgnoreCase(answerDto.getAnswerText().trim());
         Answer newAnswer = new Answer(answerDto.getAnswerText(), isCorrect, question);

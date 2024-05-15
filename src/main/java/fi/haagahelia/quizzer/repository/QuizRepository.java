@@ -6,6 +6,8 @@ import fi.haagahelia.quizzer.model.Quiz;
 import fi.haagahelia.quizzer.model.AppUser;
 import fi.haagahelia.quizzer.model.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
+import fi.haagahelia.quizzer.model.Question;
+
 
 @Repository
 public interface QuizRepository extends JpaRepository<Quiz, Long>{

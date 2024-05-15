@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="fi.haagahelia.quizzer.QuizzerApplicationTests" time="1.633" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="fi.haagahelia.quizzer.CategoryControllerTest" time="10.881" tests="5" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="17"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -47,7 +47,7 @@
     <property name="localRepository" value="C:\Users\asus\.m2\repository"/>
     <property name="java.vendor.url.bug" value="https://bugreport.java.com/bugreport/"/>
     <property name="java.io.tmpdir" value="C:\Users\asus\AppData\Local\Temp\"/>
-    <property name="com.zaxxer.hikari.pool_number" value="2"/>
+    <property name="com.zaxxer.hikari.pool_number" value="1"/>
     <property name="java.version" value="17.0.8"/>
     <property name="user.dir" value="E:\HAAGA-HEILA\Projects\quizzer_app"/>
     <property name="os.arch" value="amd64"/>
@@ -63,10 +63,10 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="61.0"/>
   </properties>
-  <testcase name="contextLoads" classname="fi.haagahelia.quizzer.QuizzerApplicationTests" time="0.01">
-    <system-out><![CDATA[2024-05-15T22:03:07.756+03:00  INFO 4896 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [fi.haagahelia.quizzer.QuizzerApplicationTests]: QuizzerApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2024-05-15T22:03:07.758+03:00  INFO 4896 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration fi.haagahelia.quizzer.QuizzerApplication for test class fi.haagahelia.quizzer.QuizzerApplicationTests
-2024-05-15T22:03:07.763+03:00  INFO 4896 --- [           main] o.s.b.d.r.RestartApplicationListener     : Restart disabled due to context in which it is running
+  <testcase name="getQuizzesByCategoryReturnsNotFoundErrorWhenCategoryDoesNotExist" classname="fi.haagahelia.quizzer.CategoryControllerTest" time="0.66">
+    <system-out><![CDATA[22:02:56.573 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [fi.haagahelia.quizzer.CategoryControllerTest]: CategoryControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+22:02:56.709 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration fi.haagahelia.quizzer.QuizzerApplication for test class fi.haagahelia.quizzer.CategoryControllerTest
+22:02:56.850 [main] INFO org.springframework.boot.devtools.restart.RestartApplicationListener -- Restart disabled due to context in which it is running
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -76,24 +76,56 @@
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::                (v3.2.0)
 
-2024-05-15T22:03:07.790+03:00  INFO 4896 --- [           main] f.h.quizzer.QuizzerApplicationTests      : Starting QuizzerApplicationTests using Java 17.0.8 with PID 4896 (started by asus in E:\HAAGA-HEILA\Projects\quizzer_app)
-2024-05-15T22:03:07.790+03:00  INFO 4896 --- [           main] f.h.quizzer.QuizzerApplicationTests      : No active profile set, falling back to 1 default profile: "default"
-2024-05-15T22:03:08.090+03:00  INFO 4896 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-05-15T22:03:08.106+03:00  INFO 4896 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 13 ms. Found 6 JPA repository interfaces.
-2024-05-15T22:03:08.270+03:00  INFO 4896 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-05-15T22:03:08.271+03:00  INFO 4896 --- [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2024-05-15T22:03:08.275+03:00  INFO 4896 --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2024-05-15T22:03:08.276+03:00  INFO 4896 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
-2024-05-15T22:03:08.278+03:00  INFO 4896 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection conn10: url=jdbc:h2:file:~/quizzer user=ADMIN
-2024-05-15T22:03:08.278+03:00  INFO 4896 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
-2024-05-15T22:03:08.278+03:00  WARN 4896 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2024-05-15T22:03:08.406+03:00  INFO 4896 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2024-05-15T22:03:08.411+03:00  INFO 4896 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-05-15T22:03:08.697+03:00  WARN 4896 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-05-15T22:03:09.056+03:00  INFO 4896 --- [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint(s) beneath base path '/actuator'
-2024-05-15T22:03:09.066+03:00  INFO 4896 --- [           main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@4b0c144e, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2acacb1, org.springframework.security.web.context.SecurityContextHolderFilter@7d05e595, org.springframework.web.filter.CorsFilter@4892206a, org.springframework.security.web.csrf.CsrfFilter@c4c6031, org.springframework.security.web.authentication.logout.LogoutFilter@37890e3, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@1bc14017, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@43462cef, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3b5cf4c6, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@752114f1, org.springframework.security.web.access.ExceptionTranslationFilter@4e6a75a3, org.springframework.security.web.access.intercept.AuthorizationFilter@37a8202]
-2024-05-15T22:03:09.317+03:00  INFO 4896 --- [           main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:file:~/quizzer'
-2024-05-15T22:03:09.373+03:00  INFO 4896 --- [           main] f.h.quizzer.QuizzerApplicationTests      : Started QuizzerApplicationTests in 1.609 seconds (process running for 13.449)
+2024-05-15T22:02:57.145+03:00  INFO 4896 --- [           main] f.h.quizzer.CategoryControllerTest       : Starting CategoryControllerTest using Java 17.0.8 with PID 4896 (started by asus in E:\HAAGA-HEILA\Projects\quizzer_app)
+2024-05-15T22:02:57.146+03:00  INFO 4896 --- [           main] f.h.quizzer.CategoryControllerTest       : No active profile set, falling back to 1 default profile: "default"
+2024-05-15T22:02:58.960+03:00  INFO 4896 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-05-15T22:02:59.040+03:00  INFO 4896 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 65 ms. Found 6 JPA repository interfaces.
+2024-05-15T22:03:00.179+03:00  INFO 4896 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-05-15T22:03:00.325+03:00  INFO 4896 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.3.1.Final
+2024-05-15T22:03:00.358+03:00  INFO 4896 --- [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-05-15T22:03:00.815+03:00  INFO 4896 --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-05-15T22:03:00.861+03:00  INFO 4896 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-05-15T22:03:01.095+03:00  INFO 4896 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:file:~/quizzer user=ADMIN
+2024-05-15T22:03:01.096+03:00  INFO 4896 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-05-15T22:03:01.110+03:00  WARN 4896 --- [           main] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-05-15T22:03:01.909+03:00  INFO 4896 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-05-15T22:03:01.940+03:00  INFO 4896 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-05-15T22:03:03.690+03:00  WARN 4896 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-05-15T22:03:05.096+03:00  INFO 4896 --- [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint(s) beneath base path '/actuator'
+2024-05-15T22:03:05.129+03:00  INFO 4896 --- [           main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@2baf2c6, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2c226db0, org.springframework.security.web.context.SecurityContextHolderFilter@67954d71, org.springframework.web.filter.CorsFilter@13b012, org.springframework.security.web.csrf.CsrfFilter@72e5f018, org.springframework.security.web.authentication.logout.LogoutFilter@7bd4f212, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@53a4637c, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@15e86d24, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@497f8a4b, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2f4a89fa, org.springframework.security.web.access.ExceptionTranslationFilter@4b158e16, org.springframework.security.web.access.intercept.AuthorizationFilter@1160c54b]
+2024-05-15T22:03:06.050+03:00  INFO 4896 --- [           main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:file:~/quizzer'
+2024-05-15T22:03:06.130+03:00  INFO 4896 --- [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2024-05-15T22:03:06.130+03:00  INFO 4896 --- [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2024-05-15T22:03:06.131+03:00  INFO 4896 --- [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2024-05-15T22:03:06.246+03:00  INFO 4896 --- [           main] f.h.quizzer.CategoryControllerTest       : Started CategoryControllerTest in 9.402 seconds (process running for 10.321)
+2024-05-15T22:03:06.929+03:00 DEBUG 4896 --- [           main] o.s.security.web.FilterChainProxy        : Securing GET /api/QuizApp/quizes?categoryId=1000
+2024-05-15T22:03:06.937+03:00  WARN 4896 --- [           main] o.s.w.s.h.HandlerMappingIntrospector     : Cache miss for REQUEST dispatch to '/api/QuizApp/quizes' (previous null). Performing CorsConfiguration lookup. This is logged once only at WARN level, and every time at TRACE.
+2024-05-15T22:03:06.962+03:00 DEBUG 4896 --- [           main] o.s.security.web.FilterChainProxy        : Secured GET /api/QuizApp/quizes?categoryId=1000
+2024-05-15T22:03:07.009+03:00 DEBUG 4896 --- [           main] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+]]></system-out>
+  </testcase>
+  <testcase name="getQuizzesByCategoryReturnsEmptyListWhenNoQuizzesExistForCategory" classname="fi.haagahelia.quizzer.CategoryControllerTest" time="0.086">
+    <system-out><![CDATA[2024-05-15T22:03:07.110+03:00 DEBUG 4896 --- [           main] o.s.security.web.FilterChainProxy        : Securing GET /api/QuizApp/quizes?categoryId=11452
+2024-05-15T22:03:07.111+03:00 DEBUG 4896 --- [           main] o.s.security.web.FilterChainProxy        : Secured GET /api/QuizApp/quizes?categoryId=11452
+2024-05-15T22:03:07.114+03:00 DEBUG 4896 --- [           main] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+]]></system-out>
+  </testcase>
+  <testcase name="getQuizzesByCategoryReturnsListOfQuizzesWhenQuizzesExistForCategory" classname="fi.haagahelia.quizzer.CategoryControllerTest" time="0.093">
+    <system-out><![CDATA[2024-05-15T22:03:07.138+03:00 DEBUG 4896 --- [           main] o.s.security.web.FilterChainProxy        : Securing GET /api/QuizApp/quizes?categoryId=11453
+2024-05-15T22:03:07.139+03:00 DEBUG 4896 --- [           main] o.s.security.web.FilterChainProxy        : Secured GET /api/QuizApp/quizes?categoryId=11453
+2024-05-15T22:03:07.200+03:00 DEBUG 4896 --- [           main] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+]]></system-out>
+  </testcase>
+  <testcase name="getAllCategoriesReturnsEmptyListWhenNoCategoriesExist" classname="fi.haagahelia.quizzer.CategoryControllerTest" time="0.029">
+    <system-out><![CDATA[2024-05-15T22:03:07.221+03:00 DEBUG 4896 --- [           main] o.s.security.web.FilterChainProxy        : Securing GET /api/QuizApp/categories
+2024-05-15T22:03:07.222+03:00 DEBUG 4896 --- [           main] o.s.security.web.FilterChainProxy        : Secured GET /api/QuizApp/categories
+2024-05-15T22:03:07.230+03:00 DEBUG 4896 --- [           main] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+]]></system-out>
+  </testcase>
+  <testcase name="getAllCategoriesReturnsListOfCategoriesWhenCategoriesExist" classname="fi.haagahelia.quizzer.CategoryControllerTest" time="0.029">
+    <system-out><![CDATA[2024-05-15T22:03:07.254+03:00 DEBUG 4896 --- [           main] o.s.security.web.FilterChainProxy        : Securing GET /api/QuizApp/categories
+2024-05-15T22:03:07.255+03:00 DEBUG 4896 --- [           main] o.s.security.web.FilterChainProxy        : Secured GET /api/QuizApp/categories
+2024-05-15T22:03:07.266+03:00 DEBUG 4896 --- [           main] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
 ]]></system-out>
   </testcase>
 </testsuite>
