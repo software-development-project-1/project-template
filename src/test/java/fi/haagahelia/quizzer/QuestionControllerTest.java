@@ -76,5 +76,17 @@ public class QuestionControllerTest {
             this.mockMvc.perform(get("/api/QuizApp/quiz/" + quiz1.getId()+"/questions"))
             .andExpect(status().isBadRequest());
     }
+    @Test
+    public void getQuestionsByQuizIdReturnsErrorWhenQuizIsNotPublished () throws Exception{
+            Quiz quiz1= new Quiz (null, Instant.now(), "Quiz for test1", "Test1 description", false, null);
+            quizRepository.save(quiz1);
+            Question question1 = new Question("Question 1", "Valid", "Easy", quiz1);
+            Question question2 = new Question("Question 2", "Correct", "Hard", quiz1);
+            questionRepository.saveAll(List.of(question1, question2));
+            this.mockMvc.perform(get("/api/QuizApp/quiz/" + quiz1.getId()+"/questions"))
+            .andExpect(status().isBadRequest());
+    }
+
+  
 }
 
