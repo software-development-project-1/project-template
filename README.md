@@ -32,6 +32,7 @@ It communicates with the backend via API calls to display quizzes, questions, an
    - Quiz and question listing and details pages.
    - Role-based access control (teacher vs. student).
    - Displaying quiz results.
+   - Users can view and leave quiz reviews.
    
    **Technologies:**
    - Framework: Vite.js
