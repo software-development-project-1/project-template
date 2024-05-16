@@ -5,6 +5,7 @@ import "ag-grid-community/styles/ag-theme-material.css";
 import './styles.css';
 import { format } from "date-fns";
 import { Link } from "react-router-dom";
+import { Button } from "@mui/material";
 
 function QuizList() {
   const [quizList, setQuizList] = useState([]);
