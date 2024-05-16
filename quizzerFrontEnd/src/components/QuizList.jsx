@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-material.css";
+import './styles.css';
 import { format } from "date-fns";
 import { Link } from "react-router-dom";
 
@@ -107,7 +108,7 @@ function QuizList() {
   };
 
   return (
-    <>
+    <div className="container">
       <div>
         <select value={selectedCategory} onChange={handleCategoryChange}>
           <option value="">All Categories</option>
@@ -133,7 +134,7 @@ function QuizList() {
           }}
         />
       </div>
-    </>
+    </div>
   );
 }
 
