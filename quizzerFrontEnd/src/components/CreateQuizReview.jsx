@@ -10,11 +10,9 @@ import {
   Button,
 } from "@mui/material";
 import axios from 'axios'; 
-import { Link, useParams  } from 'react-router-dom';
-
+import { Link, useParams } from 'react-router-dom';
 
 const CreateQuizReview = () => {
-
   const { id } = useParams();
   
   const [nickname, setNickname] = useState('');
@@ -24,6 +22,12 @@ const CreateQuizReview = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     
+    // Check if any fields are empty
+    if (!nickname || !rating || !reviewText) {
+      alert('All fields are required');
+      return;
+    }
+
     try {
       const newReview = {
         username: nickname, 
@@ -65,10 +69,11 @@ const CreateQuizReview = () => {
           variant="outlined" 
           value={nickname} 
           onChange={(e) => setNickname(e.target.value)} 
+          required
         />
       </div>
       <div>
-        <FormControl>
+        <FormControl required>
           <FormLabel id="demo-radio-buttons-group-label" style={{ fontSize: '1.5rem' }}>Rating</FormLabel>
           <RadioGroup
             aria-labelledby="demo-radio-buttons-group-label"
@@ -93,10 +98,15 @@ const CreateQuizReview = () => {
           rows={4}
           value={reviewText}
           onChange={(e) => setReviewText(e.target.value)}
+          required
         />
       </div>
-      <Button type="submit" variant="outlined">Submit Review</Button>
-      <Button variant="outlined" component={Link} to={`/quiz/${id}/reviews`} color="error">Go Back</Button> 
+      <Button type="submit" variant="outlined" disabled={!nickname || !rating || !reviewText}>
+        Submit Review
+      </Button>
+      <Button variant="outlined" component={Link} to={`/quiz/${id}/reviews`} color="error">
+        Go Back
+      </Button> 
     </Box>
   );
 };

@@ -77,6 +77,10 @@ public class QuizController {
 	@PostMapping("/saveQuiz")
 	public String saveQuiz(@Valid @ModelAttribute("quiz") Quiz quiz, BindingResult bindingResult,
 			Model model) {
+		if (quiz == null || quiz.getQuizName().isEmpty() || quiz.getQuizDescription().isEmpty()) {
+			bindingResult.rejectValue("quizName", "error.quiz", "Quiz data cannot be empty");
+			return "addQuiz";
+		}
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("quiz", quiz);
 			List<Category> categories = categoryrepository.findAll();

@@ -1,8 +1,7 @@
 # Quizzer
-Quizzer is a dashboard application designed for teachers to manage quizzes effectively. 
-It provides a user-friendly interface for creating, editing, deleting quizzes, and marking quiz status. 
-Additionally, the application includes authentication functionality, allowing both teachers and students to sign up, 
-log in, and access secure pages based on their roles.
+Quizzer is a dashboard application designed for both teachers and students to effectively manage quizzes. It provides a user-friendly interface for creating, editing, and deleting quizzes, as well as marking quiz status. 
+Additionally, the application includes authentication functionality, allowing teachers to sign up and sign in securely, while students can access quizzes, view their results, and leave reviews.In our app, only teachers have the ability to sign up and sign in. 
+Once logged in, teachers can create quizzes, manage quiz details, and monitor student performance. Students, however, can only access quizzes, view their results, and leave reviews to provide valuable feedback on their learning experience.
 
 ## Team members:
 - [Denis Chuvakov](https://github.com/DenisHki "Github page")
@@ -33,6 +32,7 @@ It communicates with the backend via API calls to display quizzes, questions, an
    - Quiz and question listing and details pages.
    - Role-based access control (teacher vs. student).
    - Displaying quiz results.
+   - Users can view and leave quiz reviews.
    
    **Technologies:**
    - Framework: Vite.js
@@ -47,6 +47,7 @@ It communicates with the backend via API calls to display quizzes, questions, an
    - Questions belong to quizzes.
    - Users create quizzes and take quizzes.
    - Answers are associated with questions
+   - Reviews can be posted to specific Quiz.
    
   **Development Environment:** 
   H2 was chosen to streamline development, providing rapid prototyping and testing capabilities without the need for a separate database server.
@@ -164,23 +165,34 @@ erDiagram
         String answerText
         boolean correctness
     }
-
+    Quiz ||--o{ Review : has
+    Review{
+        Long reviewId PK
+        Long quizId FK
+        String username
+        Integer rating
+        String review
+        Instant createdAt
+    }
 ```
 
 ### Description:
 
-#### Quiz
-The Quiz entity represents individual quizzes within the application. Each quiz belongs to exactly one category, facilitated by the categoryID foreign key. Additionally, each quiz can have multiple questions associated with it. A quiz is also associated with a user who created it using the userID foreign key. Other attributes include quizName, quizDescription, published, createdAt, which provide details about the quiz.
+**1. Quiz:**
+  The Quiz entity represents individual quizzes within the application. Each quiz belongs to exactly one category, facilitated by the categoryID foreign key. Additionally, each quiz can have multiple questions associated with it. A quiz is also associated with a user who created it using the userID foreign key. Other attributes include quizName, quizDescription,     published, createdAt, which provide details about the quiz.
 
-#### Question
-The Question entity represents individual questions within quizzes. Each question belongs to exactly one quiz, facilitated by the quizId foreign key. Each question can have multiple answers associated with it. The Question entity includes attributes such as Id, questionText, correctAnswer, and difficultyLevel, which provide details about the question.
+**2. Question:**
+  The Question entity represents individual questions within quizzes. Each question belongs to exactly one quiz, facilitated by the quizId foreign key. Each question can have multiple answers associated with it. The Question entity includes attributes such as Id, questionText, correctAnswer, and difficultyLevel, which provide details about the question.
 
-#### Category
-The Category entity represents different categories that quizzes can belong to. Each category can have zero or many quizzes associated with it.
+**3. Category:**
+  The Category entity represents different categories that quizzes can belong to. Each category can have zero or many quizzes associated with it.
 
-#### User
-The User entity represents individuals who interact with the application. Users can have two roles: teacher and student. Users with the role of teacher can create quizzes, while users with the role of student can take quizzes. Each user can have zero or many quizzes. The User entity also includes attributes such as userId, userName, role, firstName, and lastName.
+**4. User:**
+  The User entity represents individuals who interact with the application. Users can have two roles: teacher and student. Users with the role of teacher can create quizzes, while users with the role of student can take quizzes. Each user can have zero or many quizzes. The User entity also includes attributes such as userId, userName, role, firstName, and lastName.
 
-#### Answer
-The Answer entity represents individual answers within questions. Each answer belongs to exactly one question, facilitated by the questionId foreign key. The Answer entity includes attributes such as Id, answerText and correctness, which provide details about the answer.
+**5. Answer:**
+  The Answer entity represents individual answers within questions. Each answer belongs to exactly one question, facilitated by the questionId foreign key. The Answer entity includes attributes such as Id, answerText and correctness, which provide details about the answer.
+
+**6. Review:**
+  The Review entity represents feedback provided by users on quizzes within the application. Each review is associated with exactly one quiz, facilitated by the quizId foreign key. Reviews include attributes such as reviewId, username, rating, review, and createdAt, providing details about the feedback given.
 

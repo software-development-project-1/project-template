@@ -2,12 +2,14 @@ import { useEffect, useState } from "react";
 import { Button, Typography, Box } from "@mui/material";
 import Rating from "@mui/material/Rating";
 import { Link, useParams } from "react-router-dom";
+import './styles.css';
 
 function ReviewList() {
   const { id } = useParams();
   const [quizName, setQuizName] = useState("");
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [averageRating, setAverageRating] = useState(0);
 
   useEffect(() => {
     const fetchQuizDetails = async () => {
@@ -36,10 +38,18 @@ function ReviewList() {
         const data = await response.json();
         setReviews(data);
         setLoading(false);
+
+        // Calculate the average rating
+        if (data.length > 0) {
+          const totalRating = data.reduce((sum, review) => sum + review.rating, 0);
+          const avgRating = totalRating / data.length;
+          setAverageRating(avgRating);
+        }
       } catch (error) {
         console.error("Error fetching reviews: ", error);
       }
     };
+    
     fetchQuizDetails();
     fetchReviews();
   }, [id]);
@@ -47,7 +57,9 @@ function ReviewList() {
   return (
     <div>
       <h2>Reviews of Quiz &quot;{quizName}&quot;</h2>
-
+      <div>
+        <h3>Reviews: {reviews.length}, Average Rating: {averageRating.toFixed(2)}</h3>
+      </div>
       <div style={{ display: "flex", justifyContent: "center" }}>
         <Button
           variant="text"
