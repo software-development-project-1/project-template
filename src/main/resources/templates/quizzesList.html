@@ -85,7 +85,7 @@
                   class="btn btn-secondary"
                   >Edit</a
                 >
-                <a 
+                <a th:unless="${#authorization.expression('isAnonymous()')}"
                   href="#"
                   th:href="@{/delete/{id}(id=${quiz.id})}"
                   th:attr="data-id=${quiz.id}"
